@@ -1,0 +1,158 @@
+
+import Layout from "@/components/Layout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CalendarDays, MapPin } from "lucide-react";
+
+const Events = () => {
+  const upcomingEvents = [
+    {
+      title: "Sommerfest",
+      date: "12.07.2025",
+      description: "Am 12.07.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und 100% Sonne!",
+      image: "/lovable-uploads/9f703375-92aa-4230-80b8-66536c9e8f90.png",
+      featured: true
+    },
+    {
+      title: "Halloween",
+      date: "31.10.2025",
+      description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
+      image: "/lovable-uploads/6107e5b5-6fd5-48a1-aa57-fe91ac015b43.png"
+    },
+    {
+      title: "Die CLUB FORUM OFTAS",
+      date: "27.-29.12.2025",
+      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
+      image: "/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"
+    },
+    {
+      title: "Beerpongturnier",
+      date: "Coming Soon",
+      description: "Das Event um deine Skills beim Beerpong zu zeigen. Also auf wartest du? Melde dich mit deinem perfekten Teampartner an und sichere dir die 2 Kästen Gewinn!",
+      image: "/lovable-uploads/d11bff6d-d6c8-47d9-ad8d-5bc59ac03d0e.png"
+    }
+  ];
+
+  const pastEvents = [
+    {
+      title: "Halloween 2024",
+      images: ["/lovable-uploads/6107e5b5-6fd5-48a1-aa57-fe91ac015b43.png"]
+    },
+    {
+      title: "OFTAS 2024", 
+      images: ["/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"]
+    },
+    {
+      title: "Sommerfest 2024",
+      images: ["/lovable-uploads/9f703375-92aa-4230-80b8-66536c9e8f90.png"]
+    }
+  ];
+
+  return (
+    <Layout>
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-r from-black to-gray-900 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">Unsere Events</h1>
+            <p className="text-xl text-gray-300">
+              Von legendären Partys bis zu unvergesslichen Nächten – hier ist immer was los!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Kommende Events */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-16">Kommende Highlights</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {upcomingEvents.map((event, index) => (
+              <Card 
+                key={index} 
+                className={`hover:shadow-xl transition-all duration-300 ${
+                  event.featured ? 'lg:col-span-2 border-2 border-neon-green' : ''
+                }`}
+              >
+                <div className="relative">
+                  <img 
+                    src={event.image} 
+                    alt={event.title}
+                    className={`w-full object-cover rounded-t-lg ${
+                      event.featured ? 'h-64' : 'h-48'
+                    }`}
+                  />
+                  {event.featured && (
+                    <div className="absolute top-4 left-4 bg-neon-green text-black px-3 py-1 rounded-full text-sm font-bold">
+                      Featured Event
+                    </div>
+                  )}
+                </div>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className={`font-bold ${event.featured ? 'text-2xl' : 'text-xl'}`}>
+                      {event.title}
+                    </CardTitle>
+                    <div className="flex items-center text-neon-green">
+                      <CalendarDays className="h-4 w-4 mr-1" />
+                      <span className="text-sm font-medium">{event.date}</span>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-gray-600 text-base leading-relaxed">
+                    {event.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Event-Archiv */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-16">So legendär waren unsere letzten Partys</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {pastEvents.map((event, index) => (
+              <div key={index} className="group cursor-pointer">
+                <div className="relative overflow-hidden rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                  <img 
+                    src={event.images[0]} 
+                    alt={event.title}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                    <h3 className="text-white text-xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {event.title}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-black text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-6">Verpasse kein Event!</h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Folge uns auf Instagram für die neuesten Updates und Behind-the-Scenes Content
+          </p>
+          <a 
+            href="#" 
+            className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors"
+          >
+            @clubforum_boeblingen folgen
+          </a>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default Events;
