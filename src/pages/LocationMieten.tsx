@@ -55,43 +55,32 @@ const LocationMieten = () => {
         </div>
       </section>
 
-      {/* Bildergalerie */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Unsere Räumlichkeiten</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ausstattung.map((item, index) => (
-              <div key={index} className="group cursor-pointer">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-48 object-cover rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300"
-                />
-                <h3 className="text-xl font-bold text-center mt-4 text-neon-green">{item.title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Ausstattung */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-16">Alles, was du für deine Feier brauchst</h2>
-          <h3 className="text-2xl font-semibold text-center mb-12 text-neon-green">Unsere Ausstattung</h3>
+          <h3 className="text-2xl font-semibold text-center mb-16 text-neon-green">Unsere Ausstattung</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="space-y-16 max-w-7xl mx-auto">
             {ausstattung.map((item, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-600 text-base">
+              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}>
+                {/* Bild */}
+                <div className="flex-1 max-w-lg">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-80 object-cover rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+                  />
+                </div>
+                
+                {/* Text */}
+                <div className="flex-1 max-w-lg">
+                  <h4 className="text-3xl font-bold mb-6 text-neon-green">{item.title}</h4>
+                  <p className="text-lg text-gray-700 leading-relaxed">
                     {item.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
