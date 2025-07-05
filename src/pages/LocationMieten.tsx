@@ -67,6 +67,7 @@ const LocationMieten = () => {
                   alt={item.title}
                   className="w-full h-48 object-cover rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300"
                 />
+                <h3 className="text-xl font-bold text-center mt-4 text-neon-green">{item.title}</h3>
               </div>
             ))}
           </div>
