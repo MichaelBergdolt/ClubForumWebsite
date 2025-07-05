@@ -171,17 +171,23 @@ const Kontakt = () => {
                 </CardContent>
               </Card>
 
-              {/* Google Maps Placeholder */}
+              {/* Google Maps */}
               <Card>
                 <CardHeader>
                   <CardTitle className="text-xl font-bold">Anfahrt</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500 text-center">
-                      Google Maps Integration<br />
-                      <span className="text-sm">Marktstraße 9, 71032 Böblingen</span>
-                    </p>
+                  <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://maps.google.com/maps?q=Marktstraße+9,+71032+Böblingen&output=embed"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Google Maps - Club Forum Böblingen"
+                    />
                   </div>
                   <p className="text-sm text-gray-600 mt-4">
                     Zentral gelegen in der Böblinger Innenstadt, gut erreichbar mit öffentlichen Verkehrsmitteln.
