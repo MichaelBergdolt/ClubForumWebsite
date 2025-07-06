@@ -97,7 +97,7 @@ const Datenschutz = () => {
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Cookie-Banner und Einwilligungsverwaltung</h2>
               <p>
-                Wir verwenden ein Cookie-Banner, das Ihnen erlaubt, individuell über das Setzen von Cookies und die Nutzung externer Dienste wie Google Maps zu entscheiden. Ihre Einstellungen werden lokal im Browser gespeichert und können jederzeit über den „Cookie-Einstellungen“-Link am Seitenende angepasst werden.
+                Wir verwenden ein Cookie-Banner, das Ihnen erlaubt, individuell über das Setzen von Cookies und die Nutzung externer Dienste wie Google Maps zu entscheiden.
               </p>
             </div>
 
