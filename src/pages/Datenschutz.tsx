@@ -103,7 +103,52 @@ const Datenschutz = () => {
 
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Google Maps</h2>
-
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Art und Zweck der Verarbeitung:</h3>
+                  <p>
+                    Diese Website verwendet Google Maps zur Darstellung von interaktiven Karten und zur Erstellung von Anfahrtsbeschreibungen. Beim Aufruf der Karte werden Informationen über Ihre Nutzung (einschließlich Ihrer IP-Adresse) an einen Server von Google in den USA übertragen und dort gespeichert. Eine Verbindung zu Google erfolgt jedoch erst, nachdem Sie der Anzeige der Karte ausdrücklich zugestimmt haben.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Rechtsgrundlage:</h3>
+                  <p>
+                    Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Empfänger:</h3>
+                  <p>
+                    Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.<br />
+                    Die Verarbeitung kann auch durch Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA erfolgen.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Datentransfer in Drittstaaten:</h3>
+                  <p>
+                    Eine Datenübermittlung in die USA kann nicht ausgeschlossen werden. Google ist unter dem EU-U.S. Data Privacy Framework zertifiziert.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Widerruf der Einwilligung:</h3>
+                  <p>
+                    Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie Ihre Cookie-Einstellungen ändern.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-black mb-2">Weitere Informationen:</h3>
+                  <p>
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                      https://policies.google.com/privacy
+                    </a>
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div>
