@@ -11,23 +11,22 @@ const Impressum = () => {
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Anbieter dieser Website gemäß § 5 TMG:</h2>
               <p>
-                Evangelische Gesamtkirchengemeinde Böblingen<br />
-                Körperschaft des öffentlichen Rechts (KdöR)<br />
+                Evangelisches Jugendwerk Bezirk Böblingen<br />
                 Sindelfinger Straße 9<br />
                 71032 Böblingen
               </p>
               <p>
                 Telefon: 07031 / 4921441<br />
                 Fax: 07031 / 4925687<br />
-                E-Mail: info@ejwbb.de<br />
-                Web: <a href="https://www.ejwbb.de" className="text-neon-green hover:underline">https://www.ejwbb.de</a>
+                E-Mail: info@ejwbezirkbb.de<br />
+                Web: <a href="https://www.ejwbezirkbb.de/" className="text-neon-green hover:underline">https://www.ejwbb.de</a>
               </p>
             </div>
 
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Vertretungsberechtigt:</h2>
               <p>
-                Die Evangelische Gesamtkirchengemeinde Böblingen wird vertreten durch die geschäftsführende Pfarrerin / den geschäftsführenden Pfarrer.
+                Die Geschäftsführung der Evangelischen Gesamtkirchengemeinde Böblingen.
               </p>
             </div>
 
@@ -44,7 +43,7 @@ const Impressum = () => {
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Haftung für Inhalte</h2>
               <p>
-                Als kirchlicher Anbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+                Als Dienstanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
               </p>
               <p>
                 Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen entfernen wir diese Inhalte umgehend.
@@ -81,7 +80,7 @@ const Impressum = () => {
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Verbraucherstreitbeilegung</h2>
               <p>
-                Die Evangelische Gesamtkirchengemeinde Böblingen ist nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                Das Evangelische Jugendwerk Böblingen ist nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
               </p>
             </div>
           </div>
