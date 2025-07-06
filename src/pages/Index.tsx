@@ -112,19 +112,14 @@ const Index = () => {
 
       {/* Team Section */}
       <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Komm auf ein Bier vorbei – Werde Mitglied!</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Du hast Bock, den Club mitzugestalten, bei Events mit anzupacken oder deine eigene 
-            Partyidee umzusetzen? Dann werde Teil des Teams! Wir freuen uns immer über neue 
-            Gesichter bei unserem Stammtisch.
-          </p>
-          <Link to="/kontakt">
-            <Button size="lg" className="bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3">
-              Ich will mitmachen!
-            </Button>
-          </Link>
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-4xl font-bold mb-6">Komm auf ein Bier vorbei – Werde Mitglied!</h2>
+        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+          Du hast Lust, das Forum mitzugestalten, bei Events mitzuhelfen oder vielleicht sogar deine eigene 
+          Partyidee umzusetzen? Dann quatsch uns einfach bei einer unserer Veranstaltungen an – wir freuen 
+          uns immer über neue Gesichter!
+        </p>
+      </div>
       </section>
     </Layout>
   );

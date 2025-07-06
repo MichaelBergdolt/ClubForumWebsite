@@ -37,24 +37,27 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-
-          {/* Social & Legal */}
-          <div className="space-y-4">
+            {/* Social & Legal */}
+            <div className="space-y-4">
             <h3 className="text-lg font-semibold">Folge uns</h3>
             <div className="flex space-x-4">
               <a 
-                href="#" 
-                className="text-gray-400 hover:text-neon-green transition-colors"
-                aria-label="Instagram"
+              href="https://www.instagram.com/club_forumbb" 
+              className="text-gray-400 hover:text-neon-green transition-colors"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
               >
-                <Instagram className="h-6 w-6" />
+              <Instagram className="h-6 w-6" />
               </a>
               <a 
-                href="#" 
-                className="text-gray-400 hover:text-neon-green transition-colors"
-                aria-label="Facebook"
+              href="https://www.facebook.com/profile.php?id=100064750176944" 
+              className="text-gray-400 hover:text-neon-green transition-colors"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
               >
-                <Facebook className="h-6 w-6" />
+              <Facebook className="h-6 w-6" />
               </a>
             </div>
             
