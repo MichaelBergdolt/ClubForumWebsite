@@ -68,9 +68,9 @@ const Footer = () => {
               <Link to="/datenschutz" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Datenschutz
               </Link>
-              <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/cookies" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Cookie-Einstellungen
-              </a>
+              </Link>
             </div>
           </div>
         </div>
