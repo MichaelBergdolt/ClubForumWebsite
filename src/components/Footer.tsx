@@ -69,9 +69,6 @@ const Footer = () => {
                 Datenschutz
               </Link>
               <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
-                AGB
-              </a>
-              <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Cookie-Einstellungen
               </a>
             </div>

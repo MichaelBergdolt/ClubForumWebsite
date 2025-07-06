@@ -95,6 +95,13 @@ const Datenschutz = () => {
             </div>
 
             <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Cookie-Banner und Einwilligungsverwaltung</h2>
+              <p>
+                Wir verwenden ein Cookie-Banner, das Ihnen erlaubt, individuell über das Setzen von Cookies und die Nutzung externer Dienste wie Google Maps zu entscheiden. Ihre Einstellungen werden lokal im Browser gespeichert und können jederzeit über den „Cookie-Einstellungen“-Link am Seitenende angepasst werden.
+              </p>
+            </div>
+
+            <div>
               <h2 className="text-2xl font-bold text-black mb-4">Allgemeine Hinsweise zu externen Diensten</h2>
               <p>
                 Auf unserer Website verwenden wir Dienste Dritter nur, wenn Sie dem ausdrücklich zugestimmt haben. Ihre Daten werden erst an Dritte übermittelt, wenn Sie durch Auswahl in unserem Cookie-Banner oder durch aktives Laden des Inhalts zugestimmt haben
