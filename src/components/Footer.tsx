@@ -65,9 +65,9 @@ const Footer = () => {
               <Link to="/impressum" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Impressum
               </Link>
-              <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/datenschutz" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Datenschutz
-              </a>
+              </Link>
               <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
                 AGB
               </a>
