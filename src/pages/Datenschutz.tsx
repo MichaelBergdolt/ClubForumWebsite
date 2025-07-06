@@ -95,6 +95,25 @@ const Datenschutz = () => {
             </div>
 
             <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Allgemeine Hinsweise zu externen Diensten</h2>
+              <p>
+                Auf unserer Website verwenden wir Dienste Dritter nur, wenn Sie dem ausdrücklich zugestimmt haben. Ihre Daten werden erst an Dritte übermittelt, wenn Sie durch Auswahl in unserem Cookie-Banner oder durch aktives Laden des Inhalts zugestimmt haben
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Google Maps</h2>
+
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Verlinkung auf soziale Netzwerke (Facebook, Instagram)</h2>
+              <p>
+                Wir setzen auf unserer Website lediglich Links zu unseren Profilen bei sozialen Netzwerken (wie Facebook oder Instagram). Beim Aufruf dieser Links werden keine Daten automatisch an diese Anbieter übermittelt. Erst durch das aktive Anklicken verlassen Sie unsere Website und werden auf die jeweilige Plattform weitergeleitet. Ab diesem Zeitpunkt gelten die Datenschutzrichtlinien der jeweiligen Anbieter.
+              </p>
+            </div>
+
+            <div>
               <h2 className="text-2xl font-bold text-black mb-4">Wo speichern wir die Daten?</h2>
               <h3 className="text-lg font-semibold text-black mb-2">Nicht personenbezogene Daten</h3>
               <p>
