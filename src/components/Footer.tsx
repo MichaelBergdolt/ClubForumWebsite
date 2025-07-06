@@ -62,9 +62,9 @@ const Footer = () => {
             </div>
             
             <div className="space-y-2 text-sm">
-              <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/impressum" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Impressum
-              </a>
+              </Link>
               <a href="#" className="block text-gray-400 hover:text-neon-green transition-colors">
                 Datenschutz
               </a>
