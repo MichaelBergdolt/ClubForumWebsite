@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, Mail } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import GoogleMapsConsent from "@/components/GoogleMapsConsent";
 
 const Kontakt = () => {
   const [formData, setFormData] = useState({
@@ -171,29 +172,11 @@ const Kontakt = () => {
                 </CardContent>
               </Card>
 
-              {/* Google Maps */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold">Anfahrt</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://maps.google.com/maps?q=Marktstraße+9,+71032+Böblingen&output=embed"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Google Maps - Club Forum Böblingen"
-                    />
-                  </div>
-                  <p className="text-sm text-gray-600 mt-4">
-                    Zentral gelegen in der Böblinger Innenstadt, gut erreichbar mit öffentlichen Verkehrsmitteln.
-                  </p>
-                </CardContent>
-              </Card>
+              {/* Google Maps with GDPR Consent */}
+              <div>
+                <h3 className="text-xl font-bold mb-4">Anfahrt</h3>
+                <GoogleMapsConsent />
+              </div>
             </div>
           </div>
         </div>
