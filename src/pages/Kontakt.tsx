@@ -163,10 +163,10 @@ const Kontakt = () => {
                   <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-neon-green" />
                     <a 
-                      href="mailto:club-forum@beispiel.de" 
+                      href="mailto:club.forum.bb@gmail.com" 
                       className="text-neon-green hover:underline"
                     >
-                      club-forum@beispiel.de
+                      club.forum.bb@gmail.com
                     </a>
                   </div>
                 </CardContent>
