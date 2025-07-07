@@ -39,8 +39,8 @@ const GoogleMapsConsent = () => {
     return (
       <Card>
         <CardContent className="p-6 space-y-4">
-          <div className="flex items-center justify-center h-64 bg-muted rounded-lg">
-            <div className="text-center space-y-4 max-w-md mx-auto">
+          <div className="flex items-center justify-center h-80 bg-muted rounded-lg">
+            <div className="text-center space-y-4 max-w-md mx-auto px-4">
               <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
               <h3 className="text-lg font-semibold">Google Maps</h3>
               <p className="text-sm text-muted-foreground">
