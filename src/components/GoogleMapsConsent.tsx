@@ -44,7 +44,7 @@ const GoogleMapsConsent = () => {
               <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
               <h3 className="text-lg font-semibold">Google Maps</h3>
               <p className="text-sm text-muted-foreground">
-                Zur Anzeige der Karte müssen Sie Google Maps aktivieren. Dabei können personenbezogene Daten an Google übermittelt werden.
+                Um die Karte anzuzeigen, musst du Google Maps aktivieren. Dabei können personenbezogene Daten an Google übermittelt werden.
               </p>
               
               <div className="space-y-3">
@@ -66,7 +66,7 @@ const GoogleMapsConsent = () => {
               
               <div className="text-xs text-muted-foreground space-y-1">
                 <p>
-                  Weitere Informationen finden Sie in unserer{" "}
+                  Weitere Informationen findest du in unserer{" "}
                   <Link to="/datenschutz" className="text-neon-green hover:underline">
                     Datenschutzerklärung
                   </Link>
