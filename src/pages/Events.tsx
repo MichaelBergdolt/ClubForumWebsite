@@ -143,12 +143,28 @@ const Events = () => {
           <p className="text-xl text-gray-300 mb-8">
             Folge uns auf Instagram für die neuesten Updates und Behind-the-Scenes Content
           </p>
-          <a 
-            href="#" 
-            className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors"
-          >
-            @clubforum_boeblingen folgen
-          </a>
+        <a 
+          href="https://www.instagram.com/club_forumbb" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors space-x-2"
+        >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2.2}
+          className="w-5 h-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zM12 7a5 5 0 100 10 5 5 0 000-10zm5.25-0.75h.008v.008h-.008v-.008z"
+        />
+        </svg>
+          <span>@club_forumbb folgen</span>
+        </a>
         </div>
       </section>
     </Layout>
