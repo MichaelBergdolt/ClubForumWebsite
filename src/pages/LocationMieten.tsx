@@ -61,29 +61,47 @@ const LocationMieten = () => {
       </section>
 
       {/* Ausstattung */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Alles, was du für deine Feier brauchst</h2>
-          <h3 className="text-2xl font-semibold text-center mb-16 text-neon-green">Unsere Ausstattung</h3>
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Alles, was du für deine Feier brauchst
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-neon-green to-neon-blue mx-auto mb-8"></div>
+            <h3 className="text-3xl font-semibold text-neon-green relative inline-block">
+              Unsere Ausstattung
+              <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-neon-green/50"></span>
+            </h3>
+          </div>
           
-          <div className="space-y-16 max-w-7xl mx-auto">
+          <div className="space-y-24 max-w-7xl mx-auto">
             {ausstattung.map((item, index) => (
-              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}>
+              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-16 items-center group`}>
                 {/* Bild */}
-                <div className="flex-1 max-w-lg">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-80 object-cover rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
-                  />
+                <div className="flex-1 max-w-2xl">
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
                 </div>
                 
                 {/* Text */}
-                <div className="flex-1 max-w-lg">
-                  <h4 className="text-3xl font-bold mb-6 text-neon-green">{item.title}</h4>
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    {item.description}
-                  </p>
+                <div className="flex-1 max-w-2xl">
+                  <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
+                        <span className="text-2xl font-bold text-black">{index + 1}</span>
+                      </div>
+                      <h4 className="text-4xl font-bold text-neon-green">{item.title}</h4>
+                    </div>
+                    <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
