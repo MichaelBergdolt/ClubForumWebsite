@@ -25,6 +25,11 @@ const LocationMieten = () => {
       title: "Küche & Sanitär",
       description: "Voll ausgestattete Küche mit Herd und Kühlschränken sowie getrennte WCs.",
       image: "/lovable-uploads/96cf793b-63a7-4e1c-9acc-aa0508df55e5.png"
+    },
+    {
+      title: "Außenbereich",
+      description: "Genieße die frische Luft auf unserer Terrasse. Ideal für den Sommer!",
+      image: "/lovable-uploads/Forum_Garten.jpg"
     }
   ];
 
@@ -47,8 +52,8 @@ const LocationMieten = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <img 
-              src="/lovable-uploads/ba0fb2a5-73c5-4b15-a9c1-b223c9a0fb6c.png" 
-              alt="Gewölbekeller Dancefloor" 
+              src="/lovable-uploads/Forum_von_außen.jpg" 
+              alt="Außenansicht des Club Forum" 
               className="w-full h-96 object-cover rounded-lg shadow-xl"
             />
           </div>
