@@ -79,16 +79,15 @@ const LocationMieten = () => {
               <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} lg:gap-16 items-center group`}>
                 {/* Mobile: Kombiniertes Bild + Text Element */}
                 <div className="flex-1 max-w-2xl lg:hidden">
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+                  <div className="overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
                     <img 
                       src={item.image} 
                       alt={item.title}
                       className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                     
-                    {/* Text direkt im Bild - mobile */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm rounded-t-2xl p-6 border-t border-border/50">
+                    {/* Text direkt unter dem Bild - mobile */}
+                    <div className="bg-card/95 backdrop-blur-sm p-6 border-t border-border/50">
                       <div className="flex items-center gap-3 mb-4">
                         <div className="w-10 h-10 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
                           <span className="text-lg font-bold text-black">{index + 1}</span>
