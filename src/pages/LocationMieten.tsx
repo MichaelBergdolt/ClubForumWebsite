@@ -74,11 +74,36 @@ const LocationMieten = () => {
             </h3>
           </div>
           
-          <div className="space-y-24 max-w-7xl mx-auto">
+          <div className="space-y-12 lg:space-y-24 max-w-7xl mx-auto">
             {ausstattung.map((item, index) => (
-              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-16 items-center group`}>
-                {/* Bild */}
-                <div className="flex-1 max-w-2xl">
+              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} lg:gap-16 items-center group`}>
+                {/* Mobile: Kombiniertes Bild + Text Element */}
+                <div className="flex-1 max-w-2xl lg:hidden">
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                    
+                    {/* Text direkt im Bild - mobile */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm rounded-t-2xl p-6 border-t border-border/50">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
+                          <span className="text-lg font-bold text-black">{index + 1}</span>
+                        </div>
+                        <h4 className="text-2xl font-bold text-primary">{item.title}</h4>
+                      </div>
+                      <p className="text-base text-muted-foreground leading-relaxed font-medium">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop: Separates Bild */}
+                <div className="flex-1 max-w-2xl hidden lg:block">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
                     <img 
                       src={item.image} 
@@ -89,8 +114,8 @@ const LocationMieten = () => {
                   </div>
                 </div>
                 
-                {/* Text */}
-                <div className="flex-1 max-w-2xl">
+                {/* Desktop: Separater Text */}
+                <div className="flex-1 max-w-2xl hidden lg:block">
                   <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-12 h-12 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
