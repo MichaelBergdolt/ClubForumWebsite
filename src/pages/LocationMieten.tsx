@@ -35,28 +35,28 @@ const LocationMieten = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
+      {/* Hero Section mit Hauptbild */}
       <section className="relative py-20 bg-gradient-to-r from-black to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Deine Feier im Club Forum</h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Erlebe unvergessliche Nächte in unserer einzigartigen Location im Herzen von Böblingen
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Hauptbild */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="overflow-hidden rounded-lg shadow-xl max-h-96 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/Forum_von_außen.jpg" 
-                alt="Außenansicht des Club Forum" 
-                className="w-full h-auto object-contain max-h-96"
-              />
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 max-w-7xl mx-auto">
+            {/* Hero Text */}
+            <div className="flex-1 text-center lg:text-left mb-12 lg:mb-0">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">Deine Feier im Club Forum</h1>
+              <p className="text-xl text-gray-300 mb-8">
+                Erlebe unvergessliche Nächte in unserer einzigartigen Location im Herzen von Böblingen
+              </p>
+            </div>
+            
+            {/* Hauptbild */}
+            <div className="flex-1 max-w-2xl lg:max-w-none">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 group">
+                <img 
+                  src="/lovable-uploads/Forum_von_außen.jpg" 
+                  alt="Außenansicht des Club Forum" 
+                  className="w-full h-80 lg:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
             </div>
           </div>
         </div>
