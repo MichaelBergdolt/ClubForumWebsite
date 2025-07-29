@@ -51,11 +51,13 @@ const LocationMieten = () => {
       <section className="py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <img 
-              src="/lovable-uploads/Forum_von_außen.jpg" 
-              alt="Außenansicht des Club Forum" 
-              className="w-full h-96 object-cover rounded-lg shadow-xl"
-            />
+            <div className="overflow-hidden rounded-lg shadow-xl">
+              <img 
+                src="/lovable-uploads/Forum_von_außen.jpg" 
+                alt="Außenansicht des Club Forum" 
+                className="w-full h-auto object-contain"
+              />
+            </div>
           </div>
         </div>
       </section>
