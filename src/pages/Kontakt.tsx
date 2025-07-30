@@ -173,10 +173,14 @@ const Kontakt = () => {
               </Card>
 
               {/* Google Maps with GDPR Consent */}
-              <div>
-                <h3 className="text-xl font-bold mb-4">Anfahrt</h3>
-                <GoogleMapsConsent />
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold">Anfahrt</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <GoogleMapsConsent />
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
