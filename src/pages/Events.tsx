@@ -8,16 +8,16 @@ const Events = () => {
   const upcomingEvents = [
     {
       title: "Sommerfest",
-      date: "12.07.2025",
-      description: "Am 12.07.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und 100% Sonne!",
-      image: "/lovable-uploads/9f703375-92aa-4230-80b8-66536c9e8f90.png",
+      date: "01.08.2025",
+      description: "Am 01.08.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und 100% Sonne!",
+      image: "/lovable-uploads/Summer_Vibes_2025.jpg",
       featured: true
     },
     {
       title: "Halloween",
       date: "31.10.2025",
       description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-      image: "/lovable-uploads/6107e5b5-6fd5-48a1-aa57-fe91ac015b43.png"
+      image: "/lovable-uploads/Halloween.png",
     },
     {
       title: "Die CLUB FORUM OFTAS",
