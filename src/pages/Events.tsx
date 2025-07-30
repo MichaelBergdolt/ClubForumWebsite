@@ -57,17 +57,14 @@ const Events = () => {
       ]
     },
     {
-      title: "Halloween 2024",
-      images: ["/lovable-uploads/6107e5b5-6fd5-48a1-aa57-fe91ac015b43.png"]
+      title: "Oftas 2024",
+      images: [
+        "/lovable-uploads/oftas_2024/Oftas_1.jpg",
+        "/lovable-uploads/oftas_2024/Oftas_2.jpg",
+        "/lovable-uploads/oftas_2024/Oftas_3.jpg",
+        "/lovable-uploads/oftas_2024/Oftas_4.jpg",
+      ]
     },
-    {
-      title: "OFTAS 2024", 
-      images: ["/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"]
-    },
-    {
-      title: "Sommerfest 2024",
-      images: ["/lovable-uploads/9f703375-92aa-4230-80b8-66536c9e8f90.png"]
-    }
   ];
 
   return (
@@ -178,31 +175,33 @@ const Events = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"> {/* Gap vergrößert */}
             {pastEvents.map((event, index) => (
-              <div 
-                key={index} 
-                className="group cursor-pointer"
-                // Klick-Handler, um die Lightbox für dieses Event zu öffnen
-                onClick={() => setOpenLightboxIndex(index)} 
+              <Card
+                key={index}
+                onClick={() => setOpenLightboxIndex(index)}
+                className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden"
               >
-                <div className="relative overflow-hidden rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
-                  <AspectRatio ratio={4/3}>
-                    <img 
-                      src={event.images[0]} // Immer das erste Bild als Vorschau
+                <div className="relative">
+                  <AspectRatio ratio={4 / 3}>
+                    <img
+                      src={event.images[0]}
                       alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </AspectRatio>
-                  {/* Overlay für den visuellen Hinweis */}
-                  {event.images.length > 1 && (
-                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1">
-                      <Images className="h-3 w-3" />
-                      {event.images.length} Bilder
-                    </div>
-                  )}
+
+                  {/* Titel + Bilder-Anzahl gemeinsam im unteren Balken */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-4 py-2 flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">{event.title}</h3>
+
+                    {event.images.length > 1 && (
+                      <div className="text-xs font-semibold flex items-center gap-1">
+                        <Images className="h-4 w-4" />
+                        {event.images.length} Bilder
+                      </div>
+                    )}
+                  </div>
                 </div>
-                {/* Titel immer sichtbar unter dem Bild */}
-                <h3 className="text-lg font-bold mt-3 text-gray-800">{event.title}</h3>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
