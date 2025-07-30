@@ -169,8 +169,8 @@ const LocationMieten = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p><strong>Kapazität:</strong> Wir empfehlen maximal 60 Gäste für die beste Atmosphäre.</p>
-                <p><strong>Mietzeiten:</strong> Januar–Mai & September–November</p>
-                <p><strong>Öffnungszeiten:</strong> Freitags & Samstags von 18:00 – 02:00 Uhr. Andere Tage auf Anfrage.</p>
+                <p><strong>Mietzeiträume:</strong> Januar – Mai & September – November</p>
+                <p><strong>Mietzeiten:</strong> Freitags & Samstags von 18:00 – 02:00 Uhr. Andere Tage sind auf Anfrage möglich.</p>
               </CardContent>
             </Card>
 
