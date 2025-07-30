@@ -7,37 +7,35 @@ import { CalendarDays, MapPin, Clock, Ticket } from "lucide-react";
 const Events = () => {
   const upcomingEvents = [
     {
-      title: "Sommerfest",
-      date: "01.08.2025",
-      location: "Club Forum",
-      time: "ab 18:00 Uhr",
+      title: "Summer Vibes",
+      date: "02.08.2025",
+      locationName: "Club Forum",
+      locationAddress: "Marktstraße 9, 71032 Böblingen",
+      time: "ab 14 Uhr, Party im Club ab 22 Uhr",
       price: "Eintritt frei",
-      description: "Am 01.08.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und 100% Sonne!",
+      description: "Am 01.08.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und Bierpong!",
       image: "/lovable-uploads/Summer_Vibes_2025.jpg",
       featured: true
     },
     {
       title: "Halloween",
       date: "31.10.2025",
-      location: "Club Forum",
-      time: "ab 20:00 Uhr",
-      price: "5 € Abendkasse",
+      locationName: "Club Forum",
+      locationAddress: "Marktstraße 9, 71032 Böblingen",
       description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
       image: "/lovable-uploads/Halloween.png",
     },
     {
       title: "Die CLUB FORUM OFTAS",
       date: "27.-29.12.2025",
-      location: "Waldheim Tannenberg",
-      time: "ab 16:00 Uhr",
-      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
-      image: "/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"
+      locationName: "Waldheim Tannenberg",
+      locationAddress: "Murkenbachweg 120, 71032 Böblingen",
+      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
+      image: "/lovable-uploads/OFTAS_Logo.png"
     },
     {
-      title: "Beerpongturnier",
+      title: "Bierpongturnier",
       date: "Coming Soon",
-      location: "Club Forum",
-      price: "2 Kästen als Gewinn",
       description: "Das Event um deine Skills beim Beerpong zu zeigen. Also auf wartest du? Melde dich mit deinem perfekten Teampartner an und sichere dir die 2 Kästen Gewinn!",
       image: "/lovable-uploads/Beerpong_4_3_ausgeschnitten.png"
     }
@@ -102,35 +100,42 @@ const Events = () => {
                     <CardTitle className={`font-bold ${event.featured ? 'text-2xl' : 'text-xl'}`}>
                       {event.title}
                     </CardTitle>
-                    <div className="flex items-center text-neon-green">
-                      <CalendarDays className="h-4 w-4 mr-1" />
-                      <span className="text-sm font-medium">{event.date}</span>
-                    </div>
                   </div>
                   
                   {/* Event Details */}
                   <div className="space-y-2 mt-4">
-                    {event.location && (
-                      <div className="flex items-center text-gray-600">
-                        <MapPin className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm">
-                          <span className="font-semibold">Ort:</span> {event.location}
+                    {event.date && (
+                      <div className="flex items-center">
+                        <CalendarDays className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-600">
+                          {event.date}
                         </span>
                       </div>
                     )}
                     {event.time && (
-                      <div className="flex items-center text-gray-600">
+                      <div className="flex items-center">
                         <Clock className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm">
-                          <span className="font-semibold">Uhrzeit:</span> {event.time}
+                        <span className="text-sm font-medium text-gray-600">
+                          {event.time}
                         </span>
                       </div>
                     )}
+                    {event.locationName && (
+                      <div className="flex items-start gap-2">
+                        <MapPin className="h-4 w-4 text-neon-green mt-[1px] flex-shrink-0" />
+                        <div className="text-sm font-medium text-gray-600 leading-tight">
+                          <div>{event.locationName}</div>
+                          {event.locationAddress && (
+                            <div className="text-sm font-medium">{event.locationAddress}</div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                     {event.price && (
-                      <div className="flex items-center text-gray-600">
+                      <div className="flex items-center">
                         <Ticket className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm">
-                          <span className="font-semibold">Eintritt:</span> {event.price}
+                        <span className="text-sm font-medium text-gray-600">
+                          {event.price}
                         </span>
                       </div>
                     )}
