@@ -2,13 +2,16 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin, Clock, Ticket } from "lucide-react";
 
 const Events = () => {
   const upcomingEvents = [
     {
       title: "Sommerfest",
       date: "01.08.2025",
+      location: "Club Forum",
+      time: "ab 18:00 Uhr",
+      price: "Eintritt frei",
       description: "Am 01.08.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und 100% Sonne!",
       image: "/lovable-uploads/Summer_Vibes_2025.jpg",
       featured: true
@@ -16,18 +19,25 @@ const Events = () => {
     {
       title: "Halloween",
       date: "31.10.2025",
+      location: "Club Forum",
+      time: "ab 20:00 Uhr",
+      price: "5 € Abendkasse",
       description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
       image: "/lovable-uploads/Halloween.png",
     },
     {
       title: "Die CLUB FORUM OFTAS",
       date: "27.-29.12.2025",
-      description: "Unser Jahres-Highlight vom 27.-29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
-      image: "/lovable-uploads/OFTAS_Logo.png"
+      location: "Waldheim Tannenberg",
+      time: "ab 16:00 Uhr",
+      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
+      image: "/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"
     },
     {
       title: "Beerpongturnier",
       date: "Coming Soon",
+      location: "Club Forum",
+      price: "2 Kästen als Gewinn",
       description: "Das Event um deine Skills beim Beerpong zu zeigen. Also auf wartest du? Melde dich mit deinem perfekten Teampartner an und sichere dir die 2 Kästen Gewinn!",
       image: "/lovable-uploads/Beerpong_4_3_ausgeschnitten.png"
     }
@@ -96,6 +106,34 @@ const Events = () => {
                       <CalendarDays className="h-4 w-4 mr-1" />
                       <span className="text-sm font-medium">{event.date}</span>
                     </div>
+                  </div>
+                  
+                  {/* Event Details */}
+                  <div className="space-y-2 mt-4">
+                    {event.location && (
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
+                        <span className="text-sm">
+                          <span className="font-semibold">Ort:</span> {event.location}
+                        </span>
+                      </div>
+                    )}
+                    {event.time && (
+                      <div className="flex items-center text-gray-600">
+                        <Clock className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
+                        <span className="text-sm">
+                          <span className="font-semibold">Uhrzeit:</span> {event.time}
+                        </span>
+                      </div>
+                    )}
+                    {event.price && (
+                      <div className="flex items-center text-gray-600">
+                        <Ticket className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
+                        <span className="text-sm">
+                          <span className="font-semibold">Eintritt:</span> {event.price}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </CardHeader>
                 <CardContent>
