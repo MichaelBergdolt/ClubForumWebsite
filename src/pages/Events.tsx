@@ -139,13 +139,18 @@ const Events = () => {
                         </span>
                       </div>
                     )}
+                    {event.description && (
+                      <p className="text-gray-600 text-base leading-relaxed pt-1">
+                        {event.description}
+                      </p>
+                    )}
                   </div>
                 </CardHeader>
-                <CardContent>
+                {/* <CardContent>
                   <CardDescription className="text-gray-600 text-base leading-relaxed">
                     {event.description}
                   </CardDescription>
-                </CardContent>
+                </CardContent> */}
               </Card>
             ))}
           </div>
