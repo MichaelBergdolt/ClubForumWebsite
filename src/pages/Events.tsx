@@ -1,6 +1,7 @@
 
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { CalendarDays, MapPin } from "lucide-react";
 
 const Events = () => {
@@ -66,22 +67,20 @@ const Events = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-16">Kommende Highlights</h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {upcomingEvents.map((event, index) => (
               <Card 
                 key={index} 
-                className={`hover:shadow-xl transition-all duration-300 ${
-                  event.featured ? 'lg:col-span-2 border-2 border-neon-green' : ''
-                }`}
+                className="hover:shadow-xl transition-all duration-300"
               >
                 <div className="relative">
-                  <img 
-                    src={event.image} 
-                    alt={event.title}
-                    className={`w-full object-cover rounded-t-lg ${
-                      event.featured ? 'h-64' : 'h-48'
-                    }`}
-                  />
+                  <AspectRatio ratio={4/3}>
+                    <img 
+                      src={event.image} 
+                      alt={event.title}
+                      className="w-full h-full object-cover rounded-t-lg"
+                    />
+                  </AspectRatio>
                   {event.featured && (
                     <div className="absolute top-4 left-4 bg-neon-green text-black px-3 py-1 rounded-full text-sm font-bold">
                       Featured Event
@@ -119,11 +118,13 @@ const Events = () => {
             {pastEvents.map((event, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
-                  <img 
-                    src={event.images[0]} 
-                    alt={event.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                  <AspectRatio ratio={4/3}>
+                    <img 
+                      src={event.images[0]} 
+                      alt={event.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </AspectRatio>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                     <h3 className="text-white text-xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       {event.title}
