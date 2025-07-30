@@ -22,14 +22,14 @@ const Events = () => {
     {
       title: "Die CLUB FORUM OFTAS",
       date: "27.-29.12.2025",
-      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
-      image: "/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png"
+      description: "Unser Jahres-Highlight vom 27.-29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst! Mehr Infos auf unserem Instagram-Kanal (Image Video).",
+      image: "/lovable-uploads/OFTAS_Logo.png"
     },
     {
       title: "Beerpongturnier",
       date: "Coming Soon",
       description: "Das Event um deine Skills beim Beerpong zu zeigen. Also auf wartest du? Melde dich mit deinem perfekten Teampartner an und sichere dir die 2 Kästen Gewinn!",
-      image: "/lovable-uploads/d11bff6d-d6c8-47d9-ad8d-5bc59ac03d0e.png"
+      image: "/lovable-uploads/Beerpong_4_3_ausgeschnitten.png"
     }
   ];
 
