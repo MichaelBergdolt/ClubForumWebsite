@@ -50,11 +50,11 @@ const Index = () => {
                 60 Personen, unvergessliche Partys und unsere regelmäßigen Team-Treffen bieten.
               </p>
             </div>
-            <div className="animate-fade-in">
+            <div className="animate-fade-in group overflow-hidden rounded-lg shadow-xl">
               <img 
                 src="/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png" 
                 alt="Club Forum Team" 
-                className="rounded-lg shadow-xl w-full h-auto"
+                className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>

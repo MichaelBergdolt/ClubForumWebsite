@@ -90,14 +90,14 @@ const Events = () => {
             {upcomingEvents.map((event, index) => (
               <Card 
                 key={index} 
-                className="hover:shadow-xl transition-all duration-300"
+                className="hover:shadow-xl transition-all duration-300 group overflow-hidden"
               >
                 <div className="relative">
                   <AspectRatio ratio={4/3}>
                     <img 
                       src={event.image} 
                       alt={event.title}
-                      className="w-full h-full object-cover rounded-t-lg"
+                      className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
                     />
                   </AspectRatio>
                   {event.featured && (
@@ -178,14 +178,14 @@ const Events = () => {
               <Card
                 key={index}
                 onClick={() => setOpenLightboxIndex(index)}
-                className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden"
+                className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
               >
                 <div className="relative">
                   <AspectRatio ratio={4 / 3}>
                     <img
                       src={event.images[0]}
                       alt={event.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </AspectRatio>
 
