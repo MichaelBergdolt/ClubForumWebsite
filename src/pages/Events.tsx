@@ -1,10 +1,15 @@
-
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { CalendarDays, MapPin, Clock, Ticket } from "lucide-react";
+import { CalendarDays, MapPin, Clock, Ticket, Images } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const Events = () => {
+  // State, um den Index der geöffneten Galerie zu speichern (-1 bedeutet geschlossen)
+  const [openLightboxIndex, setOpenLightboxIndex] = useState(-1);
+
   const upcomingEvents = [
     {
       title: "Summer Vibes",
@@ -42,6 +47,15 @@ const Events = () => {
   ];
 
   const pastEvents = [
+    {
+      title: "Stadtfest 2025",
+      images: [
+        "/lovable-uploads/stadtfest_2025/Stadtfest_1.jpg",
+        "/lovable-uploads/stadtfest_2025/Stadtfest_2.jpg",
+        "/lovable-uploads/stadtfest_2025/Stadtfest_3.jpg",
+        "/lovable-uploads/stadtfest_2025/Stadtfest_4.jpg",
+      ]
+    },
     {
       title: "Halloween 2024",
       images: ["/lovable-uploads/6107e5b5-6fd5-48a1-aa57-fe91ac015b43.png"]
@@ -162,28 +176,45 @@ const Events = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-16">So legendär waren unsere letzten Partys</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"> {/* Gap vergrößert */}
             {pastEvents.map((event, index) => (
-              <div key={index} className="group cursor-pointer">
+              <div 
+                key={index} 
+                className="group cursor-pointer"
+                // Klick-Handler, um die Lightbox für dieses Event zu öffnen
+                onClick={() => setOpenLightboxIndex(index)} 
+              >
                 <div className="relative overflow-hidden rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
                   <AspectRatio ratio={4/3}>
                     <img 
-                      src={event.images[0]} 
+                      src={event.images[0]} // Immer das erste Bild als Vorschau
                       alt={event.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </AspectRatio>
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                    <h3 className="text-white text-xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {event.title}
-                    </h3>
-                  </div>
+                  {/* Overlay für den visuellen Hinweis */}
+                  {event.images.length > 1 && (
+                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1">
+                      <Images className="h-3 w-3" />
+                      {event.images.length} Bilder
+                    </div>
+                  )}
                 </div>
+                {/* Titel immer sichtbar unter dem Bild */}
+                <h3 className="text-lg font-bold mt-3 text-gray-800">{event.title}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Lightbox-Komponente rendern */}
+      <Lightbox
+        open={openLightboxIndex > -1}
+        close={() => setOpenLightboxIndex(-1)}
+        // Die Bilder für das ausgewählte Event übergeben
+        slides={openLightboxIndex > -1 ? pastEvents[openLightboxIndex].images.map(src => ({ src })) : []}
+      />
 
       {/* CTA */}
       <section className="py-20 bg-black text-white">
