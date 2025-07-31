@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail } from "lucide-react";
+import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
@@ -70,7 +70,10 @@ const Kontakt = () => {
             {/* Kontaktformular */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl font-bold">Kontaktformular</CardTitle>
+                <CardTitle className="text-2xl font-bold flex items-center">
+                  <MessageSquare className="h-6 w-6 mr-2 text-neon-green" />
+                  Kontaktformular
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -164,7 +167,7 @@ const Kontakt = () => {
                     <Mail className="h-5 w-5 text-neon-green" />
                     <a 
                       href="mailto:club.forum.bb@gmail.com" 
-                      className="text-neon-green hover:underline"
+                      className="text-black hover:underline"
                     >
                       club.forum.bb@gmail.com
                     </a>
@@ -175,7 +178,10 @@ const Kontakt = () => {
               {/* Google Maps with GDPR Consent */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold">Anfahrt</CardTitle>
+                  <CardTitle className="text-2xl font-bold flex items-center">
+                    <Map className="h-6 w-6 mr-2 text-neon-green" />
+                    Anfahrt
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <GoogleMapsConsent />
