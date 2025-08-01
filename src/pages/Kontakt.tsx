@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
+import { MapPin, Mail, MessageSquare, Map, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
@@ -74,8 +74,9 @@ const Kontakt = () => {
     
     // Simulate form submission
     toast({
-      title: "Nachricht gesendet!",
+      title: "✅ Nachricht gesendet!",
       description: "Wir werden uns so schnell wie möglich bei dir melden.",
+      className: "border-neon-green/20 bg-neon-green/5",
     });
     
     // Reset form
@@ -159,7 +160,7 @@ const Kontakt = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="betreff">Betreff *</Label>
-                    <Select onValueChange={(value) => handleInputChange("betreff", value)}>
+                    <Select value={formData.betreff} onValueChange={(value) => handleInputChange("betreff", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Wähle einen Betreff" />
                       </SelectTrigger>
