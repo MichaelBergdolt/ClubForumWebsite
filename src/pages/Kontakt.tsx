@@ -131,10 +131,6 @@ const Kontakt = () => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <p className="text-sm text-gray-600 mb-4">
-                    Mit * markierte Felder sind Pflichtfelder.
-                  </p>
-
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
                     <Input
@@ -199,6 +195,10 @@ const Kontakt = () => {
                     />
                     {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
+
+                  <p className="text-sm text-gray-600 mb-4">
+                    Mit * markierte Felder sind Pflichtfelder.
+                  </p>
 
                   <p className="text-xs text-gray-600">
                     Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
