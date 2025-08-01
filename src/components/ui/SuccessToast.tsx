@@ -35,11 +35,13 @@ const SuccessToast = ({
           exit={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.3 }}
           className={cn(
-            "fixed z-50 w-full max-w-[90%] sm:max-w-sm px-4", // responsive width
-
-            // 🌐 Position abhängig vom Viewport
-            "bottom-4 left-1/2 -translate-x-1/2",       // default: centered
-            "md:left-auto md:right-6 md:translate-x-0"  // ab md: bottom right
+            "fixed z-50 bottom-4",
+            
+            // Mobile: centered with safe margins
+            "left-4 right-4 max-w-none",
+            
+            // Desktop: positioned bottom-right with fixed width
+            "md:left-auto md:right-6 md:max-w-sm md:w-auto"
           )}
         >
           <div className="rounded-xl shadow-lg border border-neon-green bg-white p-4 text-black">
