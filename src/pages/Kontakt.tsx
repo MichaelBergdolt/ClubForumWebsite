@@ -204,7 +204,7 @@ const Kontakt = () => {
                     Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
                     <Link 
                       to="/datenschutz" 
-                      className="text-accent hover:underline"
+                      className="text-neon-green hover:underline"
                     >
                       Datenschutzerklärung
                     </Link>{" "}
