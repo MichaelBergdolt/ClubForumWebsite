@@ -195,21 +195,22 @@ const Kontakt = () => {
                     />
                     {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
+                    <div className="space-y-2">
+                    <p className="text-xs text-gray-600">
+                      Mit * markierte Felder sind Pflichtfelder.
+                    </p>
 
-                  <p className="text-sm text-gray-600 mb-4">
-                    Mit * markierte Felder sind Pflichtfelder.
-                  </p>
-
-                  <p className="text-xs text-gray-600">
-                    Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
-                    <Link 
+                    <p className="text-xs text-gray-600">
+                      Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
+                      <Link 
                       to="/datenschutz" 
                       className="text-neon-green hover:underline"
-                    >
+                      >
                       Datenschutzerklärung
-                    </Link>{" "}
-                    einverstanden.
-                  </p>
+                      </Link>{" "}
+                      einverstanden.
+                    </p>
+                    </div>
 
                   <Button 
                     type="submit" 
