@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail, MessageSquare, Map, CheckCircle } from "lucide-react";
+import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import GoogleMapsConsent from "@/components/GoogleMapsConsent";
 import { Link } from "react-router-dom";
+import GoogleMapsConsent from "@/components/GoogleMapsConsent";
+import SuccessToast from "@/components/ui/SuccessToast"; // Neu
 
 const Kontakt = () => {
   const [formData, setFormData] = useState({
@@ -20,15 +19,15 @@ const Kontakt = () => {
     datum: "",
     nachricht: ""
   });
-  
+
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     betreff: "",
     nachricht: ""
   });
-  
-  const { toast } = useToast();
+
+  const [showSuccess, setShowSuccess] = useState(false); // Neu
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,42 +42,26 @@ const Kontakt = () => {
       nachricht: ""
     };
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name ist erforderlich";
-    }
-
+    if (!formData.name.trim()) newErrors.name = "Name ist erforderlich";
     if (!formData.email.trim()) {
       newErrors.email = "E-Mail ist erforderlich";
     } else if (!validateEmail(formData.email)) {
       newErrors.email = "Bitte gib eine gültige E-Mail-Adresse ein";
     }
-
-    if (!formData.betreff) {
-      newErrors.betreff = "Betreff ist erforderlich";
-    }
-
-    if (!formData.nachricht.trim()) {
-      newErrors.nachricht = "Nachricht ist erforderlich";
-    }
+    if (!formData.betreff) newErrors.betreff = "Betreff ist erforderlich";
+    if (!formData.nachricht.trim()) newErrors.nachricht = "Nachricht ist erforderlich";
 
     setErrors(newErrors);
-    return Object.values(newErrors).every(error => error === "");
+    return Object.values(newErrors).every((error) => error === "");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
-    // Simulate form submission
-    toast({
-      title: "✅ Nachricht gesendet!",
-      description: "Wir werden uns so schnell wie möglich bei dir melden.",
-      className: "border-neon-green/20 bg-neon-green/5",
-    });
-    
+    if (!validateForm()) return;
+
+    // Zeige Erfolg
+    setShowSuccess(true);
+
     // Reset form
     setFormData({
       name: "",
@@ -87,7 +70,7 @@ const Kontakt = () => {
       datum: "",
       nachricht: ""
     });
-    
+
     setErrors({
       name: "",
       email: "",
@@ -97,7 +80,7 @@ const Kontakt = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [field]: value
     }));
@@ -117,11 +100,11 @@ const Kontakt = () => {
         </div>
       </section>
 
-      {/* Kontakt Content */}
+      {/* Kontaktformular & Info */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            
+
             {/* Kontaktformular */}
             <Card>
               <CardHeader>
@@ -137,10 +120,10 @@ const Kontakt = () => {
                     <Input
                       id="name"
                       type="text"
-                      required
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Dein Name"
+                      required
                     />
                     {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
                   </div>
@@ -150,10 +133,10 @@ const Kontakt = () => {
                     <Input
                       id="email"
                       type="email"
-                      required
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="deine@email.de"
+                      required
                     />
                     {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
                   </div>
@@ -188,33 +171,28 @@ const Kontakt = () => {
                     <Label htmlFor="nachricht">Deine Nachricht *</Label>
                     <Textarea
                       id="nachricht"
-                      required
-                      rows={5}
                       value={formData.nachricht}
                       onChange={(e) => handleInputChange("nachricht", e.target.value)}
                       placeholder="Erzähl uns von deiner Idee oder stelle deine Frage..."
+                      rows={5}
+                      required
                     />
                     {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
-                    <div className="space-y-2">
-                    <p className="text-xs text-gray-600">
-                      Mit * markierte Felder sind Pflichtfelder.
-                    </p>
 
-                    <p className="text-xs text-gray-600">
+                  <div className="space-y-2 text-xs text-gray-600">
+                    <p>Mit * markierte Felder sind Pflichtfelder.</p>
+                    <p>
                       Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
-                      <Link 
-                      to="/datenschutz" 
-                      className="text-neon-green hover:underline"
-                      >
-                      Datenschutzerklärung
+                      <Link to="/datenschutz" className="text-neon-green hover:underline">
+                        Datenschutzerklärung
                       </Link>{" "}
                       einverstanden.
                     </p>
-                    </div>
+                  </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-neon-green hover:bg-neon-green/80 text-black font-semibold"
                   >
                     Nachricht absenden
@@ -238,7 +216,7 @@ const Kontakt = () => {
                     <p className="text-gray-600">Marktstraße 9</p>
                     <p className="text-gray-600">71032 Böblingen</p>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-neon-green" />
                     <a 
@@ -267,6 +245,15 @@ const Kontakt = () => {
           </div>
         </div>
       </section>
+
+      {/* Success Toast */}
+      {showSuccess && (
+        <SuccessToast
+          message="Nachricht gesendet!"
+          description="Wir werden uns so schnell wie möglich bei dir melden."
+          onClose={() => setShowSuccess(false)}
+        />
+      )}
     </Layout>
   );
 };
