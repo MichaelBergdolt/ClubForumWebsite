@@ -177,7 +177,7 @@ const Kontakt = () => {
 
                   {formData.betreff === "mietanfrage" && (
                     <div className="space-y-2">
-                      <Label htmlFor="datum">Gewünschtes Datum (optional)</Label>
+                      <Label htmlFor="datum">Gewünschtes Datum</Label>
                       <Input
                         id="datum"
                         type="date"
