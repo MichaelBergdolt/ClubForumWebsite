@@ -10,6 +10,7 @@ import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
+import { Link } from "react-router-dom";
 
 const Kontakt = () => {
   const [formData, setFormData] = useState({
@@ -20,10 +21,56 @@ const Kontakt = () => {
     nachricht: ""
   });
   
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    betreff: "",
+    nachricht: ""
+  });
+  
   const { toast } = useToast();
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      email: "",
+      betreff: "",
+      nachricht: ""
+    };
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name ist erforderlich";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "E-Mail ist erforderlich";
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = "Bitte gib eine gültige E-Mail-Adresse ein";
+    }
+
+    if (!formData.betreff) {
+      newErrors.betreff = "Betreff ist erforderlich";
+    }
+
+    if (!formData.nachricht.trim()) {
+      newErrors.nachricht = "Nachricht ist erforderlich";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every(error => error === "");
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
     
     // Simulate form submission
     toast({
@@ -37,6 +84,13 @@ const Kontakt = () => {
       email: "",
       betreff: "",
       datum: "",
+      nachricht: ""
+    });
+    
+    setErrors({
+      name: "",
+      email: "",
+      betreff: "",
       nachricht: ""
     });
   };
@@ -77,6 +131,10 @@ const Kontakt = () => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <p className="text-sm text-gray-600 mb-4">
+                    Mit * markierte Felder sind Pflichtfelder.
+                  </p>
+
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
                     <Input
@@ -87,6 +145,7 @@ const Kontakt = () => {
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Dein Name"
                     />
+                    {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
                   </div>
 
                   <div className="space-y-2">
@@ -99,6 +158,7 @@ const Kontakt = () => {
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="deine@email.de"
                     />
+                    {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
                   </div>
 
                   <div className="space-y-2">
@@ -109,21 +169,23 @@ const Kontakt = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="mietanfrage">Mietanfrage</SelectItem>
-                        <SelectItem value="mitgliedschaft">Mitgliedschaftsanfrage</SelectItem>
-                        <SelectItem value="allgemein">Allgemeine Frage</SelectItem>
+                        <SelectItem value="allgemein">Allgemeine Anfrage</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.betreff && <p className="text-sm text-red-600">{errors.betreff}</p>}
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="datum">Gewünschtes Datum (optional)</Label>
-                    <Input
-                      id="datum"
-                      type="date"
-                      value={formData.datum}
-                      onChange={(e) => handleInputChange("datum", e.target.value)}
-                    />
-                  </div>
+                  {formData.betreff === "mietanfrage" && (
+                    <div className="space-y-2">
+                      <Label htmlFor="datum">Gewünschtes Datum (optional)</Label>
+                      <Input
+                        id="datum"
+                        type="date"
+                        value={formData.datum}
+                        onChange={(e) => handleInputChange("datum", e.target.value)}
+                      />
+                    </div>
+                  )}
 
                   <div className="space-y-2">
                     <Label htmlFor="nachricht">Deine Nachricht *</Label>
@@ -135,7 +197,19 @@ const Kontakt = () => {
                       onChange={(e) => handleInputChange("nachricht", e.target.value)}
                       placeholder="Erzähl uns von deiner Idee oder stelle deine Frage..."
                     />
+                    {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
+
+                  <p className="text-xs text-gray-600">
+                    Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
+                    <Link 
+                      to="/datenschutz" 
+                      className="text-accent hover:underline"
+                    >
+                      Datenschutzerklärung
+                    </Link>{" "}
+                    einverstanden.
+                  </p>
 
                   <Button 
                     type="submit" 
