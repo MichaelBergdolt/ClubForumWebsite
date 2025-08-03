@@ -12,17 +12,6 @@ const Events = () => {
 
   const upcomingEvents = [
     {
-      title: "Summer Vibes",
-      date: "02.08.2025",
-      locationName: "Club Forum",
-      locationAddress: "Marktstraße 9, 71032 Böblingen",
-      time: "ab 14 Uhr, Party im Club ab 22 Uhr",
-      price: "Eintritt frei",
-      description: "Am 01.08.2025 veranstalten wir unser jährliches Sommerfest. Freu dich auf gute Musik, kalte Drinks und Bierpong!",
-      image: "/lovable-uploads/Summer_Vibes_2025.jpg",
-      featured: true
-    },
-    {
       title: "Halloween",
       date: "31.10.2025",
       locationName: "Club Forum",
