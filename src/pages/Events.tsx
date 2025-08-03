@@ -65,7 +65,7 @@ const Events = () => {
           <div className="max-w-6xl mx-auto">
             {/* Main Title */}
             <div className="text-center mb-16">
-              <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-neon-green to-white bg-clip-text text-transparent">
+              <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-neon-green to-white bg-clip-text text-transparent leading-tight">
                 Forum Fourtyfive
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
@@ -223,15 +223,10 @@ const Events = () => {
                       className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
                     />
                   </AspectRatio>
-                  {event.featured && (
-                    <div className="absolute top-4 left-4 bg-neon-green text-black px-3 py-1 rounded-full text-sm font-bold">
-                      Featured Event
-                    </div>
-                  )}
                 </div>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className={`font-bold ${event.featured ? 'text-2xl' : 'text-xl'}`}>
+                    <CardTitle className="font-bold text-xl">
                       {event.title}
                     </CardTitle>
                   </div>
@@ -246,14 +241,6 @@ const Events = () => {
                         </span>
                       </div>
                     )}
-                    {event.time && (
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm font-medium text-gray-600">
-                          {event.time}
-                        </span>
-                      </div>
-                    )}
                     {event.locationName && (
                       <div className="flex items-start gap-2">
                         <MapPin className="h-4 w-4 text-neon-green mt-[1px] flex-shrink-0" />
@@ -263,14 +250,6 @@ const Events = () => {
                             <div className="text-sm font-medium">{event.locationAddress}</div>
                           )}
                         </div>
-                      </div>
-                    )}
-                    {event.price && (
-                      <div className="flex items-center">
-                        <Ticket className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm font-medium text-gray-600">
-                          {event.price}
-                        </span>
                       </div>
                     )}
                     {event.description && (

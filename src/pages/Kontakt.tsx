@@ -105,7 +105,7 @@ const Kontakt = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
-            {/* Kontaktformular */}
+            {/* Kontaktformular - TEMPORARILY DISABLED */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl font-bold flex items-center">
@@ -114,6 +114,24 @@ const Kontakt = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                <div className="text-center py-12">
+                  <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-700 mb-2">Kontaktformular wird überarbeitet</h3>
+                  <p className="text-gray-600 mb-6">
+                    Unser Kontaktformular wird gerade technisch überarbeitet. 
+                    In der Zwischenzeit kannst du uns gerne direkt per E-Mail kontaktieren.
+                  </p>
+                  <a 
+                    href="mailto:club.forum.bb@gmail.com" 
+                    className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-6 py-3 rounded-lg transition-colors"
+                  >
+                    <Mail className="h-5 w-5 mr-2" />
+                    E-Mail senden
+                  </a>
+                </div>
+                
+                {/* 
+                COMMENTED OUT FORM CODE - DO NOT DELETE:
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
@@ -198,6 +216,7 @@ const Kontakt = () => {
                     Nachricht absenden
                   </Button>
                 </form>
+                */}
               </CardContent>
             </Card>
 
