@@ -30,7 +30,7 @@ const Events = () => {
     {
       title: "Bierpongturnier",
       date: "Coming Soon",
-      description: "Das Event um deine Skills beim Beerpong zu zeigen. Also auf wartest du? Melde dich mit deinem perfekten Teampartner an und sichere dir die 2 Kästen Gewinn!",
+      description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
       image: "/lovable-uploads/Beerpong_4_3_ausgeschnitten.png"
     }
   ];
@@ -69,7 +69,7 @@ const Events = () => {
                 Forum Fourtyfive
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers Café Bar.
+                Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.
               </p>
             </div>
             
@@ -87,7 +87,7 @@ const Events = () => {
                 <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]">
                   <Clock className="h-8 w-8 text-neon-green mx-auto mb-3" />
                   <h3 className="text-lg font-bold text-white mb-2">Uhrzeit</h3>
-                  <p className="text-gray-300">ab 17 Uhr</p>
+                  <p className="text-gray-300">ab 16 Uhr</p>
                 </div>
               </div>
               
@@ -135,7 +135,7 @@ const Events = () => {
               <CardHeader className="text-white">
                 <CardTitle className="text-2xl font-bold text-neon-green mb-3">Jules</CardTitle>
                 <CardDescription className="text-gray-300 leading-relaxed">
-                  Mit ihrer Mischung aus Pop und Punkrock bringt die Stuttgarter Musikerin Jules starke Gefühle, kantige Sounds und empowernde Texte auf die Bühne. Ihr Stil ist laut, ehrlich und visuell durchdacht – ein echtes Statement mit Ohrwurm-Garantie.
+                  Die 25-jährige „jules“ mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als „wannabe rockstar in a pop-girly’s body“. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin „jules“ einen emanzipierten, mutigen Sound voller Farbe. Zwischen Einflüssen aus Pop und Rock schätzt die junge Musikerin vor allem die Vielfalt in ihrer musikalischen Arbeit als Songwriterin.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -155,7 +155,7 @@ const Events = () => {
               <CardHeader className="text-white">
                 <CardTitle className="text-2xl font-bold text-neon-green mb-3">kleinstadt</CardTitle>
                 <CardDescription className="text-gray-300 leading-relaxed">
-                  Die Band kleinstadt aus Herrenberg vereint langjährige Freundschaft mit echtem Gefühl. In ihren Songs geht es um Liebe, Wut, Freiheit – aber vor allem ums Dazwischen – zwischen Jugend und Erwachsensein, zwischen Träumen und Realität.
+                  Die Band kleinstadt aus Herrenberg vereint in ihrer Musik die enge Verbundenheit langjähriger Freundschaft mit authentischen deutschen Texten, die von Liebe, Wut, Sehnsucht, Spaß und Freiheit erzählen. Ihre Klänge spiegeln das Erwachsenwerden wider und laden dazu ein, gemeinsam zu träumen und zu fühlen.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -175,7 +175,7 @@ const Events = () => {
               <CardHeader className="text-white">
                 <CardTitle className="text-2xl font-bold text-neon-green mb-3">Handbuch</CardTitle>
                 <CardDescription className="text-gray-300 leading-relaxed">
-                  Platzhalter für Handbuch. Bitte später mit Bild und Beschreibung ergänzen.
+                  Die Stuttgarter Band HANDBUCH vertont mit warmem Indie-Folk-Pop die kleinen, aber wichtigen Fragen des Alltags. Ihre authentischen Songs mit deutschen Texten begleiten einen durch die Nacht, pusten den Staub aus den Gedanken und hinterlassen ein Gefühl von Geborgenheit.
                 </CardDescription>
               </CardHeader>
             </Card>
