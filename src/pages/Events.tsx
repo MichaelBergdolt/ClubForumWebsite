@@ -69,7 +69,161 @@ const Events = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
+      {/* Forum Fourtyfive Hero Section */}
+      <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
+        {/* Background Banner */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/lovable-uploads/29390b57-a088-4c2d-8c2f-6f6a0f60e8d7.png" 
+            alt="Forum Fourtyfive Banner"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Main Title */}
+            <div className="text-center mb-16">
+              <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-neon-green to-white bg-clip-text text-transparent">
+                Forum Fourtyfive
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers Café Bar.
+              </p>
+            </div>
+            
+            {/* Event Info Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+              <div className="text-center group">
+                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300">
+                  <CalendarDays className="h-8 w-8 text-neon-green mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Datum</h3>
+                  <p className="text-gray-300">Samstag, 06.09.2025</p>
+                </div>
+              </div>
+              
+              <div className="text-center group">
+                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300">
+                  <Clock className="h-8 w-8 text-neon-green mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Uhrzeit</h3>
+                  <p className="text-gray-300">ab 17 Uhr</p>
+                </div>
+              </div>
+              
+              <div className="text-center group">
+                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300">
+                  <MapPin className="h-8 w-8 text-neon-green mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Ort</h3>
+                  <p className="text-gray-300">Fetzers Böblingen<br/>Poststraße 38<br/>71032 Böblingen</p>
+                </div>
+              </div>
+              
+              <div className="text-center group">
+                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300">
+                  <Ticket className="h-8 w-8 text-neon-green mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Eintritt</h3>
+                  <p className="text-gray-300">frei</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Artists Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-950 to-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Die Acts des Abends</h2>
+            <div className="w-24 h-1 bg-neon-green mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {/* Jules */}
+            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
+              <div className="relative">
+                <AspectRatio ratio={4/3}>
+                  <img 
+                    src="/lovable-uploads/a614f169-25ae-437b-bf63-00eaadfb720d.png" 
+                    alt="Jules"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </AspectRatio>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardHeader className="text-white">
+                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Jules</CardTitle>
+                <CardDescription className="text-gray-300 leading-relaxed">
+                  Mit ihrer Mischung aus Pop und Punkrock bringt die Stuttgarter Musikerin Jules starke Gefühle, kantige Sounds und empowernde Texte auf die Bühne. Ihr Stil ist laut, ehrlich und visuell durchdacht – ein echtes Statement mit Ohrwurm-Garantie.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* kleinstadt */}
+            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
+              <div className="relative">
+                <AspectRatio ratio={4/3}>
+                  <img 
+                    src="/lovable-uploads/93f181f5-1458-4241-ba99-d6192592406a.png" 
+                    alt="kleinstadt"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </AspectRatio>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardHeader className="text-white">
+                <CardTitle className="text-2xl font-bold text-neon-green mb-3">kleinstadt</CardTitle>
+                <CardDescription className="text-gray-300 leading-relaxed">
+                  Die Band kleinstadt aus Herrenberg vereint langjährige Freundschaft mit echtem Gefühl. In ihren Songs geht es um Liebe, Wut, Freiheit – aber vor allem ums Dazwischen – zwischen Jugend und Erwachsensein, zwischen Träumen und Realität.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Handbuch */}
+            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
+              <div className="relative">
+                <AspectRatio ratio={4/3}>
+                  <img 
+                    src="/lovable-uploads/52c34112-6075-41fc-9ba1-c8bbdf2e1882.png" 
+                    alt="Handbuch"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </AspectRatio>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardHeader className="text-white">
+                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Handbuch</CardTitle>
+                <CardDescription className="text-gray-300 leading-relaxed">
+                  Platzhalter für Handbuch. Bitte später mit Bild und Beschreibung ergänzen.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Joost */}
+            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
+              <div className="relative">
+                <AspectRatio ratio={4/3}>
+                  <img 
+                    src="/lovable-uploads/521c63ed-0d4b-49c7-a73b-01fa0a5d6968.png" 
+                    alt="Joost"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </AspectRatio>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <CardHeader className="text-white">
+                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Joost</CardTitle>
+                <CardDescription className="text-gray-300 leading-relaxed">
+                  Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Unsere Events Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-black to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
