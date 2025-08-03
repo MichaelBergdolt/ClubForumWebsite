@@ -69,42 +69,8 @@ const Events = () => {
 
   return (
     <Layout>
-      {/* Unsere Events Hero Section - moved above Forum Fourtyfive */}
-      <section className="relative py-20 bg-gradient-to-r from-black to-gray-900 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Unsere Events</h1>
-            <p className="text-xl text-gray-300">
-              Von legendären Partys bis zu unvergesslichen Nächten – hier ist immer was los!
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Forum Fourtyfive Hero Section */}
       <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
-        {/* Responsive Background Banners */}
-        <div className="absolute inset-0 z-0">
-          {/* Mobile Banner */}
-          <img 
-            src="/lovable-uploads/d69c323a-4a83-4bea-bac3-c3c76311df98.png" 
-            alt="Forum Fourtyfive Banner Mobile"
-            className="md:hidden w-full h-full object-cover opacity-30"
-          />
-          {/* Tablet Banner */}
-          <img 
-            src="/lovable-uploads/42dae0a4-078e-49f3-be0a-167708ac2d70.png" 
-            alt="Forum Fourtyfive Banner Tablet"
-            className="hidden md:block lg:hidden w-full h-full object-cover opacity-30"
-          />
-          {/* Desktop Banner */}
-          <img 
-            src="/lovable-uploads/cba33d66-c472-446c-8019-b925283dadb7.png" 
-            alt="Forum Fourtyfive Banner Desktop"
-            className="hidden lg:block w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-black/60"></div>
-        </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
