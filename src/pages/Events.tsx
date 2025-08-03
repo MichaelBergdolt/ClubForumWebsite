@@ -135,7 +135,7 @@ const Events = () => {
               <CardHeader className="text-white">
                 <CardTitle className="text-2xl font-bold text-neon-green mb-3">Jules</CardTitle>
                 <CardDescription className="text-gray-300 leading-relaxed">
-                  Die 25-jährige „jules“ mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als „wannabe rockstar in a pop-girly’s body“. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin „jules“ einen emanzipierten, mutigen Sound voller Farbe. Zwischen Einflüssen aus Pop und Rock schätzt die junge Musikerin vor allem die Vielfalt in ihrer musikalischen Arbeit als Songwriterin.
+                  Die 25-jährige „jules“ mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als „wannabe rockstar in a pop-girly’s body“. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin „jules“ einen emanzipierten, mutigen Sound voller Farbe.
                 </CardDescription>
               </CardHeader>
             </Card>
