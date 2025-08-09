@@ -13,7 +13,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/lovable-uploads/7275d9d5-5b8c-43b0-a397-f9f603d43291.png')`
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/7275d9d5-5b8c-43b0-a397-f9f603d43291.png')`
           }}
         />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
@@ -52,7 +52,7 @@ const Index = () => {
             </div>
             <div className="animate-fade-in group overflow-hidden rounded-lg shadow-xl">
               <img 
-                src="/lovable-uploads/bba08558-a84b-4f38-943f-612b787555fc.png" 
+                src="/images/bba08558-a84b-4f38-943f-612b787555fc.png" 
                 alt="Club Forum Team" 
                 className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
               />

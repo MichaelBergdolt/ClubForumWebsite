@@ -17,7 +17,7 @@ const Events = () => {
       locationName: "Club Forum",
       locationAddress: "Marktstraße 9, 71032 Böblingen",
       description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-      image: "/lovable-uploads/Halloween.png",
+      image: "/images/Halloween.png",
     },
     {
       title: "Die CLUB FORUM OFTAS",
@@ -25,13 +25,13 @@ const Events = () => {
       locationName: "Waldheim Tannenberg",
       locationAddress: "Murkenbachweg 120, 71032 Böblingen",
       description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-      image: "/lovable-uploads/OFTAS_Logo.png"
+      image: "/images/OFTAS_Logo.png"
     },
     {
       title: "Bierpongturnier",
       date: "Coming Soon",
       description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
-      image: "/lovable-uploads/Beerpong_4_3_ausgeschnitten.png"
+      image: "/images/Beerpong_4_3_ausgeschnitten.png"
     }
   ];
 
@@ -39,19 +39,19 @@ const Events = () => {
     {
       title: "Stadtfest 2025",
       images: [
-        "/lovable-uploads/stadtfest_2025/Stadtfest_1.jpg",
-        "/lovable-uploads/stadtfest_2025/Stadtfest_2.jpg",
-        "/lovable-uploads/stadtfest_2025/Stadtfest_3.jpg",
-        "/lovable-uploads/stadtfest_2025/Stadtfest_4.jpg",
+        "/images/stadtfest_2025/Stadtfest_1.jpg",
+        "/images/stadtfest_2025/Stadtfest_2.jpg",
+        "/images/stadtfest_2025/Stadtfest_3.jpg",
+        "/images/stadtfest_2025/Stadtfest_4.jpg",
       ]
     },
     {
       title: "Oftas 2024",
       images: [
-        "/lovable-uploads/oftas_2024/Oftas_1.jpg",
-        "/lovable-uploads/oftas_2024/Oftas_2.jpg",
-        "/lovable-uploads/oftas_2024/Oftas_3.jpg",
-        "/lovable-uploads/oftas_2024/Oftas_4.jpg",
+        "/images/oftas_2024/Oftas_1.jpg",
+        "/images/oftas_2024/Oftas_2.jpg",
+        "/images/oftas_2024/Oftas_3.jpg",
+        "/images/oftas_2024/Oftas_4.jpg",
       ]
     },
   ];
@@ -125,7 +125,7 @@ const Events = () => {
               <div className="relative">
                 <AspectRatio ratio={4/3}>
                   <img 
-                    src="/lovable-uploads/a614f169-25ae-437b-bf63-00eaadfb720d.png" 
+                    src="/images/a614f169-25ae-437b-bf63-00eaadfb720d.png" 
                     alt="Jules"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -145,7 +145,7 @@ const Events = () => {
               <div className="relative">
                 <AspectRatio ratio={4/3}>
                   <img 
-                    src="/lovable-uploads/93f181f5-1458-4241-ba99-d6192592406a.png" 
+                    src="/images/93f181f5-1458-4241-ba99-d6192592406a.png" 
                     alt="kleinstadt"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -165,7 +165,7 @@ const Events = () => {
               <div className="relative">
                 <AspectRatio ratio={4/3}>
                   <img 
-                    src="/lovable-uploads/52c34112-6075-41fc-9ba1-c8bbdf2e1882.png" 
+                    src="/images/52c34112-6075-41fc-9ba1-c8bbdf2e1882.png" 
                     alt="Handbuch"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -185,7 +185,7 @@ const Events = () => {
               <div className="relative">
                 <AspectRatio ratio={4/3}>
                   <img 
-                    src="/lovable-uploads/521c63ed-0d4b-49c7-a73b-01fa0a5d6968.png" 
+                    src="/images/521c63ed-0d4b-49c7-a73b-01fa0a5d6968.png" 
                     alt="Joost"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
