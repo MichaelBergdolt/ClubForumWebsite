@@ -58,7 +58,7 @@ const Events = () => {
 
   return (
     <Layout>
-      {/* Forum Fourtyfive Hero Section */}
+      {/* Forum Fortyfive Hero Section */}
       <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -66,7 +66,7 @@ const Events = () => {
             {/* Main Title */}
             <div className="text-center mb-16">
               <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-neon-green to-white bg-clip-text text-transparent leading-tight">
-                Forum Fourtyfive
+                Forum Fortyfive
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.
@@ -175,7 +175,7 @@ const Events = () => {
               <CardHeader className="text-white">
                 <CardTitle className="text-2xl font-bold text-neon-green mb-3">Handbuch</CardTitle>
                 <CardDescription className="text-gray-300 leading-relaxed">
-                  Die Stuttgarter Band HANDBUCH vertont mit warmem Indie-Folk-Pop die kleinen, aber wichtigen Fragen des Alltags. Ihre authentischen Songs mit deutschen Texten begleiten einen durch die Nacht, pusten den Staub aus den Gedanken und hinterlassen ein Gefühl von Geborgenheit.
+                  In einer Welt, die ständig von großen Krisen spricht, kümmert sich HANDBUCH lieber um die kleinen Krisen – die, die einem morgens beim Katerfrühstück ins Ohr brüllen. Warum ist der Wasserkocher so laut? Warum ziehen alle Freunde weg aus dieser von Baustellen und Smog geplagten Stadt? HANDBUCH stellen keine Weltformeln auf, aber sie stellen die richtigen Fragen. Zwischen Gitarre (ROBNIG), Bass (ZELLER) und dem Klavier (SELL) entsteht ein Dialog – manchmal suchend, manchmal fordernd, aber immer mit Gefühl. Die Songs schlagen irgendwo zwischen Abenddämmerung und Morgengrauen auf und tragen ihre eutschsprachigen Texte mit lakonischem Charme und ehrlicher Ratlosigkeit vor. Begleitet von Beats aus der Konserve (weil nicht jedes Schlagzeug eine Wohnung hat), triƯt Indie-Folk-Pop auf eine staubige Großstadtmelancholie. Mal ruhig, mal laut, aber immer so, dass etwas vibriert – im Hemd, in der Lunge, im Kopf. Zwischen Faber, Mumford & Sons und Sons of the East findet HANDBUCH seinen Platz: warm, leicht angeschlagen und erstaunlich treƯsicher.
                 </CardDescription>
               </CardHeader>
             </Card>
