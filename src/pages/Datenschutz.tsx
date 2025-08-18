@@ -109,6 +109,14 @@ const Datenschutz = () => {
             </div>
 
             <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Web-Analyse mit Umami</h2>
+                <p>
+                Wir verwenden auf unserer Website das datenschutzfreundliche Web-Analyse-Tool Umami (<a href="https://umami.is" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://umami.is</a>). Umami verzichtet vollständig auf Cookies und speichert keine personenbezogenen Daten. Es werden ausschließlich anonymisierte Informationen wie Seitenaufrufe, Referrer oder verwendeter Browser erfasst. Eine Identifizierung einzelner Besucher ist nicht möglich.
+                Die Verarbeitung dieser Daten erfolgt auf Grundlage unseres berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO, nämlich zur Analyse und Optimierung unseres Webauftritts. Eine Einwilligung ist hierfür nicht erforderlich.
+                </p>
+            </div>
+
+            <div>
               <h2 className="text-2xl font-bold text-black mb-4">Google Maps</h2>
               <div className="space-y-4">
                 <div>
