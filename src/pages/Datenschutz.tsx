@@ -102,7 +102,7 @@ const Datenschutz = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-black mb-4">Allgemeine Hinsweise zu externen Diensten</h2>
+              <h2 className="text-2xl font-bold text-black mb-4">Allgemeine Hinweise zu externen Diensten</h2>
               <p>
                 Auf unserer Website verwenden wir Dienste Dritter nur, wenn Sie dem ausdrücklich zugestimmt haben. Ihre Daten werden erst an Dritte übermittelt, wenn Sie durch Auswahl in unserem Cookie-Banner oder durch aktives Laden des Inhalts zugestimmt haben
               </p>
