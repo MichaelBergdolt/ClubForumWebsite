@@ -1,35 +1,57 @@
 
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { Images } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const LocationMieten = () => {
+  const [openLightboxIndex, setOpenLightboxIndex] = useState(-1);
+
   const ausstattung = [
     {
       title: "Bar",
       description: "Der perfekte Treffpunkt inkl. Gläsern, Mehrwegbechern, Kühlschränken & Spülmaschine.",
-      image: "/images/location/Bar.png"
+      images: [
+        "/images/location/Bar.png",
+        "/images/location/Bar/Bar_1.png",
+        "/images/location/Bar/Bar_2.jpg",
+        "/images/location/Bar/Bar_3.jpg",
+        "/images/location/Bar/Bar_4.jpg",
+        "/images/location/Bar/Bar_5.jpg",
+        "/images/location/Bar/Bar_6.jpg",
+        "/images/location/Bar/Bar_7.jpg",
+        "/images/location/Bar/Bar_8.jpg",
+        "/images/location/Bar/Bar_9.jpg"
+      ]
     },
     {
       title: "Gastraum", 
       description: "Dein Spot für Beerpong, Chillen und mehr. Tische & Stühle kannst du flexibel anordnen.",
-      image: "/images/location/Gastraum.png"
+      images: [
+        "/images/location/Gastraum.png",
+        "/images/location/Gastraum/Gastraum_1.jpg",
+        "/images/location/Gastraum/Gastraum_2.jpg",
+        "/images/location/Gastraum/Gastraum_3.jpg"
+      ]
     },
     {
       title: "Gewölbekeller",
       description: "Unser Herzstück! Der Dancefloor mit satter Sound- & Lichtanlage für die ganze Nacht.",
-      image: "/images/location/Gewölbekeller.png"
+      images: ["/images/location/Gewölbekeller.png"]
     },
     {
       title: "Küche & Sanitär",
       description: "Voll ausgestattete Küche mit Herd und Kühlschränken sowie getrennte WCs.",
-      image: "/images/location/Küche.png"
+      images: ["/images/location/Küche.png"]
     },
     {
       title: "Außenbereich",
       description: "Genieße die frische Luft auf unserer Terrasse. Ideal für den Sommer!",
-      image: "/images/location/Forum_Außenbereich.jpg"
+      images: ["/images/location/Forum_Außenbereich.jpg"]
     }
   ];
 
@@ -81,12 +103,25 @@ const LocationMieten = () => {
               <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} lg:gap-16 items-center group`}>
                 {/* Mobile: Kombiniertes Bild + Text Element */}
                 <div className="flex-1 max-w-2xl lg:hidden">
-                  <div className="overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
-                    <img 
-                      src={item.image} 
-                      alt={item.title}
-                      className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div 
+                    className="overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500 cursor-pointer"
+                    onClick={() => item.images.length > 1 ? setOpenLightboxIndex(index) : undefined}
+                  >
+                    <div className="relative">
+                      <img 
+                        src={item.images[0]} 
+                        alt={item.title}
+                        className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      
+                      {/* Bilder-Anzahl Overlay - nur wenn mehrere Bilder */}
+                      {item.images.length > 1 && (
+                        <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                          <Images className="h-3 w-3" />
+                          {item.images.length} Bilder
+                        </div>
+                      )}
+                    </div>
                     
                     {/* Text direkt unter dem Bild - mobile */}
                     <div className="bg-card/95 backdrop-blur-sm p-6 border-t border-border/50">
@@ -105,13 +140,24 @@ const LocationMieten = () => {
 
                 {/* Desktop: Separates Bild */}
                 <div className="flex-1 max-w-2xl hidden lg:block">
-                  <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+                  <div 
+                    className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500 cursor-pointer"
+                    onClick={() => item.images.length > 1 ? setOpenLightboxIndex(index) : undefined}
+                  >
                     <img 
-                      src={item.image} 
+                      src={item.images[0]} 
                       alt={item.title}
                       className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    
+                    {/* Bilder-Anzahl Overlay - nur wenn mehrere Bilder */}
+                    {item.images.length > 1 && (
+                      <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <Images className="h-4 w-4" />
+                        {item.images.length} Bilder
+                      </div>
+                    )}
                   </div>
                 </div>
                 
@@ -199,6 +245,13 @@ const LocationMieten = () => {
           </Link>
         </div>
       </section>
+
+      {/* Lightbox für Bildergalerie */}
+      <Lightbox
+        open={openLightboxIndex > -1}
+        close={() => setOpenLightboxIndex(-1)}
+        slides={openLightboxIndex > -1 ? ausstattung[openLightboxIndex].images.map(src => ({ src })) : []}
+      />
     </Layout>
   );
 };
