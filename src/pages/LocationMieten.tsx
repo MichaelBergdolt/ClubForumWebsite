@@ -9,27 +9,27 @@ const LocationMieten = () => {
     {
       title: "Bar",
       description: "Der perfekte Treffpunkt inkl. Gläsern, Mehrwegbechern, Kühlschränken & Spülmaschine.",
-      image: "/images/7275d9d5-5b8c-43b0-a397-f9f603d43291.png"
+      image: "/images/location/Bar.png"
     },
     {
       title: "Gastraum", 
       description: "Dein Spot für Beerpong, Chillen und mehr. Tische & Stühle kannst du flexibel anordnen.",
-      image: "/images/9fc4fb65-6c5a-4834-afab-b01d375d142c.png"
+      image: "/images/location/Gastraum.png"
     },
     {
       title: "Gewölbekeller",
       description: "Unser Herzstück! Der Dancefloor mit satter Sound- & Lichtanlage für die ganze Nacht.",
-      image: "/images/ba0fb2a5-73c5-4b15-a9c1-b223c9a0fb6c.png"
+      image: "/images/location/Gewölbekeller.png"
     },
     {
       title: "Küche & Sanitär",
       description: "Voll ausgestattete Küche mit Herd und Kühlschränken sowie getrennte WCs.",
-      image: "/images/96cf793b-63a7-4e1c-9acc-aa0508df55e5.png"
+      image: "/images/location/Küche.png"
     },
     {
       title: "Außenbereich",
       description: "Genieße die frische Luft auf unserer Terrasse. Ideal für den Sommer!",
-      image: "/images/Forum_Garten.jpg"
+      image: "/images/location/Forum_Außenbereich.jpg"
     }
   ];
 
@@ -51,7 +51,7 @@ const LocationMieten = () => {
         <div className="flex-[0.7] max-w-xl lg:max-w-none">
           <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 group">
             <img 
-          src="/images/Forum_von_außen.jpg" 
+          src="/images/events/past_events/stadtfest_2025/Stadtfest_1.jpg" 
           alt="Außenansicht des Club Forum" 
           className="w-full h-72 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
             />
