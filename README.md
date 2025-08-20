@@ -1,73 +1,115 @@
-# Welcome to your Lovable project
+<div align="center">
+  <img src="./public/images/Logo.png" alt="Club Forum Logo" width="120" height="120"/>
 
-## Project info
+# Club Forum Website
 
-**URL**: https://lovable.dev/projects/98d025cf-5049-49d1-b5ee-1d946117b370
+Die offizielle Website des **Club Forum** – Events, Location & Community!
 
-## How can I edit this code?
+[![GitHub Repo](https://img.shields.io/badge/GitHub-ClubForumWebsite-181717?logo=github)](https://github.com/MichaelBergdolt/ClubForumWebsite)
+[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-Latest-000000?logo=react)](https://ui.shadcn.com/)
+[![Firebase Hosting](https://img.shields.io/badge/Deployed-Firebase-FFCA28?logo=firebase)](https://firebase.google.com/)
 
-There are several ways of editing your application.
+</div>
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/98d025cf-5049-49d1-b5ee-1d946117b370) and start prompting.
+## 📌 Projektübersicht
 
-Changes made via Lovable will be committed automatically to this repo.
+Die **Club Forum Website** dient als digitale Präsenz unserer Event-Community.
+Hier finden Besucher **Informationen über unsere Location**, **aktuelle Events** und **Kontaktmöglichkeiten**.
 
-**Use your preferred IDE**
+**Ziele der Website:**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+* Bewerben von Veranstaltungen
+* Vorstellung der Location
+* Bereitstellen von Kontaktmöglichkeiten
+* Einfache, mobile-optimierte Navigation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🚀 Features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* 📜 **Eventübersicht** – Präsentation der kommenden Veranstaltungen
+* 🏩️ **Location Showcase** – Galerie und Informationen
+* 📩 **Kontaktformular** – Einfache Anfragen & Buchungen
+* 📱 **Responsive Design** – Optimiert für alle Bildschirmgrößen
+* ⚡ **Schnelle Ladezeiten** – Dank **Vite** und optimierter Bundles
+* 🎨 **Modernes UI** – Mit **Tailwind CSS** und **shadcn/ui** gebaut
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+| Technologie          | Beschreibung                            | Link                                                  |
+| -------------------- | --------------------------------------- | ----------------------------------------------------- |
+| **Vite**             | Lightning-fast Build Tool & Dev Server  | [vitejs.dev](https://vitejs.dev/)                     |
+| **React**            | UI-Library für modulare Komponenten     | [react.dev](https://react.dev/)                       |
+| **TypeScript**       | Statische Typisierung für besseren Code | [typescriptlang.org](https://www.typescriptlang.org/) |
+| **Tailwind CSS**     | Utility-First CSS Framework             | [tailwindcss.com](https://tailwindcss.com/)           |
+| **shadcn/ui**        | UI-Komponentenbibliothek für React      | [ui.shadcn.com](https://ui.shadcn.com/)               |
+| **Firebase Hosting** | Deployment & Hosting                    | [firebase.google.com](https://firebase.google.com/)   |
+
+---
+
+## ⚙️ Installation & Setup
+
+> **Voraussetzung**: [Node.js](https://nodejs.org/) **>=18** und npm müssen installiert sein.
+
+```bash
+# Repository klonen
+git clone https://github.com/MichaelBergdolt/ClubForumWebsite.git
+
+# In das Projektverzeichnis wechseln
+cd ClubForumWebsite
+
+# Abhängigkeiten installieren
+npm install
+
+# Entwicklungsserver starten
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Die Website läuft nun unter
+**[http://localhost:8080](http://localhost:8080)**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 📂 Projektstruktur
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```plaintext
+.
+├── public/              # Statische Assets (Bilder, Icons, Fonts)
+├── src/
+│   ├── components/      # Wiederverwendbare UI-Komponenten
+│   ├── pages/           # Hauptseiten der Website
+│   ├── lib/             # Hilfsfunktionen & Hooks
+│   ├── styles/          # Globale Styles & Tailwind-Konfiguration
+│   ├── main.tsx         # Einstiegspunkt der App
+│   └── App.tsx          # Hauptrender-Komponente
+├── firebase.json        # Firebase Hosting Konfiguration
+├── .firebaserc          # Firebase Projekt-Konfiguration
+├── package.json
+├── tailwind.config.ts
+└── vite.config.ts
+```
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## 🔥 Deployment über Firebase
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Das Projekt wird über **Firebase Hosting** automatisch bei Änderungen am main Branch deployed.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/98d025cf-5049-49d1-b5ee-1d946117b370) and click on Share -> Publish.
+## 📬 Kontakt
 
-## Can I connect a custom domain to my Lovable project?
+📧 **E-Mail:** [club.forum.bb@gmail.com](mailto:club.forum.bb@gmail.com)
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📄 Lizenz
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Dieses Projekt ist privat und nicht zur öffentlichen Weiterverwendung freigegeben.
