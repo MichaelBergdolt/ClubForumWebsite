@@ -16,7 +16,6 @@ const LocationMieten = () => {
       title: "Bar",
       description: "Der perfekte Treffpunkt inkl. Gläsern, Mehrwegbechern, Kühlschränken & Spülmaschine.",
       images: [
-        "/images/location/Bar.png",
         "/images/location/Bar/Bar_1.png",
         "/images/location/Bar/Bar_2.jpg",
         "/images/location/Bar/Bar_3.jpg",
@@ -32,7 +31,6 @@ const LocationMieten = () => {
       title: "Gastraum", 
       description: "Dein Spot für Beerpong, Chillen und mehr. Tische & Stühle kannst du flexibel anordnen.",
       images: [
-        "/images/location/Gastraum.png",
         "/images/location/Gastraum/Gastraum_1.jpg",
         "/images/location/Gastraum/Gastraum_2.jpg",
         "/images/location/Gastraum/Gastraum_3.jpg"
