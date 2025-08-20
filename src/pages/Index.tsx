@@ -29,9 +29,6 @@ const Index = () => {
             </Button>
           </Link>
         </div>
-        {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"> // TODO: Ask for Opinion
-          <ArrowDown className="h-8 w-8 text-white" />
-        </div> */}
       </section>
 
       {/* Über Uns Section */}
