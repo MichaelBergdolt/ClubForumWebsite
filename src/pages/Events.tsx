@@ -27,8 +27,9 @@ const Events = () => {
     title: "Forum Fortyfive",
     description: "Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.",
     accentColor: {
-      primary: "neon-green", // Can be changed to any color from your design system
-      primaryRgb: "64, 255, 0", // HSL/RGB values for custom gradients
+      primary: "150 100% 60%", // HSL values for neon green - easily changeable (e.g., "25 100% 50%" for orange)
+      primaryDark: "150 100% 45%",
+      primaryLight: "150 100% 70%",
     },
     eventDetails: [
       {
@@ -125,13 +126,25 @@ const Events = () => {
   return (
     <Layout>
       {/* Next Event Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
+      <section 
+        className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+        style={{
+          '--event-primary': nextEvent.accentColor.primary,
+          '--event-primary-dark': nextEvent.accentColor.primaryDark,
+          '--event-primary-light': nextEvent.accentColor.primaryLight,
+        } as React.CSSProperties}
+      >
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Main Title */}
             <div className="text-center mb-16">
-              <h1 className={`text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-${nextEvent.accentColor.primary} to-white bg-clip-text text-transparent leading-tight`}>
+              <h1 
+                className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
+                style={{
+                  backgroundImage: `linear-gradient(to right, white, hsl(var(--event-primary)), white)`
+                }}
+              >
                 {nextEvent.title}
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
@@ -145,8 +158,23 @@ const Events = () => {
                 const IconComponent = getIconComponent(detail.icon);
                 return (
                   <div key={index} className="text-center group h-full">
-                    <div className={`bg-${nextEvent.accentColor.primary}/20 border border-${nextEvent.accentColor.primary}/50 rounded-lg p-6 group-hover:bg-${nextEvent.accentColor.primary}/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]`}>
-                      <IconComponent className={`h-8 w-8 text-${nextEvent.accentColor.primary} mx-auto mb-3`} />
+                    <div 
+                      className="rounded-lg p-6 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px] border"
+                      style={{
+                        backgroundColor: `hsl(var(--event-primary) / 0.2)`,
+                        borderColor: `hsl(var(--event-primary) / 0.5)`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `hsl(var(--event-primary) / 0.3)`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = `hsl(var(--event-primary) / 0.2)`;
+                      }}
+                    >
+                      <IconComponent 
+                        className="h-8 w-8 mx-auto mb-3" 
+                        style={{ color: `hsl(var(--event-primary))` }}
+                      />
                       <h3 className="text-lg font-bold text-white mb-2">{detail.title}</h3>
                       <p className="text-gray-300 whitespace-pre-line">{detail.value}</p>
                     </div>
@@ -163,12 +191,24 @@ const Events = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Die Acts des Abends</h2>
-            <div className={`w-24 h-1 bg-${nextEvent.accentColor.primary} mx-auto`}></div>
+            <div 
+              className="w-24 h-1 mx-auto"
+              style={{ backgroundColor: `hsl(var(--event-primary))` }}
+            ></div>
           </div>
           
           <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${Math.min(nextEvent.artists.length, 4)} gap-8 max-w-7xl mx-auto`}>
             {nextEvent.artists.map((artist, index) => (
-              <Card key={index} className={`bg-gray-900/50 border-gray-700 hover:border-${nextEvent.accentColor.primary}/50 transition-all duration-300 group overflow-hidden`}>
+              <Card 
+                key={index} 
+                className="bg-gray-900/50 border-gray-700 transition-all duration-300 group overflow-hidden"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = `hsl(var(--event-primary) / 0.5)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'hsl(215 27.9% 16.9%)'; // gray-700
+                }}
+              >
                 <div className="relative">
                   <AspectRatio ratio={4/3}>
                     <img 
@@ -180,7 +220,12 @@ const Events = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 <CardHeader className="text-white">
-                  <CardTitle className={`text-2xl font-bold text-${nextEvent.accentColor.primary} mb-3`}>{artist.name}</CardTitle>
+                  <CardTitle 
+                    className="text-2xl font-bold mb-3"
+                    style={{ color: `hsl(var(--event-primary))` }}
+                  >
+                    {artist.name}
+                  </CardTitle>
                   <CardDescription className="text-gray-300 leading-relaxed">
                     {artist.description}
                   </CardDescription>

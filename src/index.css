@@ -36,6 +36,11 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
+
+    /* Dynamic event colors - can be overridden */
+    --event-primary: 150 100% 60%; /* Default: neon green */
+    --event-primary-dark: 150 100% 45%;
+    --event-primary-light: 150 100% 70%;
   }
 
   .dark {
