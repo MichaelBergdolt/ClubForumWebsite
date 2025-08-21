@@ -77,6 +77,40 @@ const Events = () => {
     ]
   };
 
+  // // Next Event Configuration - easily maintainable
+  // const nextEvent = {
+  //   title: "Halloween",
+  //   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
+  //   accentColor: {
+  //     primary: "32 100% 50%", // Halloween orange
+  //     primaryDark: "32 100% 35%",
+  //     primaryLight: "32 100% 65%",
+  //   },
+  //   eventDetails: [
+  //     {
+  //       icon: "CalendarDays",
+  //       title: "Datum",
+  //       value: "Donnerstag, 31.10.2025"
+  //     },
+  //     {
+  //       icon: "Clock", 
+  //       title: "Uhrzeit",
+  //       value: "ab 18 Uhr"
+  //     },
+  //     {
+  //       icon: "MapPin",
+  //       title: "Ort", 
+  //       value: "Club Forum\nMarktstraße 9\n71032 Böblingen"
+  //     },
+  //     {
+  //       icon: "Ticket",
+  //       title: "Eintritt",
+  //       value: "konstenlos mit Kostüm\n 2€ ohne Kostüm"
+  //     }
+  //   ],
+  //   artists: []
+  // };
+
   const upcomingEvents = [
     {
       title: "Halloween",
@@ -126,23 +160,24 @@ const Events = () => {
   return (
     <Layout>
       {/* Next Event Hero Section */}
-      <section 
+      <section
         className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
-        style={{
-          '--event-primary': nextEvent.accentColor.primary,
-          '--event-primary-dark': nextEvent.accentColor.primaryDark,
-          '--event-primary-light': nextEvent.accentColor.primaryLight,
-        } as React.CSSProperties}
+        style={
+          {
+            "--event-primary": nextEvent.accentColor.primary,
+            "--event-primary-dark": nextEvent.accentColor.primaryDark,
+            "--event-primary-light": nextEvent.accentColor.primaryLight,
+          } as React.CSSProperties
+        }
       >
-        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Main Title */}
             <div className="text-center mb-16">
-              <h1 
+              <h1
                 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
                 style={{
-                  backgroundImage: `linear-gradient(to right, white, hsl(var(--event-primary)), white)`
+                  backgroundImage: `linear-gradient(to right, white, hsl(var(--event-primary)), white)`,
                 }}
               >
                 {nextEvent.title}
@@ -151,14 +186,19 @@ const Events = () => {
                 {nextEvent.description}
               </p>
             </div>
-            
-            {/* Event Info Grid - Dynamic based on eventDetails */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${Math.min(nextEvent.eventDetails.length, 4)} gap-8 mb-20`}>
+
+            {/* Event Info Grid - Dynamisch, aber wie vorher */}
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${Math.min(
+                nextEvent.eventDetails.length,
+                4
+              )} gap-8 mb-20`}
+            >
               {nextEvent.eventDetails.map((detail, index) => {
                 const IconComponent = getIconComponent(detail.icon);
                 return (
                   <div key={index} className="text-center group h-full">
-                    <div 
+                    <div
                       className="rounded-lg p-6 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px] border"
                       style={{
                         backgroundColor: `hsl(var(--event-primary) / 0.2)`,
@@ -171,12 +211,16 @@ const Events = () => {
                         e.currentTarget.style.backgroundColor = `hsl(var(--event-primary) / 0.2)`;
                       }}
                     >
-                      <IconComponent 
-                        className="h-8 w-8 mx-auto mb-3" 
+                      <IconComponent
+                        className="h-8 w-8 mx-auto mb-3"
                         style={{ color: `hsl(var(--event-primary))` }}
                       />
-                      <h3 className="text-lg font-bold text-white mb-2">{detail.title}</h3>
-                      <p className="text-gray-300 whitespace-pre-line">{detail.value}</p>
+                      <h3 className="text-lg font-bold text-white mb-2">
+                        {detail.title}
+                      </h3>
+                      <p className="text-gray-300 whitespace-pre-line">
+                        {detail.value}
+                      </p>
                     </div>
                   </div>
                 );
@@ -185,73 +229,82 @@ const Events = () => {
           </div>
         </div>
       </section>
-
       {/* Artists Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-950 to-black">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Die Acts des Abends</h2>
-            <div 
-              className="w-24 h-1 mx-auto"
-              style={{ backgroundColor: `hsl(var(--event-primary))` }}
-            ></div>
-          </div>
-          
-          <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${Math.min(nextEvent.artists.length, 4)} gap-8 max-w-7xl mx-auto`}>
-            {nextEvent.artists.map((artist, index) => (
-              <Card 
-                key={index} 
-                className="bg-gray-900/50 border-gray-700 transition-all duration-300 group overflow-hidden"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `hsl(var(--event-primary) / 0.5)`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'hsl(215 27.9% 16.9%)'; // gray-700
-                }}
-              >
-                <div className="relative">
-                  <AspectRatio ratio={4/3}>
-                    <img 
-                      src={artist.image} 
-                      alt={artist.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </AspectRatio>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <CardHeader className="text-white">
-                  <CardTitle 
-                    className="text-2xl font-bold mb-3"
-                    style={{ color: `hsl(var(--event-primary))` }}
-                  >
-                    {artist.name}
-                  </CardTitle>
-                  <CardDescription className="text-gray-300 leading-relaxed">
-                    {artist.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {nextEvent.artists.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-gray-950 to-black">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Die Acts des Abends
+              </h2>
+              <div
+                className="w-24 h-1 mx-auto"
+                style={{ backgroundColor: `hsl(var(--event-primary))` }}
+              ></div>
+            </div>
 
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${Math.min(
+                nextEvent.artists.length,
+                4
+              )} gap-8 max-w-7xl mx-auto`}
+            >
+              {nextEvent.artists.map((artist, index) => (
+                <Card
+                  key={index}
+                  className="bg-gray-900/50 border-gray-700 transition-all duration-300 group overflow-hidden"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = `hsl(var(--event-primary) / 0.5)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "hsl(215 27.9% 16.9%)"; // gray-700
+                  }}
+                >
+                  <div className="relative">
+                    <AspectRatio ratio={4 / 3}>
+                      <img
+                        src={artist.image}
+                        alt={artist.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </AspectRatio>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  <CardHeader className="text-white">
+                    <CardTitle
+                      className="text-2xl font-bold mb-3"
+                      style={{ color: `hsl(var(--event-primary))` }}
+                    >
+                      {artist.name}
+                    </CardTitle>
+                    <CardDescription className="text-gray-300 leading-relaxed">
+                      {artist.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Kommende Events */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Weitere Highlights</h2>
-          
+          <h2 className="text-4xl font-bold text-center mb-16">
+            Weitere Highlights
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {upcomingEvents.map((event, index) => (
-              <Card 
-                key={index} 
+              <Card
+                key={index}
                 className="hover:shadow-xl transition-all duration-300 group overflow-hidden"
               >
                 <div className="relative">
-                  <AspectRatio ratio={4/3}>
-                    <img 
-                      src={event.image} 
+                  <AspectRatio ratio={4 / 3}>
+                    <img
+                      src={event.image}
                       alt={event.title}
                       className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
                     />
@@ -263,7 +316,7 @@ const Events = () => {
                       {event.title}
                     </CardTitle>
                   </div>
-                  
+
                   {/* Event Details */}
                   <div className="space-y-2 mt-4">
                     {event.date && (
@@ -280,7 +333,9 @@ const Events = () => {
                         <div className="text-sm font-medium text-gray-600 leading-tight">
                           <div>{event.locationName}</div>
                           {event.locationAddress && (
-                            <div className="text-sm font-medium">{event.locationAddress}</div>
+                            <div className="text-sm font-medium">
+                              {event.locationAddress}
+                            </div>
                           )}
                         </div>
                       </div>
@@ -306,9 +361,13 @@ const Events = () => {
       {/* Event-Archiv */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">So legendär waren unsere letzten Partys</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"> {/* Gap vergrößert */}
+          <h2 className="text-4xl font-bold text-center mb-16">
+            So legendär waren unsere letzten Partys
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {" "}
+            {/* Gap vergrößert */}
             {pastEvents.map((event, index) => (
               <Card
                 key={index}
@@ -347,7 +406,11 @@ const Events = () => {
         open={openLightboxIndex > -1}
         close={() => setOpenLightboxIndex(-1)}
         // Die Bilder für das ausgewählte Event übergeben
-        slides={openLightboxIndex > -1 ? pastEvents[openLightboxIndex].images.map(src => ({ src })) : []}
+        slides={
+          openLightboxIndex > -1
+            ? pastEvents[openLightboxIndex].images.map((src) => ({ src }))
+            : []
+        }
       />
 
       {/* CTA */}
@@ -355,30 +418,31 @@ const Events = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Verpasse kein Event!</h2>
           <p className="text-xl text-gray-300 mb-8">
-            Folge uns auf Instagram für die neuesten Updates und Behind-the-Scenes Content
+            Folge uns auf Instagram für die neuesten Updates und
+            Behind-the-Scenes Content
           </p>
-        <a 
-          href="https://www.instagram.com/club_forumbb" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors space-x-2"
-        >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2.2}
-          className="w-5 h-5"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zM12 7a5 5 0 100 10 5 5 0 000-10zm5.25-0.75h.008v.008h-.008v-.008z"
-        />
-        </svg>
-          <span>@club_forumbb folgen</span>
-        </a>
+          <a
+            href="https://www.instagram.com/club_forumbb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors space-x-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.2}
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zM12 7a5 5 0 100 10 5 5 0 000-10zm5.25-0.75h.008v.008h-.008v-.008z"
+              />
+            </svg>
+            <span>@club_forumbb folgen</span>
+          </a>
         </div>
       </section>
     </Layout>
