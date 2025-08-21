@@ -10,6 +10,72 @@ const Events = () => {
   // State, um den Index der geöffneten Galerie zu speichern (-1 bedeutet geschlossen)
   const [openLightboxIndex, setOpenLightboxIndex] = useState(-1);
 
+  // Helper function to get icon component by name
+  const getIconComponent = (iconName: string) => {
+    const icons = {
+      CalendarDays,
+      Clock,
+      MapPin,
+      Ticket,
+      Images
+    };
+    return icons[iconName as keyof typeof icons] || CalendarDays;
+  };
+
+  // Next Event Configuration - easily maintainable
+  const nextEvent = {
+    title: "Forum Fortyfive",
+    description: "Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.",
+    accentColor: {
+      primary: "neon-green", // Can be changed to any color from your design system
+      primaryRgb: "64, 255, 0", // HSL/RGB values for custom gradients
+    },
+    eventDetails: [
+      {
+        icon: "CalendarDays",
+        title: "Datum",
+        value: "Samstag, 06.09.2025"
+      },
+      {
+        icon: "Clock", 
+        title: "Uhrzeit",
+        value: "ab 16 Uhr"
+      },
+      {
+        icon: "MapPin",
+        title: "Ort", 
+        value: "Fetzers Böblingen\nPoststraße 38\n71032 Böblingen"
+      },
+      {
+        icon: "Ticket",
+        title: "Eintritt",
+        value: "frei"
+      }
+    ],
+    artists: [
+      {
+        name: "Jules",
+        image: "/images/events/upcoming_events/forum_fortyfive/jules.png",
+        description: "Die 25-jährige 'jules' mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als 'wannabe rockstar in a pop-girly's body'. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin 'jules' einen emanzipierten, mutigen Sound voller Farbe."
+      },
+      {
+        name: "kleinstadt",
+        image: "/images/events/upcoming_events/forum_fortyfive/kleinstadt.png", 
+        description: "Die Band kleinstadt aus Herrenberg vereint in ihrer Musik die enge Verbundenheit langjähriger Freundschaft mit authentischen deutschen Texten, die von Liebe, Wut, Sehnsucht, Spaß und Freiheit erzählen. Ihre Klänge spiegeln das Erwachsenwerden wider und laden dazu ein, gemeinsam zu träumen und zu fühlen."
+      },
+      {
+        name: "Handbuch",
+        image: "/images/events/upcoming_events/forum_fortyfive/handbuch.png",
+        description: "In einer Welt, die ständig von großen Krisen spricht, kümmert sich HANDBUCH lieber um die kleinen Krisen - die, die einem morgens beim Katerfrühstück ins Ohr brüllen. Warum ist der Wasserkocher so laut? Warum ziehen alle Freunde weg aus dieser von Baustellen und Smog geplagten Stadt? HANDBUCH stellen keine Weltformeln auf, aber sie stellen die richtigen Fragen. Zwischen Gitarre (ROBNIG), Bass (ZELLER) und dem Klavier (SELL) entsteht ein Dialog - manchmal suchend, manchmal fordernd, aber immer mit Gefühl. Die Songs schlagen irgendwo zwischen Abenddämmerung und Morgengrauen auf und tragen ihre deutschsprachigen Texte mit lakonischem Charme und ehrlicher Ratlosigkeit vor. Begleitet von Beats aus der Konserve (weil nicht jedes Schlagzeug eine Wohnung hat), trifft Indie-Folk-Pop auf eine staubige Großstadtmelancholie. Mal ruhig, mal laut, aber immer so, dass etwas vibriert - im Hemd, in der Lunge, im Kopf. Zwischen Faber, Mumford & Sons und Sons of the East findet HANDBUCH seinen Platz: warm, leicht angeschlagen und erstaunlich treffsicher."
+      },
+      {
+        name: "Joost",
+        image: "/images/events/upcoming_events/forum_fortyfive/joost.png",
+        description: "Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion."
+      }
+    ]
+  };
+
   const upcomingEvents = [
     {
       title: "Halloween",
@@ -58,54 +124,35 @@ const Events = () => {
 
   return (
     <Layout>
-      {/* Forum Fortyfive Hero Section */}
+      {/* Next Event Hero Section */}
       <section className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden">
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Main Title */}
             <div className="text-center mb-16">
-              <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-neon-green to-white bg-clip-text text-transparent leading-tight">
-                Forum Fortyfive
+              <h1 className={`text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-${nextEvent.accentColor.primary} to-white bg-clip-text text-transparent leading-tight`}>
+                {nextEvent.title}
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.
+                {nextEvent.description}
               </p>
             </div>
             
-            {/* Event Info Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-              <div className="text-center group h-full">
-                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]">
-                  <CalendarDays className="h-8 w-8 text-neon-green mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-white mb-2">Datum</h3>
-                  <p className="text-gray-300">Samstag, 06.09.2025</p>
-                </div>
-              </div>
-              
-              <div className="text-center group h-full">
-                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]">
-                  <Clock className="h-8 w-8 text-neon-green mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-white mb-2">Uhrzeit</h3>
-                  <p className="text-gray-300">ab 16 Uhr</p>
-                </div>
-              </div>
-              
-              <div className="text-center group h-full">
-                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]">
-                  <MapPin className="h-8 w-8 text-neon-green mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-white mb-2">Ort</h3>
-                  <p className="text-gray-300">Fetzers Böblingen<br/>Poststraße 38<br/>71032 Böblingen</p>
-                </div>
-              </div>
-              
-              <div className="text-center group h-full">
-                <div className="bg-neon-green/20 border border-neon-green/50 rounded-lg p-6 group-hover:bg-neon-green/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]">
-                  <Ticket className="h-8 w-8 text-neon-green mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-white mb-2">Eintritt</h3>
-                  <p className="text-gray-300">frei</p>
-                </div>
-              </div>
+            {/* Event Info Grid - Dynamic based on eventDetails */}
+            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${Math.min(nextEvent.eventDetails.length, 4)} gap-8 mb-20`}>
+              {nextEvent.eventDetails.map((detail, index) => {
+                const IconComponent = getIconComponent(detail.icon);
+                return (
+                  <div key={index} className="text-center group h-full">
+                    <div className={`bg-${nextEvent.accentColor.primary}/20 border border-${nextEvent.accentColor.primary}/50 rounded-lg p-6 group-hover:bg-${nextEvent.accentColor.primary}/30 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px]`}>
+                      <IconComponent className={`h-8 w-8 text-${nextEvent.accentColor.primary} mx-auto mb-3`} />
+                      <h3 className="text-lg font-bold text-white mb-2">{detail.title}</h3>
+                      <p className="text-gray-300 whitespace-pre-line">{detail.value}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -116,89 +163,30 @@ const Events = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Die Acts des Abends</h2>
-            <div className="w-24 h-1 bg-neon-green mx-auto"></div>
+            <div className={`w-24 h-1 bg-${nextEvent.accentColor.primary} mx-auto`}></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {/* Jules */}
-            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
-              <div className="relative">
-                <AspectRatio ratio={4/3}>
-                  <img 
-                    src="/images/events/upcoming_events/forum_fortyfive/jules.png" 
-                    alt="Jules"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </AspectRatio>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <CardHeader className="text-white">
-                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Jules</CardTitle>
-                <CardDescription className="text-gray-300 leading-relaxed">
-                  Die 25-jährige „jules“ mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als „wannabe rockstar in a pop-girly’s body“. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin „jules“ einen emanzipierten, mutigen Sound voller Farbe.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            {/* kleinstadt */}
-            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
-              <div className="relative">
-                <AspectRatio ratio={4/3}>
-                  <img 
-                    src="/images/events/upcoming_events/forum_fortyfive/kleinstadt.png" 
-                    alt="kleinstadt"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </AspectRatio>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <CardHeader className="text-white">
-                <CardTitle className="text-2xl font-bold text-neon-green mb-3">kleinstadt</CardTitle>
-                <CardDescription className="text-gray-300 leading-relaxed">
-                  Die Band kleinstadt aus Herrenberg vereint in ihrer Musik die enge Verbundenheit langjähriger Freundschaft mit authentischen deutschen Texten, die von Liebe, Wut, Sehnsucht, Spaß und Freiheit erzählen. Ihre Klänge spiegeln das Erwachsenwerden wider und laden dazu ein, gemeinsam zu träumen und zu fühlen.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            {/* Handbuch */}
-            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
-              <div className="relative">
-                <AspectRatio ratio={4/3}>
-                  <img 
-                    src="/images/events/upcoming_events/forum_fortyfive/handbuch.png" 
-                    alt="Handbuch"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </AspectRatio>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <CardHeader className="text-white">
-                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Handbuch</CardTitle>
-                <CardDescription className="text-gray-300 leading-relaxed">
-                  In einer Welt, die ständig von großen Krisen spricht, kümmert sich HANDBUCH lieber um die kleinen Krisen – die, die einem morgens beim Katerfrühstück ins Ohr brüllen. Warum ist der Wasserkocher so laut? Warum ziehen alle Freunde weg aus dieser von Baustellen und Smog geplagten Stadt? HANDBUCH stellen keine Weltformeln auf, aber sie stellen die richtigen Fragen. Zwischen Gitarre (ROBNIG), Bass (ZELLER) und dem Klavier (SELL) entsteht ein Dialog – manchmal suchend, manchmal fordernd, aber immer mit Gefühl. Die Songs schlagen irgendwo zwischen Abenddämmerung und Morgengrauen auf und tragen ihre eutschsprachigen Texte mit lakonischem Charme und ehrlicher Ratlosigkeit vor. Begleitet von Beats aus der Konserve (weil nicht jedes Schlagzeug eine Wohnung hat), triƯt Indie-Folk-Pop auf eine staubige Großstadtmelancholie. Mal ruhig, mal laut, aber immer so, dass etwas vibriert – im Hemd, in der Lunge, im Kopf. Zwischen Faber, Mumford & Sons und Sons of the East findet HANDBUCH seinen Platz: warm, leicht angeschlagen und erstaunlich treƯsicher.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            {/* Joost */}
-            <Card className="bg-gray-900/50 border-gray-700 hover:border-neon-green/50 transition-all duration-300 group overflow-hidden">
-              <div className="relative">
-                <AspectRatio ratio={4/3}>
-                  <img 
-                    src="/images/events/upcoming_events/forum_fortyfive/joost.png" 
-                    alt="Joost"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </AspectRatio>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <CardHeader className="text-white">
-                <CardTitle className="text-2xl font-bold text-neon-green mb-3">Joost</CardTitle>
-                <CardDescription className="text-gray-300 leading-relaxed">
-                  Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+          <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${Math.min(nextEvent.artists.length, 4)} gap-8 max-w-7xl mx-auto`}>
+            {nextEvent.artists.map((artist, index) => (
+              <Card key={index} className={`bg-gray-900/50 border-gray-700 hover:border-${nextEvent.accentColor.primary}/50 transition-all duration-300 group overflow-hidden`}>
+                <div className="relative">
+                  <AspectRatio ratio={4/3}>
+                    <img 
+                      src={artist.image} 
+                      alt={artist.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </AspectRatio>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <CardHeader className="text-white">
+                  <CardTitle className={`text-2xl font-bold text-${nextEvent.accentColor.primary} mb-3`}>{artist.name}</CardTitle>
+                  <CardDescription className="text-gray-300 leading-relaxed">
+                    {artist.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
