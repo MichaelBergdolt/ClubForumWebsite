@@ -55,7 +55,7 @@ export default {
 				},
 				// Club-specific colors
 				neon: {
-					green: '#00ff88',
+					green: '#00ff88', // Purple: '#8b5cf6'
 					blue: '#00d9ff',
 					purple: '#8b5cf6',
 					pink: '#ff0080'

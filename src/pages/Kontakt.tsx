@@ -108,7 +108,7 @@ const Kontakt = () => {
             {/* Kontaktformular - TEMPORARILY DISABLED */}
             <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold flex items-center">
+                <CardTitle className="text-2xl font-bold flex items-center text-white">
                   <MessageSquare className="h-6 w-6 mr-2 text-neon-green" />
                   Kontaktformular
                 </CardTitle>
