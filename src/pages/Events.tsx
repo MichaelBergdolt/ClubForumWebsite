@@ -187,13 +187,8 @@ const Events = () => {
               </p>
             </div>
 
-            {/* Event Info Grid - Dynamisch, aber wie vorher */}
-            <div
-              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${Math.min(
-                nextEvent.eventDetails.length,
-                4
-              )} gap-8 mb-20`}
-            >
+            {/* Event Info Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
               {nextEvent.eventDetails.map((detail, index) => {
                 const IconComponent = getIconComponent(detail.icon);
                 return (
