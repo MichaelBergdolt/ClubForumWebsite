@@ -101,12 +101,12 @@ const Kontakt = () => {
       </section>
 
       {/* Kontaktformular & Info */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
             {/* Kontaktformular - TEMPORARILY DISABLED */}
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold flex items-center">
                   <MessageSquare className="h-6 w-6 mr-2 text-neon-green" />
@@ -116,8 +116,8 @@ const Kontakt = () => {
               <CardContent>
                 <div className="text-center py-12">
                   <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-700 mb-2">Kontaktformular wird überarbeitet</h3>
-                  <p className="text-gray-600 mb-6">
+                  <h3 className="text-xl font-semibold text-gray-300 mb-2">Kontaktformular wird überarbeitet</h3>
+                  <p className="text-gray-400 mb-6">
                     Unser Kontaktformular wird gerade technisch überarbeitet. 
                     In der Zwischenzeit kannst du uns gerne direkt per E-Mail kontaktieren.
                   </p>
@@ -222,25 +222,25 @@ const Kontakt = () => {
 
             {/* Location Info */}
             <div className="space-y-8">
-              <Card>
+              <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold flex items-center">
+                  <CardTitle className="text-2xl font-bold flex items-center text-white">
                     <MapPin className="h-6 w-6 mr-2 text-neon-green" />
                     Unsere Location
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <h3 className="font-semibold text-lg">Club Forum Böblingen</h3>
-                    <p className="text-gray-600">Marktstraße 9</p>
-                    <p className="text-gray-600">71032 Böblingen</p>
+                    <h3 className="font-semibold text-lg text-white">Club Forum Böblingen</h3>
+                    <p className="text-gray-300">Marktstraße 9</p>
+                    <p className="text-gray-300">71032 Böblingen</p>
                   </div>
 
                   <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-neon-green" />
                     <a 
                       href="mailto:club.forum.bb@gmail.com" 
-                      className="text-black hover:underline"
+                      className="text-white hover:underline"
                     >
                       club.forum.bb@gmail.com
                     </a>
@@ -249,9 +249,9 @@ const Kontakt = () => {
               </Card>
 
               {/* Google Maps with GDPR Consent */}
-              <Card>
+              <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold flex items-center">
+                  <CardTitle className="text-2xl font-bold flex items-center text-white">
                     <Map className="h-6 w-6 mr-2 text-neon-green" />
                     Anfahrt
                   </CardTitle>

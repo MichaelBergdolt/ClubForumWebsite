@@ -83,14 +83,14 @@ const LocationMieten = () => {
       </section>
 
       {/* Ausstattung */}
-      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-6 text-primary">
+            <h2 className="text-5xl font-bold mb-6 text-white">
               Alles, was du für deine Feier brauchst
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-neon-green to-neon-blue mx-auto mb-8"></div>
-            <h3 className="text-3xl font-semibold text-primary relative inline-block">
+            <h3 className="text-3xl font-semibold text-white relative inline-block">
               Unsere Ausstattung
               {/* <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-neon-green/50"></span> */}
             </h3>
@@ -122,14 +122,14 @@ const LocationMieten = () => {
                     </div>
                     
                     {/* Text direkt unter dem Bild - mobile */}
-                    <div className="bg-card/95 backdrop-blur-sm p-6 border-t border-border/50">
+                    <div className="bg-gray-800/95 backdrop-blur-sm p-6 border-t border-gray-700/50">
                       <div className="flex items-center gap-3 mb-4">
                         <div className="w-10 h-10 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
                           <span className="text-lg font-bold text-black">{index + 1}</span>
                         </div>
-                        <h4 className="text-2xl font-bold text-primary">{item.title}</h4>
+                        <h4 className="text-2xl font-bold text-white">{item.title}</h4>
                       </div>
-                      <p className="text-base text-muted-foreground leading-relaxed font-medium">
+                      <p className="text-base text-gray-300 leading-relaxed font-medium">
                         {item.description}
                       </p>
                     </div>
@@ -161,14 +161,14 @@ const LocationMieten = () => {
                 
                 {/* Desktop: Separater Text */}
                 <div className="flex-1 max-w-2xl hidden lg:block">
-                  <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-12 h-12 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
                         <span className="text-2xl font-bold text-black">{index + 1}</span>
                       </div>
-                      <h4 className="text-4xl font-bold text-primary">{item.title}</h4>
+                      <h4 className="text-4xl font-bold text-white">{item.title}</h4>
                     </div>
-                    <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+                    <p className="text-xl text-gray-300 leading-relaxed font-medium">
                       {item.description}
                     </p>
                   </div>
@@ -202,27 +202,27 @@ const LocationMieten = () => {
       </section>
 
       {/* Wichtige Infos */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Wichtige Infos & Regeln</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 text-white">Wichtige Infos & Regeln</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-xl font-bold text-neon-green">Kapazität & Zeiten</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 text-gray-300">
                 <p><strong>Kapazität:</strong> Wir empfehlen maximal 60 Gäste für die beste Atmosphäre.</p>
                 <p><strong>Mietzeiträume:</strong> Januar – Mai & September – November</p>
                 <p><strong>Mietzeiten:</strong> Freitags & Samstags von 18:00 – 02:00 Uhr. Andere Tage sind auf Anfrage möglich.</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-xl font-bold text-red-500">No-Gos & Verantwortung</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 text-gray-300">
                 <p><strong>Nicht erlaubt:</strong> Konfetti, Nebelmaschinen und Rauchen (inkl. Vapes etc.)</p>
                 <p><strong>Null Toleranz:</strong> Gewalt, Rassismus und Ignoranz haben bei uns keinen Platz.</p>
                 <p><strong>Verantwortung:</strong> Als Mieter haftest du für deine Gäste und die Einhaltung des Jugendschutzgesetzes.</p>

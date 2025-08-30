@@ -32,17 +32,17 @@ const Index = () => {
       </section>
 
       {/* Über Uns Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-slide-in-left">
-              <h2 className="text-4xl font-bold text-black">Wir sind das Forum.</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <h2 className="text-4xl font-bold text-white">Wir sind das Forum.</h2>
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Das Club Forum ist DEINE Eventlocation in Böblingen – organisiert von jungen, 
                 ehrenamtlichen Böblinger*innen für junge Leute. Von offenen Bar-Abenden über 
                 legendäre Halloween-Partys bis zu den traditionellen Club Forum OFTAS.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Unser Zuhause ist die Marktstraße 9, wo wir auf zwei Ebenen Platz für bis zu 
                 60 Personen, unvergessliche Partys und unsere regelmäßigen Team-Treffen bieten.
               </p>
@@ -59,21 +59,21 @@ const Index = () => {
       </section>
 
       {/* Unsere Angebote Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">Was geht bei uns?</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Was geht bei uns?</h2>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green">
+            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold group-hover:text-neon-green transition-colors">
+                <CardTitle className="text-2xl font-bold text-white group-hover:text-neon-green transition-colors">
                   Feier deine Party bei uns!
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <CardDescription className="text-gray-600 text-lg">
+                <CardDescription className="text-gray-300 text-lg">
                   Miete das Forum für deinen Geburtstag oder deine private Feier. 
                   Zentral gelegen, mit Gewölbekeller, Bar und Platz für bis zu 60 Personen.
                 </CardDescription>
@@ -85,14 +85,14 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green">
+            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold group-hover:text-neon-green transition-colors">
+                <CardTitle className="text-2xl font-bold text-white group-hover:text-neon-green transition-colors">
                   Unsere Events
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <CardDescription className="text-gray-600 text-lg">
+                <CardDescription className="text-gray-300 text-lg">
                   Wir veranstalten legendäre Partys wie die OFTAS, Halloween und mehr. 
                   Erlebe die besten Nächte des Jahres mit uns.
                 </CardDescription>
