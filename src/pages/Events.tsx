@@ -239,46 +239,54 @@ const Events = () => {
               ></div>
             </div>
 
-            <div
-              className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${Math.min(
-                nextEvent.artists.length,
-                4
-              )} gap-8 max-w-7xl mx-auto`}
-            >
-              {nextEvent.artists.map((artist, index) => (
-                <Card
-                  key={index}
-                  className="bg-gray-900/50 border-gray-700 transition-all duration-300 group overflow-hidden"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = `hsl(var(--event-primary) / 0.5)`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "hsl(215 27.9% 16.9%)"; // gray-700
-                  }}
-                >
-                  <div className="relative">
-                    <AspectRatio ratio={4 / 3}>
-                      <img
-                        src={artist.image}
-                        alt={artist.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </AspectRatio>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="max-w-7xl mx-auto space-y-20">
+              {nextEvent.artists.map((artist, index) => {
+                const isEven = index % 2 === 0;
+                return (
+                  <div
+                    key={index}
+                    className={`flex flex-col lg:flex-row items-center gap-12 group ${
+                      isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+                    }`}
+                  >
+                    {/* Artist Image */}
+                    <div className="w-full lg:w-1/2 relative overflow-hidden rounded-xl">
+                      <AspectRatio ratio={4 / 3}>
+                        <img
+                          src={artist.image}
+                          alt={artist.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                      </AspectRatio>
+                      <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: `linear-gradient(135deg, hsl(var(--event-primary) / 0.2), transparent 50%, hsl(var(--event-primary) / 0.1))`
+                        }}
+                      ></div>
+                    </div>
+
+                    {/* Artist Content */}
+                    <div className="w-full lg:w-1/2 space-y-6">
+                      <div className="space-y-4">
+                        <h3 
+                          className="text-3xl md:text-4xl font-bold transition-colors duration-300"
+                          style={{ color: `hsl(var(--event-primary))` }}
+                        >
+                          {artist.name}
+                        </h3>
+                        <div 
+                          className="w-16 h-1 transition-all duration-500 group-hover:w-24"
+                          style={{ backgroundColor: `hsl(var(--event-primary))` }}
+                        ></div>
+                      </div>
+                      <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                        {artist.description}
+                      </p>
+                    </div>
                   </div>
-                  <CardHeader className="text-white">
-                    <CardTitle
-                      className="text-2xl font-bold mb-3"
-                      style={{ color: `hsl(var(--event-primary))` }}
-                    >
-                      {artist.name}
-                    </CardTitle>
-                    <CardDescription className="text-gray-300 leading-relaxed">
-                      {artist.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
