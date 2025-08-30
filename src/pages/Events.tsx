@@ -178,6 +178,7 @@ const Events = () => {
                 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
                 style={{
                   backgroundImage: `linear-gradient(to right, white, hsl(var(--event-primary)), white)`,
+                  lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden
                 }}
               >
                 {nextEvent.title}
