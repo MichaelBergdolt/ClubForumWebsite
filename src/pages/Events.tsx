@@ -293,9 +293,9 @@ const Events = () => {
       )}
 
       {/* Kommende Events */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-gray-950 to-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">
+          <h2 className="text-4xl font-bold text-center mb-16 text-white">
             Weitere Highlights
           </h2>
 
@@ -303,7 +303,7 @@ const Events = () => {
             {upcomingEvents.map((event, index) => (
               <Card
                 key={index}
-                className="hover:shadow-xl transition-all duration-300 group overflow-hidden"
+                className="hover:shadow-xl transition-all duration-300 group overflow-hidden bg-gray-800/50 border-gray-700"
               >
                 <div className="relative">
                   <AspectRatio ratio={4 / 3}>
@@ -316,7 +316,7 @@ const Events = () => {
                 </div>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-bold text-xl">
+                    <CardTitle className="font-bold text-xl text-white">
                       {event.title}
                     </CardTitle>
                   </div>
@@ -326,7 +326,7 @@ const Events = () => {
                     {event.date && (
                       <div className="flex items-center">
                         <CalendarDays className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
-                        <span className="text-sm font-medium text-gray-600">
+                        <span className="text-sm font-medium text-gray-300">
                           {event.date}
                         </span>
                       </div>
@@ -334,10 +334,10 @@ const Events = () => {
                     {event.locationName && (
                       <div className="flex items-start gap-2">
                         <MapPin className="h-4 w-4 text-neon-green mt-[1px] flex-shrink-0" />
-                        <div className="text-sm font-medium text-gray-600 leading-tight">
+                        <div className="text-sm font-medium text-gray-300 leading-tight">
                           <div>{event.locationName}</div>
                           {event.locationAddress && (
-                            <div className="text-sm font-medium">
+                            <div className="text-sm font-medium text-gray-400">
                               {event.locationAddress}
                             </div>
                           )}
@@ -345,9 +345,9 @@ const Events = () => {
                       </div>
                     )}
                     {event.description && (
-                      <p className="text-gray-600 text-base leading-relaxed pt-1">
-                        {event.description}
-                      </p>
+                       <p className="text-gray-300 text-base leading-relaxed pt-1">
+                         {event.description}
+                       </p>
                     )}
                   </div>
                 </CardHeader>
@@ -363,9 +363,9 @@ const Events = () => {
       </section>
 
       {/* Event-Archiv */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">
+          <h2 className="text-4xl font-bold text-center mb-16 text-white">
             So legendär waren unsere letzten Partys
           </h2>
 
@@ -376,7 +376,7 @@ const Events = () => {
               <Card
                 key={index}
                 onClick={() => setOpenLightboxIndex(index)}
-                className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group"
+                className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group bg-gray-800/30 border-gray-600 hover:bg-gray-700/50"
               >
                 <div className="relative">
                   <AspectRatio ratio={4 / 3}>
