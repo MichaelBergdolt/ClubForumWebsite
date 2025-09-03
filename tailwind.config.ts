@@ -53,13 +53,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Club-specific colors
-				neon: {
-					green: '#00ff88', // Purple: '#8b5cf6'
-					blue: '#00d9ff',
-					purple: '#8b5cf6',
-					pink: '#ff0080'
-				}
+				// Semantic accent colors - use CSS variables for easy theming
+				'accent-primary': {
+					DEFAULT: 'hsl(var(--accent-primary))',
+					dark: 'hsl(var(--accent-primary-dark))',
+					light: 'hsl(var(--accent-primary-light))'
+				},
+				'accent-secondary': 'hsl(var(--accent-secondary))',
+				'accent-tertiary': 'hsl(var(--accent-tertiary))',
+				'accent-quaternary': 'hsl(var(--accent-quaternary))'
 			},
 			fontFamily: {
 				sans: ['Inter', 'system-ui', 'sans-serif'],

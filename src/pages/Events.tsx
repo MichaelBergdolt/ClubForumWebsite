@@ -325,7 +325,7 @@ const Events = () => {
                   <div className="space-y-2 mt-4">
                     {event.date && (
                       <div className="flex items-center">
-                        <CalendarDays className="h-4 w-4 mr-2 text-neon-green flex-shrink-0" />
+                        <CalendarDays className="h-4 w-4 mr-2 text-accent-primary flex-shrink-0" />
                         <span className="text-sm font-medium text-gray-300">
                           {event.date}
                         </span>
@@ -333,7 +333,7 @@ const Events = () => {
                     )}
                     {event.locationName && (
                       <div className="flex items-start gap-2">
-                        <MapPin className="h-4 w-4 text-neon-green mt-[1px] flex-shrink-0" />
+                        <MapPin className="h-4 w-4 text-accent-primary mt-[1px] flex-shrink-0" />
                         <div className="text-sm font-medium text-gray-300 leading-tight">
                           <div>{event.locationName}</div>
                           {event.locationAddress && (
@@ -429,7 +429,7 @@ const Events = () => {
             href="https://www.instagram.com/club_forumbb"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors space-x-2"
+            className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold px-8 py-3 rounded-lg transition-colors space-x-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

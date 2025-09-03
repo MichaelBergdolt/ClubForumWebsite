@@ -19,7 +19,7 @@ const Impressum = () => {
                 Telefon: 07031 / 4921441<br />
                 Fax: 07031 / 4925687<br />
                 E-Mail: info@ejwbezirkbb.de<br />
-                Web: <a href="https://www.ejwbezirkbb.de/" className="text-neon-green hover:underline">https://www.ejwbb.de</a>
+                Web: <a href="https://www.ejwbezirkbb.de/" className="text-accent-primary hover:underline">https://www.ejwbb.de</a>
               </p>
             </div>
 

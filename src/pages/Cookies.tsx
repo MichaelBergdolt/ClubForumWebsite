@@ -49,7 +49,7 @@ const Cookies = () => {
             <div>
               <h2 className="text-2xl font-bold text-black mb-4">Kontakt</h2>
               <p>
-                Wenn Sie Fragen zum Einsatz von Cookies auf unserer Website haben, kontaktieren Sie uns bitte über die im <Link to="/impressum" className="text-neon-green hover:underline">Impressum</Link> angegebenen Kontaktdaten.
+                Wenn Sie Fragen zum Einsatz von Cookies auf unserer Website haben, kontaktieren Sie uns bitte über die im <Link to="/impressum" className="text-accent-primary hover:underline">Impressum</Link> angegebenen Kontaktdaten.
               </p>
             </div>
           </div>

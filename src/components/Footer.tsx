@@ -26,13 +26,13 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="/location-mieten" className="block text-gray-400 hover:text-neon-green transition-colors text-sm">
+              <Link to="/location-mieten" className="block text-gray-400 hover:text-accent-primary transition-colors text-sm">
                 Location Mieten
               </Link>
-              <Link to="/events" className="block text-gray-400 hover:text-neon-green transition-colors text-sm">
+              <Link to="/events" className="block text-gray-400 hover:text-accent-primary transition-colors text-sm">
                 Events
               </Link>
-              <Link to="/kontakt" className="block text-gray-400 hover:text-neon-green transition-colors text-sm">
+              <Link to="/kontakt" className="block text-gray-400 hover:text-accent-primary transition-colors text-sm">
                 Kontakt
               </Link>
             </div>
@@ -43,7 +43,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a 
               href="https://www.instagram.com/club_forumbb" 
-              className="text-gray-400 hover:text-neon-green transition-colors"
+              className="text-gray-400 hover:text-accent-primary transition-colors"
               aria-label="Instagram"
               target="_blank"
               rel="noopener noreferrer"
@@ -52,7 +52,7 @@ const Footer = () => {
               </a>
               <a 
               href="https://www.facebook.com/profile.php?id=100064750176944" 
-              className="text-gray-400 hover:text-neon-green transition-colors"
+              className="text-gray-400 hover:text-accent-primary transition-colors"
               aria-label="Facebook"
               target="_blank"
               rel="noopener noreferrer"
@@ -62,13 +62,13 @@ const Footer = () => {
             </div>
             
             <div className="space-y-2 text-sm">
-              <Link to="/impressum" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/impressum" className="block text-gray-400 hover:text-accent-primary transition-colors">
                 Impressum
               </Link>
-              <Link to="/datenschutz" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/datenschutz" className="block text-gray-400 hover:text-accent-primary transition-colors">
                 Datenschutz
               </Link>
-              <Link to="/cookies" className="block text-gray-400 hover:text-neon-green transition-colors">
+              <Link to="/cookies" className="block text-gray-400 hover:text-accent-primary transition-colors">
                 Cookie-Einstellungen
               </Link>
             </div>

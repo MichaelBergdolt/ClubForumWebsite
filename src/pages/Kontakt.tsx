@@ -109,7 +109,7 @@ const Kontakt = () => {
             <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold flex items-center text-white">
-                  <MessageSquare className="h-6 w-6 mr-2 text-neon-green" />
+                  <MessageSquare className="h-6 w-6 mr-2 text-accent-primary" />
                   Kontaktformular
                 </CardTitle>
               </CardHeader>
@@ -123,7 +123,7 @@ const Kontakt = () => {
                   </p>
                   <a 
                     href="mailto:club.forum.bb@gmail.com" 
-                    className="inline-flex items-center bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-6 py-3 rounded-lg transition-colors"
+                    className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold px-6 py-3 rounded-lg transition-colors"
                   >
                     <Mail className="h-5 w-5 mr-2" />
                     E-Mail senden
@@ -202,7 +202,7 @@ const Kontakt = () => {
                     <p>Mit * markierte Felder sind Pflichtfelder.</p>
                     <p>
                       Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
-                      <Link to="/datenschutz" className="text-neon-green hover:underline">
+                      <Link to="/datenschutz" className="text-accent-primary hover:underline">
                         Datenschutzerklärung
                       </Link>{" "}
                       einverstanden.
@@ -211,7 +211,7 @@ const Kontakt = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-neon-green hover:bg-neon-green/80 text-black font-semibold"
+                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold"
                   >
                     Nachricht absenden
                   </Button>
@@ -225,7 +225,7 @@ const Kontakt = () => {
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
-                    <MapPin className="h-6 w-6 mr-2 text-neon-green" />
+                    <MapPin className="h-6 w-6 mr-2 text-accent-primary" />
                     Unsere Location
                   </CardTitle>
                 </CardHeader>
@@ -237,7 +237,7 @@ const Kontakt = () => {
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Mail className="h-5 w-5 text-neon-green" />
+                    <Mail className="h-5 w-5 text-accent-primary" />
                     <a 
                       href="mailto:club.forum.bb@gmail.com" 
                       className="text-white hover:underline"
@@ -252,7 +252,7 @@ const Kontakt = () => {
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
-                    <Map className="h-6 w-6 mr-2 text-neon-green" />
+                    <Map className="h-6 w-6 mr-2 text-accent-primary" />
                     Anfahrt
                   </CardTitle>
                 </CardHeader>

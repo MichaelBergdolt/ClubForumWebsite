@@ -24,7 +24,7 @@ const Index = () => {
             Deine Mietlocation & Event-Community in Böblingen
           </p>
           <Link to="/kontakt">
-            <Button size="lg" className="bg-neon-green hover:bg-neon-green/80 text-black font-semibold px-8 py-3 text-lg animate-fade-in">
+            <Button size="lg" className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold px-8 py-3 text-lg animate-fade-in">
               Jetzt anfragen
             </Button>
           </Link>

@@ -36,15 +36,15 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative text-sm font-medium transition-colors hover:text-neon-green ${
+                className={`relative text-sm font-medium transition-colors hover:text-accent-primary ${
                   isActive(item.href) 
-                    ? 'text-neon-green' 
+                    ? 'text-accent-primary' 
                     : 'text-gray-300'
                 }`}
               >
                 {item.name}
                 {isActive(item.href) && (
-                  <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-neon-green rounded-full" />
+                  <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent-primary rounded-full" />
                 )}
               </Link>
             ))}
@@ -73,9 +73,9 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-neon-green ${
+                  className={`text-sm font-medium transition-colors hover:text-accent-primary ${
                     isActive(item.href) 
-                      ? 'text-neon-green' 
+                      ? 'text-accent-primary' 
                       : 'text-gray-300'
                   }`}
                   onClick={() => setIsMenuOpen(false)}

@@ -89,7 +89,7 @@ const LocationMieten = () => {
             <h2 className="text-5xl font-bold mb-6 text-white">
               Alles, was du für deine Feier brauchst
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-neon-green to-neon-blue mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-accent-primary to-accent-secondary mx-auto mb-8"></div>
             <h3 className="text-3xl font-semibold text-white relative inline-block">
               Unsere Ausstattung
               {/* <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-neon-green/50"></span> */}
@@ -124,7 +124,7 @@ const LocationMieten = () => {
                     {/* Text direkt unter dem Bild - mobile */}
                     <div className="bg-gray-800/95 backdrop-blur-sm p-6 border-t border-gray-700/50">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full flex items-center justify-center">
                           <span className="text-lg font-bold text-black">{index + 1}</span>
                         </div>
                         <h4 className="text-2xl font-bold text-white">{item.title}</h4>
@@ -163,7 +163,7 @@ const LocationMieten = () => {
                 <div className="flex-1 max-w-2xl hidden lg:block">
                   <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-r from-neon-green to-neon-blue rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full flex items-center justify-center">
                         <span className="text-2xl font-bold text-black">{index + 1}</span>
                       </div>
                       <h4 className="text-4xl font-bold text-white">{item.title}</h4>
@@ -187,14 +187,14 @@ const LocationMieten = () => {
             <div className="bg-gray-900 rounded-lg p-8 mb-8">
               <p className="text-lg leading-relaxed mb-6">
                 Das gesamte Forum ist ehrenamtlich und non-profit. Deshalb bieten wir die Location 
-                pro Abend für nur <span className="text-neon-green font-bold text-2xl">300€</span> an.
+                pro Abend für nur <span className="text-accent-primary font-bold text-2xl">300€</span> an.
               </p>
               <p className="text-lg leading-relaxed mb-6">
-                <span className="text-neon-green font-bold">Schüler und Studenten erhalten 100€ Rabatt!</span>
+                <span className="text-accent-primary font-bold">Schüler und Studenten erhalten 100€ Rabatt!</span>
               </p>
               <p className="text-lg leading-relaxed">
                 Wir sind von jungen Menschen für junge Menschen. Es kommt lediglich eine Kaution von 
-                <span className="text-neon-green font-bold"> 100€</span> hinzu.
+                <span className="text-accent-primary font-bold"> 100€</span> hinzu.
               </p>
             </div>
           </div>
@@ -209,7 +209,7 @@ const LocationMieten = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-xl font-bold text-neon-green">Kapazität & Zeiten</CardTitle>
+                <CardTitle className="text-xl font-bold text-accent-primary">Kapazität & Zeiten</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-gray-300">
                 <p><strong>Kapazität:</strong> Wir empfehlen maximal 60 Gäste für die beste Atmosphäre.</p>
@@ -233,7 +233,7 @@ const LocationMieten = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-r from-neon-green to-neon-blue text-black">
+      <section className="py-20 bg-gradient-to-r from-accent-primary to-accent-secondary text-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Bereit für deine Party?</h2>
           <Link to="/kontakt">

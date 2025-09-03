@@ -44,9 +44,9 @@ const SuccessToast = ({
             "md:left-auto md:right-6 md:max-w-sm md:w-auto"
           )}
         >
-          <div className="rounded-xl shadow-lg border border-neon-green bg-white p-4 text-black">
+          <div className="rounded-xl shadow-lg border border-accent-primary bg-white p-4 text-black">
             <div className="flex items-start gap-3">
-              <FiCheckCircle className="text-neon-green mt-1 shrink-0" size={24} />
+              <FiCheckCircle className="text-accent-primary mt-1 shrink-0" size={24} />
               <div className="min-w-0">
                 <h4 className="font-semibold text-sm sm:text-base">{message}</h4>
                 {description && (
