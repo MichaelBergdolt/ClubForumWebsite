@@ -66,9 +66,9 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green bg-gray-800/50 border-gray-700">
+            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-accent-primary bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white group-hover:text-neon-green transition-colors">
+                <CardTitle className="text-2xl font-bold text-white group-hover:text-accent-primary transition-colors">
                   Feier deine Party bei uns!
                 </CardTitle>
               </CardHeader>
@@ -78,16 +78,16 @@ const Index = () => {
                   Zentral gelegen, mit Gewölbekeller, Bar und Platz für bis zu 60 Personen.
                 </CardDescription>
                 <Link to="/location-mieten">
-                  <Button className="bg-neon-green hover:bg-neon-green/80 text-black font-semibold">
+                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold">
                     Alle Details & Preise
                   </Button>
                 </Link>
               </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-neon-green bg-gray-800/50 border-gray-700">
+            <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-accent-primary bg-gray-800/50 border-gray-700">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold text-white group-hover:text-neon-green transition-colors">
+                <CardTitle className="text-2xl font-bold text-white group-hover:text-accent-primary transition-colors">
                   Unsere Events
                 </CardTitle>
               </CardHeader>
@@ -97,7 +97,7 @@ const Index = () => {
                   Erlebe die besten Nächte des Jahres mit uns.
                 </CardDescription>
                 <Link to="/events">
-                  <Button className="bg-neon-green hover:bg-neon-green/80 text-black font-semibold">
+                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold">
                     Zu den Events & Fotos
                   </Button>
                 </Link>

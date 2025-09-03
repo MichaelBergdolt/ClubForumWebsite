@@ -92,7 +92,7 @@ const LocationMieten = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-accent-primary to-accent-secondary mx-auto mb-8"></div>
             <h3 className="text-3xl font-semibold text-white relative inline-block">
               Unsere Ausstattung
-              {/* <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-neon-green/50"></span> */}
+              {/* <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-accent-primary/50"></span> */}
             </h3>
           </div>
           

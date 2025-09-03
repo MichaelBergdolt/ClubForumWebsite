@@ -61,7 +61,7 @@ const GoogleMapsConsent = () => {
           <div className="text-xs text-muted-foreground space-y-1">
             <p>
               Weitere Informationen findest du in unserer{" "}
-              <Link to="/datenschutz" className="text-neon-green hover:underline">
+              <Link to="/datenschutz" className="text-accent-primary hover:underline">
                 Datenschutzerklärung
               </Link>
             </p>
@@ -70,7 +70,7 @@ const GoogleMapsConsent = () => {
                 href="https://policies.google.com/privacy" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-neon-green hover:underline inline-flex items-center gap-1"
+                className="text-accent-primary hover:underline inline-flex items-center gap-1"
               >
                 Google Datenschutzhinweise
                 <ExternalLink className="h-3 w-3" />
@@ -102,9 +102,9 @@ const GoogleMapsConsent = () => {
         </p>
         <Button
           onClick={handleDeclineConsent}
-          variant="ghost"
           size="sm"
-          className="text-xs"
+          variant="outline"
+          className="text-xs border-muted-foreground text-muted-foreground bg-transparent hover:bg-muted/50"
         >
           Karte deaktivieren
         </Button>

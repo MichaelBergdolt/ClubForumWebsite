@@ -18,13 +18,13 @@ const NotFound = () => {
     <Layout>
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
         <div className="text-center space-y-6">
-          <h1 className="text-6xl font-bold text-neon-green">404</h1>
+          <h1 className="text-6xl font-bold text-accent-primary">404</h1>
           <h2 className="text-3xl font-semibold">Oops! Seite nicht gefunden</h2>
           <p className="text-xl text-gray-300 max-w-md mx-auto">
             Die Seite, die du suchst, existiert nicht oder wurde verschoben.
           </p>
           <Link to="/">
-            <Button className="bg-neon-green hover:bg-neon-green/80 text-black font-semibold">
+            <Button className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold">
               Zurück zur Startseite
             </Button>
           </Link>
