@@ -2,6 +2,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import ExpandableText from "@/components/ui/ExpandableText";
 import { CalendarDays, MapPin, Clock, Ticket, Images } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -216,9 +217,11 @@ const Events = () => {
                           style={eventAccentColor ? { backgroundColor: `hsl(var(--event-primary))` } : { backgroundColor: `hsl(var(--accent-primary))` }}
                         ></div>
                       </div>
-                      <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
-                        {artist.description}
-                      </p>
+                      <ExpandableText 
+                        text={artist.description}
+                        maxLength={250}
+                        className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      />
                     </div>
                   </div>
                 );
