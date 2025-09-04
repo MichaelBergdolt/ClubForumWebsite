@@ -157,17 +157,24 @@ const Events = () => {
     },
   ];
 
+  // Use event-specific accent color if defined, otherwise fallback to default accent-primary
+  const eventAccentColor = nextEvent.accentColor ? {
+    primary: nextEvent.accentColor.primary,
+    primaryDark: nextEvent.accentColor.primaryDark,
+    primaryLight: nextEvent.accentColor.primaryLight,
+  } : null;
+
   return (
     <Layout>
       {/* Next Event Hero Section */}
       <section
         className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
         style={
-          {
-            "--event-primary": nextEvent.accentColor.primary,
-            "--event-primary-dark": nextEvent.accentColor.primaryDark,
-            "--event-primary-light": nextEvent.accentColor.primaryLight,
-          } as React.CSSProperties
+          eventAccentColor ? {
+            "--event-primary": eventAccentColor.primary,
+            "--event-primary-dark": eventAccentColor.primaryDark,
+            "--event-primary-light": eventAccentColor.primaryLight,
+          } as React.CSSProperties : undefined
         }
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -176,9 +183,12 @@ const Events = () => {
             <div className="text-center mb-16">
               <h1
                 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
-                style={{
+                style={eventAccentColor ? {
                   backgroundImage: `linear-gradient(to right, white, hsl(var(--event-primary)), white)`,
                   lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden
+                } : {
+                  backgroundImage: `linear-gradient(to right, white, hsl(var(--accent-primary)), white)`,
+                  lineHeight: "1.2",
                 }}
               >
                 {nextEvent.title}
@@ -196,20 +206,25 @@ const Events = () => {
                   <div key={index} className="text-center group h-full">
                     <div
                       className="rounded-lg p-6 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px] border"
-                      style={{
+                      style={eventAccentColor ? {
                         backgroundColor: `hsl(var(--event-primary) / 0.2)`,
                         borderColor: `hsl(var(--event-primary) / 0.5)`,
+                      } : {
+                        backgroundColor: `hsl(var(--accent-primary) / 0.2)`,
+                        borderColor: `hsl(var(--accent-primary) / 0.5)`,
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = `hsl(var(--event-primary) / 0.3)`;
+                        const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.3)` : `hsl(var(--accent-primary) / 0.3)`;
+                        e.currentTarget.style.backgroundColor = bgColor;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = `hsl(var(--event-primary) / 0.2)`;
+                        const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.2)` : `hsl(var(--accent-primary) / 0.2)`;
+                        e.currentTarget.style.backgroundColor = bgColor;
                       }}
                     >
                       <IconComponent
                         className="h-8 w-8 mx-auto mb-3"
-                        style={{ color: `hsl(var(--event-primary))` }}
+                        style={eventAccentColor ? { color: `hsl(var(--event-primary))` } : { color: `hsl(var(--accent-primary))` }}
                       />
                       <h3 className="text-lg font-bold text-white mb-2">
                         {detail.title}
@@ -235,7 +250,7 @@ const Events = () => {
               </h2>
               <div
                 className="w-24 h-1 mx-auto"
-                style={{ backgroundColor: `hsl(var(--event-primary))` }}
+                style={eventAccentColor ? { backgroundColor: `hsl(var(--event-primary))` } : { backgroundColor: `hsl(var(--accent-primary))` }}
               ></div>
             </div>
 
@@ -260,8 +275,10 @@ const Events = () => {
                       </AspectRatio>
                       <div 
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
+                        style={eventAccentColor ? {
                           background: `linear-gradient(135deg, hsl(var(--event-primary) / 0.2), transparent 50%, hsl(var(--event-primary) / 0.1))`
+                        } : {
+                          background: `linear-gradient(135deg, hsl(var(--accent-primary) / 0.2), transparent 50%, hsl(var(--accent-primary) / 0.1))`
                         }}
                       ></div>
                     </div>
@@ -271,13 +288,13 @@ const Events = () => {
                       <div className="space-y-4">
                         <h3 
                           className="text-3xl md:text-4xl font-bold transition-colors duration-300"
-                          style={{ color: `hsl(var(--event-primary))` }}
+                          style={eventAccentColor ? { color: `hsl(var(--event-primary))` } : { color: `hsl(var(--accent-primary))` }}
                         >
                           {artist.name}
                         </h3>
                         <div 
                           className="w-16 h-1 transition-all duration-500 group-hover:w-24"
-                          style={{ backgroundColor: `hsl(var(--event-primary))` }}
+                          style={eventAccentColor ? { backgroundColor: `hsl(var(--event-primary))` } : { backgroundColor: `hsl(var(--accent-primary))` }}
                         ></div>
                       </div>
                       <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
