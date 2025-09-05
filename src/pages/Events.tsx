@@ -219,7 +219,7 @@ const Events = () => {
                       </div>
                       <ExpandableText 
                         text={artist.description}
-                        maxLength={250}
+                        maxLength={500}
                         className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
                       />
                     </div>
