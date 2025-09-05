@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Images } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
@@ -179,6 +180,17 @@ const LocationMieten = () => {
         </div>
       </section>
 
+      {/* Visual Separator */}
+      <div className="relative py-12 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent"></div>
+            <div className="mx-6 w-3 h-3 bg-accent-primary rounded-full"></div>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent"></div>
+          </div>
+        </div>
+      </div>
+
       {/* Preise */}
       <section className="py-20 bg-black text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,6 +212,17 @@ const LocationMieten = () => {
           </div>
         </div>
       </section>
+
+      {/* Visual Separator */}
+      <div className="relative py-12 bg-black">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
+            <div className="mx-6 w-3 h-3 bg-accent-secondary rounded-full"></div>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
+          </div>
+        </div>
+      </div>
 
       {/* Wichtige Infos */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
