@@ -181,7 +181,7 @@ const LocationMieten = () => {
       </section>
 
       {/* Visual Separator */}
-      <div className="relative py-12 bg-black">
+      <div className="relative py-6 bg-black">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
@@ -214,7 +214,7 @@ const LocationMieten = () => {
       </section>
 
       {/* Visual Separator */}
-      <div className="relative py-12 bg-black">
+      <div className="relative py-6 bg-black">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>

@@ -73,7 +73,7 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <CardDescription className="text-gray-300 text-lg">
+                <CardDescription className="text-gray-300 text-lg mb-6">
                   Miete das Forum für deinen Geburtstag oder deine private Feier. 
                   Zentral gelegen, mit Gewölbekeller, Bar und Platz für bis zu 60 Personen.
                 </CardDescription>
@@ -92,7 +92,7 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <CardDescription className="text-gray-300 text-lg">
+                <CardDescription className="text-gray-300 text-lg mb-6">
                   Wir veranstalten legendäre Partys wie die OFTAS, Halloween und mehr. 
                   Erlebe die besten Nächte des Jahres mit uns.
                 </CardDescription>
