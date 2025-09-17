@@ -123,7 +123,7 @@ const Kontakt = () => {
                   </p>
                   <a 
                     href="mailto:club.forum.bb@gmail.com" 
-                    className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold px-6 py-3 rounded-lg transition-colors"
+                    className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                   >
                     <Mail className="h-5 w-5 mr-2" />
                     E-Mail senden
@@ -211,7 +211,7 @@ const Kontakt = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold"
+                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold"
                   >
                     Nachricht absenden
                   </Button>

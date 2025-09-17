@@ -43,7 +43,7 @@ const GoogleMapsConsent = () => {
 
           <Button 
             onClick={handleAcceptConsent}
-            className="w-full bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold"
+            className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold"
           >
             Google Maps aktivieren
           </Button>

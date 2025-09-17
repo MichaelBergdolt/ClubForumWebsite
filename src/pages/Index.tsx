@@ -24,7 +24,7 @@ const Index = () => {
             Deine Mietlocation & Event-Community in Böblingen
           </p>
           <Link to="/kontakt">
-            <Button size="lg" className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold px-8 py-3 text-lg animate-fade-in">
+            <Button size="lg" className="bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold px-8 py-3 text-lg animate-fade-in">
               Jetzt anfragen
             </Button>
           </Link>
@@ -78,7 +78,7 @@ const Index = () => {
                   Zentral gelegen, mit Gewölbekeller, Bar und Platz für bis zu 60 Personen.
                 </CardDescription>
                 <Link to="/location-mieten">
-                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold">
+                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold">
                     Alle Details & Preise
                   </Button>
                 </Link>
@@ -97,7 +97,7 @@ const Index = () => {
                   Erlebe die besten Nächte des Jahres mit uns.
                 </CardDescription>
                 <Link to="/events">
-                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold">
+                  <Button className="bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold">
                     Zu den Events & Fotos
                   </Button>
                 </Link>
