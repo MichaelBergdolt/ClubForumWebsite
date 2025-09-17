@@ -27,13 +27,13 @@ const GoogleMapsConsent = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-64 bg-muted animate-pulse rounded-lg" />
+      <div className="w-full h-64 bg-background border border-border animate-pulse rounded-lg" />
     );
   }
 
   if (!hasConsent) {
     return (
-      <div className="flex items-center justify-center h-100 bg-muted rounded-lg">
+      <div className="flex items-center justify-center h-100 bg-background border border-border rounded-lg">
         <div className="text-center space-y-4 max-w-md mx-auto px-4">
           <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
           <h3 className="text-lg font-semibold">Google Maps</h3>
