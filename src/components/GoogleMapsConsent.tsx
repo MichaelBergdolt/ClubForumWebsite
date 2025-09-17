@@ -33,32 +33,22 @@ const GoogleMapsConsent = () => {
 
   if (!hasConsent) {
     return (
-      <div className="flex items-center justify-center h-100 bg-card border border-border rounded-lg">
-        <div className="text-center space-y-4 max-w-md mx-auto px-4">
-          <MapPin className="h-12 w-12 mx-auto text-foreground/60" />
-          <h3 className="text-lg font-semibold text-foreground">Google Maps</h3>
-          <p className="text-sm text-foreground/70">
+      <div className="flex items-center justify-center h-64 bg-gray-900 border border-gray-700 rounded-lg p-6">
+        <div className="text-center space-y-3 max-w-md mx-auto">
+          <MapPin className="h-12 w-12 mx-auto text-gray-400" />
+          <h3 className="text-lg font-semibold text-white">Google Maps</h3>
+          <p className="text-sm text-gray-300">
             Um die Karte anzuzeigen, musst du Google Maps aktivieren. Dabei können personenbezogene Daten an Google übermittelt werden.
           </p>
-          
-          <div className="space-y-3">
-            <Button 
-              onClick={handleAcceptConsent}
-              className="w-full bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold"
-            >
-              Google Maps aktivieren
-            </Button>
-            
-            <Button 
-              onClick={handleDeclineConsent}
-              variant="outline"
-              className="w-full border-border text-foreground hover:bg-accent/20"
-            >
-              Ablehnen
-            </Button>
-          </div>
-          
-          <div className="text-xs text-foreground/60 space-y-1">
+
+          <Button 
+            onClick={handleAcceptConsent}
+            className="w-full bg-accent-primary hover:bg-accent-primary/80 text-black font-semibold"
+          >
+            Google Maps aktivieren
+          </Button>
+
+          <div className="text-xs text-gray-400 space-y-1">
             <p>
               Weitere Informationen findest du in unserer{" "}
               <Link to="/datenschutz" className="text-accent-primary hover:underline">
