@@ -33,11 +33,11 @@ const GoogleMapsConsent = () => {
 
   if (!hasConsent) {
     return (
-      <div className="flex items-center justify-center h-100 bg-background border border-border rounded-lg">
+      <div className="flex items-center justify-center h-100 bg-card border border-border rounded-lg">
         <div className="text-center space-y-4 max-w-md mx-auto px-4">
-          <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
-          <h3 className="text-lg font-semibold">Google Maps</h3>
-          <p className="text-sm text-muted-foreground">
+          <MapPin className="h-12 w-12 mx-auto text-foreground/60" />
+          <h3 className="text-lg font-semibold text-foreground">Google Maps</h3>
+          <p className="text-sm text-foreground/70">
             Um die Karte anzuzeigen, musst du Google Maps aktivieren. Dabei können personenbezogene Daten an Google übermittelt werden.
           </p>
           
@@ -52,13 +52,13 @@ const GoogleMapsConsent = () => {
             <Button 
               onClick={handleDeclineConsent}
               variant="outline"
-              className="w-full"
+              className="w-full border-border text-foreground hover:bg-accent/20"
             >
               Ablehnen
             </Button>
           </div>
           
-          <div className="text-xs text-muted-foreground space-y-1">
+          <div className="text-xs text-foreground/60 space-y-1">
             <p>
               Weitere Informationen findest du in unserer{" "}
               <Link to="/datenschutz" className="text-accent-primary hover:underline">
