@@ -38,7 +38,7 @@
     --radius: 0.5rem;
 
     /* Semantic accent colors - easily changeable */
-    --accent-primary: 150 100% 60%; /* Main brand accent color */
+      --accent-primary: 270 80% 40%; /* Main brand accent color: dark purple */
     --accent-primary-dark: 150 100% 45%;
     --accent-primary-light: 150 100% 70%;
     --accent-secondary: 194 100% 50%; /* Secondary accent color */

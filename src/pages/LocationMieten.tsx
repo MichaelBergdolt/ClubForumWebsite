@@ -17,9 +17,8 @@ const LocationMieten = () => {
       title: "Bar",
       description: "Der perfekte Treffpunkt inkl. Gläsern, Mehrwegbechern, Kühlschränken & Spülmaschine.",
       images: [
-        "/images/location/Bar/Bar_1.png",
-        "/images/location/Bar/Bar_2.jpg",
         "/images/location/Bar/Bar_3.jpg",
+        "/images/location/Bar/Bar_2.jpg",
         "/images/location/Bar/Bar_4.jpg",
         "/images/location/Bar/Bar_5.jpg",
         "/images/location/Bar/Bar_6.jpg",
@@ -242,9 +241,27 @@ const LocationMieten = () => {
             </Card>
 
             <Card className="bg-gray-800/50 border-gray-700">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold text-red-500">No-Gos & Verantwortung</CardTitle>
-              </CardHeader>
+            <CardHeader>
+              <CardTitle className="text-xl font-bold text-accent-primary flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <polygon
+                  points="12,3 22,20 2,20"
+                  stroke="#facc15"
+                  strokeWidth="2"
+                  fill="transparent"
+                />  
+                <rect x="11" y="9" width="2" height="5" rx="1" fill="#facc15" />
+                <rect x="11" y="16" width="2" height="2" rx="1" fill="#facc15" />
+              </svg>
+                No-Gos & Verantwortung
+              </CardTitle>
+            </CardHeader>
+
               <CardContent className="space-y-4 text-gray-300">
                 <p><strong>Nicht erlaubt:</strong> Konfetti, Nebelmaschinen und Rauchen (inkl. Vapes etc.)</p>
                 <p><strong>Null Toleranz:</strong> Gewalt, Rassismus und Ignoranz haben bei uns keinen Platz.</p>
