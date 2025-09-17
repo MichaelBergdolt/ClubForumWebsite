@@ -48,10 +48,10 @@ export const nextEvent: EventConfig = {
   primaryLight: "355 80% 50%",  // hellerer Ton
 },
   eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Donnerstag, 31.10.2025"},
-    {icon: "Clock", title: "Uhrzeit", value: "ab 18 Uhr"},
+    {icon: "CalendarDays", title: "Datum", value: "Freitag, 31.10.2025"},
+    {icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "konstenlos mit Kostüm\n 2€ ohne Kostüm"}
+    {icon: "Ticket", title: "Eintritt", value: "konstenlos mit Kostüm\n 3€ ohne Kostüm"}
   ],
   artists: []
 };

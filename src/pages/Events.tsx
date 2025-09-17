@@ -68,6 +68,16 @@ const Events = () => {
         "/images/events/past_events/oftas_2024/Oftas_4.jpg",
       ]
     },
+    {
+      title: "Forum Fortyfive 2025",
+      images: [
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_1.jpeg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_2.jpeg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_3.jpg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_4.jpg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_5.jpg",
+      ]
+    },
   ];
 
   // Use event-specific accent color if defined, otherwise fallback to default accent-primary
@@ -97,10 +107,10 @@ const Events = () => {
               <h1
                 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
                 style={eventAccentColor ? {
-                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--event-primary)) 25%, hsl(var(--event-primary)) 75%, rgba(255,255,255,0.8) 100%)`,
+                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--event-primary)) 40%, hsl(var(--event-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
                   lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden
                 } : {
-                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--accent-primary)) 25%, hsl(var(--accent-primary)) 75%, rgba(255,255,255,0.8) 100%)`,
+                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--accent-primary)) 40%, hsl(var(--accent-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
                   lineHeight: "1.2",
                 }}
               >
