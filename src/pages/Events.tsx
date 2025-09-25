@@ -6,7 +6,7 @@ import ExpandableText from "@/components/ui/ExpandableText";
 import { CalendarDays, MapPin, Clock, Ticket, Images } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { nextEvent } from "@/data/events";
+import { nextEvent, upcomingEvents, pastEvents } from "@/data/events";
 
 const Events = () => {
   // State, um den Index der geöffneten Galerie zu speichern (-1 bedeutet geschlossen)
@@ -24,61 +24,6 @@ const Events = () => {
     return icons[iconName as keyof typeof icons] || CalendarDays;
   };
 
-  const upcomingEvents = [
-    {
-      title: "Halloween",
-      date: "31.10.2025",
-      locationName: "Club Forum",
-      locationAddress: "Marktstraße 9, 71032 Böblingen",
-      description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-      image: "/images/events/upcoming_events/Halloween.png",
-    },
-    {
-      title: "Die CLUB FORUM OFTAS",
-      date: "27.-29.12.2025",
-      locationName: "Waldheim Tannenberg",
-      locationAddress: "Murkenbachweg 120, 71032 Böblingen",
-      description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-      image: "/images/events/upcoming_events/OFTAS_Logo.png"
-    },
-    {
-      title: "Bierpongturnier",
-      date: "Coming Soon",
-      description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
-      image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
-    }
-  ];
-
-  const pastEvents = [
-        {
-      title: "Forum Fortyfive 2025",
-      images: [
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_1.jpeg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_2.jpeg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_3.jpg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_4.jpg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_5.jpg",
-      ]
-    },
-    {
-      title: "Stadtfest 2025",
-      images: [
-        "/images/events/past_events/stadtfest_2025/Stadtfest_1.jpg",
-        "/images/events/past_events/stadtfest_2025/Stadtfest_2.jpg",
-        "/images/events/past_events/stadtfest_2025/Stadtfest_3.jpg",
-        "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg",
-      ]
-    },
-    {
-      title: "Oftas 2024",
-      images: [
-        "/images/events/past_events/oftas_2024/Oftas_1.jpg",
-        "/images/events/past_events/oftas_2024/Oftas_2.jpg",
-        "/images/events/past_events/oftas_2024/Oftas_3.jpg",
-        "/images/events/past_events/oftas_2024/Oftas_4.jpg",
-      ]
-    },
-  ];
 
   // Use event-specific accent color if defined, otherwise fallback to default accent-primary
   const eventAccentColor = nextEvent.accentColor ? {
