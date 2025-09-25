@@ -13,7 +13,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/location/Bar/Bar_3.jpg')`
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/location/Bar/Bar_1.jpg')`
           }}
         />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
