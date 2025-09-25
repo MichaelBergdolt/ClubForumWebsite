@@ -33,11 +33,11 @@ const GoogleMapsConsent = () => {
 
   if (!hasConsent) {
     return (
-      <div className="flex items-center justify-center h-64 bg-gray-900 border border-gray-700 rounded-lg p-6">
-        <div className="text-center space-y-3 max-w-md mx-auto">
-          <MapPin className="h-12 w-12 mx-auto text-gray-400" />
-          <h3 className="text-lg font-semibold text-white">Google Maps</h3>
-          <p className="text-sm text-gray-300">
+      <div className="flex items-center justify-center min-h-64 bg-gray-900 border border-gray-700 rounded-lg p-4 md:p-6">
+        <div className="text-center space-y-2 md:space-y-3 max-w-md mx-auto w-full px-2">
+          <MapPin className="h-10 w-10 md:h-12 md:w-12 mx-auto text-gray-400" />
+          <h3 className="text-base md:text-lg font-semibold text-white">Google Maps</h3>
+          <p className="text-xs md:text-sm text-gray-300 px-2">
             Um die Karte anzuzeigen, musst du Google Maps aktivieren. Dabei können personenbezogene Daten an Google übermittelt werden.
           </p>
 
@@ -48,7 +48,7 @@ const GoogleMapsConsent = () => {
             Google Maps aktivieren
           </Button>
 
-          <div className="text-xs text-gray-400 space-y-1">
+          <div className="text-xs text-gray-400 space-y-1 px-2">
             <p>
               Weitere Informationen findest du in unserer{" "}
               <Link to="/datenschutz" className="text-accent-primary hover:underline">
