@@ -50,6 +50,16 @@ const Events = () => {
   ];
 
   const pastEvents = [
+        {
+      title: "Forum Fortyfive 2025",
+      images: [
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_1.jpeg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_2.jpeg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_3.jpg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_4.jpg",
+        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_5.jpg",
+      ]
+    },
     {
       title: "Stadtfest 2025",
       images: [
@@ -66,16 +76,6 @@ const Events = () => {
         "/images/events/past_events/oftas_2024/Oftas_2.jpg",
         "/images/events/past_events/oftas_2024/Oftas_3.jpg",
         "/images/events/past_events/oftas_2024/Oftas_4.jpg",
-      ]
-    },
-    {
-      title: "Forum Fortyfive 2025",
-      images: [
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_1.jpeg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_2.jpeg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_3.jpg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_4.jpg",
-        "/images/events/past_events/forum_fortyfive_2025/forum_fortyfive_5.jpg",
       ]
     },
   ];
