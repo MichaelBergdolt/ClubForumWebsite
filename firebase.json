@@ -13,7 +13,7 @@
       }
     ],
     "predeploy": [
-      "npm --prefix frontend ci",
+      "npm --prefix frontend install",
       "npm --prefix frontend run build"
     ],
     "github": {
