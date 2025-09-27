@@ -10,8 +10,25 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      # Repo auschecken
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
+
+      # Node installieren (optional, aber sauberer)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Dependencies im frontend installieren
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./frontend
+
+      # Projekt bauen
+      - name: Build project
+        run: npm run build
+        working-directory: ./frontend
+
+      # Deploy zu Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

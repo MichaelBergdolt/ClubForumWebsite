@@ -12,10 +12,6 @@
         "destination": "/index.html"
       }
     ],
-    "predeploy": [
-      "npm --prefix frontend install",
-      "npm --prefix frontend run build"
-    ],
     "github": {
       "owner": "MichaelBergdolt",
       "repo": "https://github.com/MichaelBergdolt/ClubForumWebsite.git",
