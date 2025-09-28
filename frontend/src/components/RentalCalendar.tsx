@@ -17,6 +17,7 @@ const RentalCalendar = () => {
   // Generate weekend days for rental periods (Jan-May, Sep-Nov)
   const weekendDays = useMemo(() => {
     const currentYear = new Date().getFullYear();
+    const today = new Date();
     const days: WeekendDay[] = [];
     
     // Define rental months: Jan-May (0-4), Sep-Nov (8-10)
@@ -54,7 +55,14 @@ const RentalCalendar = () => {
       }
     });
     
-    return days.sort((a, b) => a.date.getTime() - b.date.getTime());
+    // Nur aktueller + nächste 3 Monate
+    const cutoffDate = new Date(today);
+    cutoffDate.setMonth(today.getMonth() + 3); // 3 Monate in die Zukunft
+    cutoffDate.setDate(31); // bis Monatsende
+
+    return days
+      .filter(d => d.date >= today && d.date <= cutoffDate)
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
   }, [events]);
 
   // Group by month for better display
