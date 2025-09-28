@@ -23,7 +23,7 @@ export const useCalendarData = (): UseCalendarDataReturn => {
         setLoading(true);
         setError(null);
         
-        const apiBase = process.env.REACT_APP_API_BASE || '';
+        const apiBase = import.meta.env.VITE_API_BASE || '';
         const response = await fetch(`${apiBase}/calendar.php`);
         
         if (!response.ok) {
