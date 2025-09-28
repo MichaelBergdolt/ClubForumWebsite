@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 
 interface CalendarEvent {
-  summary: string;
   start: string;
   end: string;
+  title: string | null;
+  color: string | null;
+  isEvent: boolean;
 }
+
 
 interface UseCalendarDataReturn {
   events: CalendarEvent[];
