@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { ausstattung } from "@/data/location";
+import RentalCalendar from "@/components/RentalCalendar";
 
 const LocationMieten = () => {
   const [openLightboxIndex, setOpenLightboxIndex] = useState(-1);
@@ -175,6 +176,24 @@ const LocationMieten = () => {
 
       {/* Visual Separator */}
       <div className="relative py-0 bg-black">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
+            <div className="mx-6 w-3 h-3 bg-accent-secondary rounded-full"></div>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Verfügbarkeitskalender */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <RentalCalendar />
+        </div>
+      </section>
+
+      {/* Visual Separator */}
+      <div className="relative py-0 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
