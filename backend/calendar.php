@@ -5,8 +5,6 @@ header("Access-Control-Allow-Origin: http://localhost:8080");
 // Optional, aber gute Praxis: Erlaube bestimmte Methoden und Header
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-// Wichtig: Setze den Content-Type für JSON-Antworten
 header("Content-Type: application/json; charset=UTF-8");
 
 require __DIR__ . '/vendor/autoload.php';
@@ -30,18 +28,35 @@ $optParams = [
 
 try {
     $events = $service->events->listEvents($calendarId, $optParams);
-    $items = [];
+    $output = [];
 
     foreach ($events->getItems() as $event) {
-        $items[] = [
-            'summary' => $event->getSummary(),
-            'start' => $event->getStart()->getDate() ?: $event->getStart()->getDateTime(),
-            'end' => $event->getEnd()->getDate() ?: $event->getEnd()->getDateTime(),
+        $start = $event->getStart()->getDate() ?: $event->getStart()->getDateTime();
+        $end   = $event->getEnd()->getDate() ?: $event->getEnd()->getDateTime();
+        $summary = $event->getSummary();
+
+        // Prüfen, ob das Event das spezielle Format hat
+        if (isset($summary) && strpos($summary, 'EVENT;') === 0) {
+            $parts = explode(';', $summary);
+            $title = $parts[1] ?? 'Unbenannt';
+            $color = $parts[2] ?? '#000000';
+            $isEvent = true;
+        } else {
+            $title = null;
+            $color = null;
+            $isEvent = false;
+        }
+
+        $output[] = [
+            'start' => $start,
+            'end' => $end,
+            'title' => $title,
+            'color' => $color,
+            'isEvent' => $isEvent
         ];
     }
 
-    header('Content-Type: application/json');
-    echo json_encode($items);
+    echo json_encode($output);
 
 } catch (Exception $e) {
     http_response_code(500);

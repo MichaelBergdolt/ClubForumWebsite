@@ -70,12 +70,10 @@ const RentalCalendar = () => {
           
           const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
           
-          // Check if this date has an event (is occupied)
-          // Format the local date as YYYY-MM-DD to match event dates
-          const year = date.getFullYear();
-          const month = (date.getMonth() + 1).toString().padStart(2, '0');
-          const day = date.getDate().toString().padStart(2, '0');
-          const dateString = `${year}-${month}-${day}`;
+          const yearStr = date.getFullYear();
+          const monthStr = (date.getMonth() + 1).toString().padStart(2, '0');
+          const dayStr = date.getDate().toString().padStart(2, '0');
+          const dateString = `${yearStr}-${monthStr}-${dayStr}`;
           
           const isOccupied = events.some(event => {
             const eventStart = event.start.split('T')[0];
@@ -142,7 +140,7 @@ const RentalCalendar = () => {
         </div>
         <p className="text-gray-300 max-w-3xl mx-auto">
           Unsere Location ist von Januar–Mai und September–November jeweils Freitags und Samstags buchbar. 
-          Hier siehst du, welche Termine noch frei sind.
+          Hier siehst du, welche Termine in den kommenden Monaten noch frei sind.
         </p>
       </div>
 
