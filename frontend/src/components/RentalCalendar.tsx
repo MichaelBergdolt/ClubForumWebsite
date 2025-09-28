@@ -16,15 +16,44 @@ const RentalCalendar = () => {
 
   // Generate weekend days for rental periods (Jan-May, Sep-Nov)
   const weekendDays = useMemo(() => {
-    const currentYear = new Date().getFullYear();
-    const today = new Date();
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
     const days: WeekendDay[] = [];
     
-    // Define rental months: Jan-May (0-4), Sep-Nov (8-10)
-    const rentalMonths = [0, 1, 2, 3, 4, 8, 9, 10];
+    // All possible rental months: Jan-May (0-4), Sep-Nov (8-10)
+    const allRentalMonths = [0, 1, 2, 3, 4, 8, 9, 10];
     
-    rentalMonths.forEach(month => {
-      const year = currentYear;
+    // Filter to get only current and future rental months
+    const futureRentalMonths = allRentalMonths.filter(month => {
+      // For current year, only include months >= current month
+      return month >= currentMonth;
+    });
+    
+    // If we need more months for next year (when current month is late in year)
+    const nextYearMonths = allRentalMonths.filter(month => month < currentMonth);
+    
+    // Combine current year future months with next year months if needed
+    let rentalMonthsWithYears: { month: number; year: number }[] = [];
+    
+    // Add current year months
+    futureRentalMonths.forEach(month => {
+      rentalMonthsWithYears.push({ month, year: currentYear });
+    });
+    
+    // Add next year months if we need more to reach 4 months total
+    const remainingSlots = 4 - futureRentalMonths.length;
+    if (remainingSlots > 0) {
+      nextYearMonths.slice(0, remainingSlots).forEach(month => {
+        rentalMonthsWithYears.push({ month, year: currentYear + 1 });
+      });
+    }
+    
+    // Limit to 4 months total
+    rentalMonthsWithYears = rentalMonthsWithYears.slice(0, 4);
+    
+    // Process each selected rental month
+    rentalMonthsWithYears.forEach(({ month, year }) => {
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       
       // Check each day of the month
@@ -34,6 +63,11 @@ const RentalCalendar = () => {
         
         // Only include Fridays (5) and Saturdays (6)
         if (dayOfWeek === 5 || dayOfWeek === 6) {
+          // Skip dates that are in the past (only for current month)
+          if (year === currentYear && month === currentMonth && date < currentDate) {
+            continue;
+          }
+          
           const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
           
           // Check if this date has an event (is occupied)
@@ -55,14 +89,7 @@ const RentalCalendar = () => {
       }
     });
     
-    // Nur aktueller + nächste 3 Monate
-    const cutoffDate = new Date(today);
-    cutoffDate.setMonth(today.getMonth() + 3); // 3 Monate in die Zukunft
-    cutoffDate.setDate(31); // bis Monatsende
-
-    return days
-      .filter(d => d.date >= today && d.date <= cutoffDate)
-      .sort((a, b) => a.date.getTime() - b.date.getTime());
+    return days.sort((a, b) => a.date.getTime() - b.date.getTime());
   }, [events]);
 
   // Group by month for better display
@@ -109,8 +136,8 @@ const RentalCalendar = () => {
           <h3 className="text-2xl font-bold text-white">Verfügbarkeit</h3>
         </div>
         <p className="text-gray-300 max-w-3xl mx-auto">
-          Die Location des Clubforum ist von Januar–Mai und September–November jeweils freitags und samstags buchbar. 
-          Hier siehst du, welche Termine noch frei oder belegt sind.
+          Unsere Location ist von Januar–Mai und September–November jeweils Freitags und Samstags buchbar. 
+          Hier siehst du, welche Termine noch frei sind.
         </p>
       </div>
 

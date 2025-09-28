@@ -192,17 +192,6 @@ const LocationMieten = () => {
         </div>
       </section>
 
-      {/* Visual Separator */}
-      <div className="relative py-0 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
-            <div className="mx-6 w-3 h-3 bg-accent-secondary rounded-full"></div>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-accent-secondary/30 to-transparent"></div>
-          </div>
-        </div>
-      </div>
-
       {/* Wichtige Infos */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
