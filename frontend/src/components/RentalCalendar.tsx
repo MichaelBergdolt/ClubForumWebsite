@@ -71,7 +71,12 @@ const RentalCalendar = () => {
           const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
           
           // Check if this date has an event (is occupied)
-          const dateString = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+          // Format the local date as YYYY-MM-DD to match event dates
+          const year = date.getFullYear();
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const day = date.getDate().toString().padStart(2, '0');
+          const dateString = `${year}-${month}-${day}`;
+          
           const isOccupied = events.some(event => {
             const eventStart = event.start.split('T')[0];
             const eventEnd = event.end?.split('T')[0] || eventStart;
