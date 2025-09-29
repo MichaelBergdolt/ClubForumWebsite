@@ -46,11 +46,11 @@ const RentalCalendar = () => {
           if (year === currentYear && month === currentMonth && date < currentDate) continue;
 
           const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
-          const dateString = date.toISOString().split('T')[0];
+          const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
           const isOccupied = events.some(event => {
-            const eventStart = event.start.split('T')[0];
-            const eventEnd = event.end?.split('T')[0] || eventStart;
+            const eventStart = event.start;
+            const eventEnd = event.end || eventStart;
             return dateString >= eventStart && dateString <= eventEnd;
           });
 
@@ -126,8 +126,8 @@ const RentalCalendar = () => {
                 // Events an diesem Tag
                 const specialEvent: CalendarEvent | undefined = events.find(event => {
                   if (!event.isEvent) return false;
-                  const start = event.start.split('T')[0];
-                  const end = event.end?.split('T')[0] || start;
+                  const start = event.start;
+                  const end = event.end || start;
                   return day.dateString >= start && day.dateString <= end;
                 });
 
