@@ -16,10 +16,22 @@ export const useCalendarData = () => {
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/index.php");
+        const apiUrl = import.meta.env.VITE_API_BASE_URL;
+        if (!apiUrl) {
+          throw new Error("API URL ist nicht konfiguriert");
+        }
+        
+        const response = await fetch(`${apiUrl}/calendar.php`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          const text = await response.text();
+          throw new Error(`Server antwortete nicht mit JSON: ${text.substring(0, 100)}`);
+        }
+        
         const data: CalendarEvent[] = await response.json();
         setEvents(data);
       } catch (err: unknown) {
