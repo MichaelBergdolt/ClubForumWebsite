@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useCalendarData } from '@/hooks/useCalendarData';
+import { useCalendarData, CalendarEvent } from '@/hooks/useCalendarData';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
@@ -15,44 +15,38 @@ interface WeekendDay {
 const RentalCalendar = () => {
   const { events, loading, error } = useCalendarData();
 
-  // Generate weekend days for rental periods (Jan-May, Sep-Nov)
+  // Alle möglichen Wochenendtage bestimmen
   const weekendDays = useMemo(() => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
     const days: WeekendDay[] = [];
 
-    const allRentalMonths = [0, 1, 2, 3, 4, 8, 9, 10]; // Jan-May + Sep-Nov
+    const allRentalMonths = [0, 1, 2, 3, 4, 8, 9, 10]; // Jan–Mai, Sep–Nov
 
     const futureRentalMonths = allRentalMonths.filter(month => month >= currentMonth);
     const nextYearMonths = allRentalMonths.filter(month => month < currentMonth);
 
     let rentalMonthsWithYears: { month: number; year: number }[] = [];
-
     futureRentalMonths.forEach(month => rentalMonthsWithYears.push({ month, year: currentYear }));
     nextYearMonths.slice(0, 4 - futureRentalMonths.length).forEach(month =>
       rentalMonthsWithYears.push({ month, year: currentYear + 1 })
     );
-
     rentalMonthsWithYears = rentalMonthsWithYears.slice(0, 4);
 
     rentalMonthsWithYears.forEach(({ month, year }) => {
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-      
-      // Check each day of the month
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dayOfWeek = date.getDay();
-        
-        // Only include Fridays (5) and Saturdays (6)
+
+        // Nur Freitage (5) und Samstage (6)
         if (dayOfWeek === 5 || dayOfWeek === 6) {
           if (year === currentYear && month === currentMonth && date < currentDate) continue;
 
           const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
-          const yearStr = date.getFullYear();
-          const monthStr = (date.getMonth() + 1).toString().padStart(2, '0');
-          const dayStr = date.getDate().toString().padStart(2, '0');
-          const dateString = `${yearStr}-${monthStr}-${dayStr}`;
+          const dateString = date.toISOString().split('T')[0];
 
           const isOccupied = events.some(event => {
             const eventStart = event.start.split('T')[0];
@@ -75,7 +69,7 @@ const RentalCalendar = () => {
     return days.sort((a, b) => a.date.getTime() - b.date.getTime());
   }, [events]);
 
-  // Group by month for better display
+  // Gruppierung nach Monat
   const groupedByMonth = useMemo(() => {
     const groups: { [key: string]: WeekendDay[] } = {};
     weekendDays.forEach(day => {
@@ -108,7 +102,7 @@ const RentalCalendar = () => {
 
   return (
     <div className="space-y-8">
-      {/* Explanation text */}
+      {/* Erklärung */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Calendar className="h-6 w-6 text-accent-primary" />
@@ -120,7 +114,7 @@ const RentalCalendar = () => {
         </p>
       </div>
 
-      {/* Calendar Grid */}
+      {/* Kalender-Gitter */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(groupedByMonth).map(([monthYear, days]) => (
           <Card key={monthYear} className="bg-gray-800/50 border-gray-700 hover:bg-gray-800/70 transition-colors">
@@ -129,49 +123,54 @@ const RentalCalendar = () => {
             </CardHeader>
             <CardContent className="space-y-3">
               {days.map((day, index) => {
-                // Spezielle Events des Tages
-                const specialEvents = events.filter(event => event.isEvent).filter(event => {
+                // Events an diesem Tag
+                const specialEvent: CalendarEvent | undefined = events.find(event => {
+                  if (!event.isEvent) return false;
                   const start = event.start.split('T')[0];
                   const end = event.end?.split('T')[0] || start;
                   return day.dateString >= start && day.dateString <= end;
                 });
 
-                const bgClass = day.isOccupied
-                  ? specialEvents.length > 0
-                    ? 'bg-purple-500/20 border border-purple-500/30'
-                    : 'bg-red-500/20 border border-red-500/30'
-                  : 'bg-green-500/20 border border-green-500/30';
+                // Hintergrundfarbe dynamisch
+                const bgStyle = specialEvent
+                  ? { backgroundColor: specialEvent.color || '#6b21a8' }
+                  : {};
 
                 return (
-                  <div key={index} className={`flex flex-col p-3 rounded-lg transition-all ${bgClass}`}>
-                    <div className="flex justify-between items-center mb-1">
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-white">{day.day}</span>
-                        <span className="text-sm text-gray-300">
-                          {day.date.getDate().toString().padStart(2, '0')}.{(day.date.getMonth() + 1).toString().padStart(2, '0')}.
-                        </span>
-                      </div>
-                      <div className={`flex items-center gap-2 ${day.isOccupied ? 'text-red-400' : 'text-green-400'}`}>
-                        {day.isOccupied ? (
-                          <>
-                            <XCircle className="h-5 w-5" />
-                            <span className="font-semibold">Belegt</span>
-                          </>
-                        ) : (
-                          <>
-                            <CheckCircle className="h-5 w-5" />
-                            <span className="font-semibold">Frei</span>
-                          </>
-                        )}
-                      </div>
+                  <div
+                    key={index}
+                    className={`flex items-center justify-between p-3 rounded-lg transition-all ${
+                      specialEvent
+                        ? 'border border-white/20 text-white'
+                        : day.isOccupied
+                          ? 'bg-red-500/20 border border-red-500/30 text-red-400'
+                          : 'bg-green-500/20 border border-green-500/30 text-green-400'
+                    }`}
+                    style={bgStyle}
+                  >
+                    {/* Datum & Tag */}
+                    <div className="flex flex-col text-white">
+                      <span className="font-semibold">{day.day}</span>
+                      <span className="text-sm text-gray-200">
+                        {day.date.getDate().toString().padStart(2, '0')}.
+                        {(day.date.getMonth() + 1).toString().padStart(2, '0')}.
+                      </span>
                     </div>
 
-                    {/* Spezial-Events Titel & Farbe */}
-                    {specialEvents.map((event, idx) => (
-                      <span key={idx} className="text-sm font-semibold" style={{ color: event.color || '#ffffff' }}>
-                        {event.title}
-                      </span>
-                    ))}
+                    {/* Rechts: Status oder Event-Titel */}
+                    {specialEvent ? (
+                      <span className="font-semibold">{specialEvent.title}</span>
+                    ) : day.isOccupied ? (
+                      <div className="flex items-center gap-2">
+                        <XCircle className="h-5 w-5" />
+                        <span className="font-semibold">Belegt</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-5 w-5" />
+                        <span className="font-semibold">Frei</span>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -180,7 +179,7 @@ const RentalCalendar = () => {
         ))}
       </div>
 
-      {/* Legend */}
+      {/* Legende */}
       <div className="flex justify-center gap-8 pt-4">
         <div className="flex items-center gap-2">
           <CheckCircle className="h-5 w-5 text-green-400" />
@@ -190,10 +189,10 @@ const RentalCalendar = () => {
           <XCircle className="h-5 w-5 text-red-400" />
           <span className="text-gray-300">Belegt – Bereits vergeben</span>
         </div>
-        {/* <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-purple-500/70 border border-purple-500/30"></div>
-          <span className="text-gray-300">Spezial-Event – Titel & Farbe angezeigt</span>
-        </div> */}
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-white/50"></div>
+          <span className="text-gray-300">Event – Titel & Farbe</span>
+        </div>
       </div>
     </div>
   );

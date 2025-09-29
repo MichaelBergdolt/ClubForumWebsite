@@ -1,21 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
-interface CalendarEvent {
-  start: string;
-  end: string;
+export interface CalendarEvent {
+  start: string;   // YYYY-MM-DD
+  end: string;     // YYYY-MM-DD
   title: string | null;
   color: string | null;
   isEvent: boolean;
 }
 
-
-interface UseCalendarDataReturn {
-  events: CalendarEvent[];
-  loading: boolean;
-  error: string | null;
-}
-
-export const useCalendarData = (): UseCalendarDataReturn => {
+export const useCalendarData = () => {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,28 +16,18 @@ export const useCalendarData = (): UseCalendarDataReturn => {
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        setLoading(true);
-        setError(null);
-        
-        const apiBase = import.meta.env.VITE_API_BASE || '';
-        const response = await fetch(`${apiBase}/calendar.php`);
-        
+        const response = await fetch(import.meta.env.VITE_API_BASE_URL + "/index.php");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        const data = await response.json();
-        
-        // Handle error response from backend
-        if (data.error) {
-          throw new Error(data.error);
+        const data: CalendarEvent[] = await response.json();
+        setEvents(data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
         }
-        
-        setEvents(data || []);
-      } catch (err) {
-        console.error('Error fetching calendar data:', err);
-        setError(err instanceof Error ? err.message : 'Fehler beim Laden der Kalenderdaten');
-        setEvents([]);
       } finally {
         setLoading(false);
       }

@@ -1,8 +1,6 @@
 <?php
-// Dies erlaubt Anfragen von deinem Vite-Entwicklungsserver
-header("Access-Control-Allow-Origin: http://localhost:8080");
-
-// Optional, aber gute Praxis: Erlaube bestimmte Methoden und Header
+// CORS für Dev
+header("Access-Control-Allow-Origin: http://localhost:5173"); // ggf. Port anpassen
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json; charset=UTF-8");
@@ -28,35 +26,38 @@ $optParams = [
 
 try {
     $events = $service->events->listEvents($calendarId, $optParams);
-    $output = [];
+    $items = [];
 
     foreach ($events->getItems() as $event) {
         $start = $event->getStart()->getDate() ?: $event->getStart()->getDateTime();
-        $end   = $event->getEnd()->getDate() ?: $event->getEnd()->getDateTime();
-        $summary = $event->getSummary();
+        $end = $event->getEnd()->getDate() ?: $event->getEnd()->getDateTime();
 
-        // Prüfen, ob das Event das spezielle Format hat
-        if (isset($summary) && strpos($summary, 'EVENT;') === 0) {
-            $parts = explode(';', $summary);
-            $title = $parts[1] ?? 'Unbenannt';
-            $color = $parts[2] ?? '#000000';
+        // Normalisieren auf YYYY-MM-DD
+        $startDate = substr($start, 0, 10);
+        $endDate = substr($end, 0, 10);
+
+        $title = $event->getSummary();
+        $color = null;
+        $isEvent = false;
+
+        // Format: EVENT;Titel;#Farbe
+        if ($title && stripos($title, 'EVENT;') === 0) {
+            $parts = explode(';', $title);
+            $title = $parts[1] ?? $title;
+            $color = $parts[2] ?? null;
             $isEvent = true;
-        } else {
-            $title = null;
-            $color = null;
-            $isEvent = false;
         }
 
-        $output[] = [
-            'start' => $start,
-            'end' => $end,
+        $items[] = [
+            'start' => $startDate,
+            'end' => $endDate,
             'title' => $title,
             'color' => $color,
-            'isEvent' => $isEvent
+            'isEvent' => $isEvent,
         ];
     }
 
-    echo json_encode($output);
+    echo json_encode($items);
 
 } catch (Exception $e) {
     http_response_code(500);
