@@ -14,11 +14,16 @@ interface WeekendDay {
 
 // Farbpalette für Special Events (transparente Hintergrundfarben, passend zu Website-Akzentfarben)
 const eventColors: Record<string, { bg: string; border: string; text: string }> = {
-  purple: { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' },
-  emerald: { bg: 'bg-emerald-500/20', border: 'border-emerald-500/30', text: 'text-emerald-400' },
-  amber: { bg: 'bg-amber-500/20', border: 'border-amber-500/30', text: 'text-amber-400' },
-  rose: { bg: 'bg-rose-500/20', border: 'border-rose-500/30', text: 'text-rose-400' },
-  cyan: { bg: 'bg-cyan-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400' },
+  purple:   { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' },
+  cyan:     { bg: 'bg-cyan-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400' },
+  indigo:   { bg: 'bg-indigo-500/20', border: 'border-indigo-500/30', text: 'text-indigo-400' },
+  sky:      { bg: 'bg-sky-500/20', border: 'border-sky-500/30', text: 'text-sky-400' },
+  pink:     { bg: 'bg-pink-500/20', border: 'border-pink-500/30', text: 'text-pink-400' },
+  yellow:   { bg: 'bg-yellow-500/20', border: 'border-yellow-500/30', text: 'text-yellow-400' },
+
+  // explizit gleiche Farben wie Frei/Belegt
+  eventRed:   { bg: 'bg-red-500/20', border: 'border-red-500/30', text: 'text-red-400' },
+  eventGreen: { bg: 'bg-green-500/20', border: 'border-green-500/30', text: 'text-green-400' },
 };
 
 // Fallback-Farbe: Lilane Akzentfarbe der Website
