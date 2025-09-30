@@ -12,6 +12,18 @@ interface WeekendDay {
   dateString: string; // YYYY-MM-DD für Vergleich
 }
 
+// Farbpalette für Special Events (transparente Hintergrundfarben, passend zu Website-Akzentfarben)
+const eventColors: Record<string, { bg: string; border: string; text: string }> = {
+  purple: { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' },
+  emerald: { bg: 'bg-emerald-500/20', border: 'border-emerald-500/30', text: 'text-emerald-400' },
+  amber: { bg: 'bg-amber-500/20', border: 'border-amber-500/30', text: 'text-amber-400' },
+  rose: { bg: 'bg-rose-500/20', border: 'border-rose-500/30', text: 'text-rose-400' },
+  cyan: { bg: 'bg-cyan-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400' },
+};
+
+// Fallback-Farbe: Lilane Akzentfarbe der Website
+const fallbackColor = { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' };
+
 const RentalCalendar = () => {
   const { events, loading, error } = useCalendarData();
 
@@ -54,18 +66,10 @@ const RentalCalendar = () => {
             return dateString >= eventStart && dateString <= eventEnd;
           });
 
-          days.push({
-            date,
-            day: dayName,
-            isOccupied,
-            month: date.toLocaleDateString('de-DE', { month: 'long' }),
-            year: date.getFullYear(),
-            dateString
-          });
+          days.push({ date, day: dayName, isOccupied, month: date.toLocaleDateString('de-DE', { month: 'long' }), year, dateString });
         }
       }
     });
-
     return days.sort((a, b) => a.date.getTime() - b.date.getTime());
   }, [events]);
 
@@ -131,22 +135,16 @@ const RentalCalendar = () => {
                   return day.dateString >= start && day.dateString <= end;
                 });
 
-                // Hintergrundfarbe dynamisch
-                const bgStyle = specialEvent
-                  ? { backgroundColor: specialEvent.color || '#6b21a8' }
-                  : {};
+                const eventStyle = specialEvent ? eventColors[specialEvent.color || ''] || fallbackColor : null;
 
                 return (
                   <div
                     key={index}
-                    className={`flex items-center justify-between p-3 rounded-lg transition-all ${
-                      specialEvent
-                        ? 'border border-white/20 text-white'
-                        : day.isOccupied
-                          ? 'bg-red-500/20 border border-red-500/30 text-red-400'
-                          : 'bg-green-500/20 border border-green-500/30 text-green-400'
-                    }`}
-                    style={bgStyle}
+                    className={`flex items-center justify-between p-3 rounded-lg transition-all relative
+                      ${specialEvent ? `${eventStyle.bg} ${eventStyle.border} ${eventStyle.text}` :
+                        day.isOccupied ? 'bg-red-500/20 border border-red-500/30 text-red-400' :
+                        'bg-green-500/20 border border-green-500/30 text-green-400'}
+                      border border-white/20`}
                   >
                     {/* Datum & Tag */}
                     <div className="flex flex-col text-white">
