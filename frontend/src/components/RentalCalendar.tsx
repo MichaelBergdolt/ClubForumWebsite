@@ -192,10 +192,6 @@ const RentalCalendar = () => {
           <XCircle className="h-5 w-5 text-red-400" />
           <span className="text-gray-300">Belegt – Bereits vergeben</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-white/50"></div>
-          <span className="text-gray-300">Event – Titel & Farbe</span>
-        </div>
       </div>
     </div>
   );

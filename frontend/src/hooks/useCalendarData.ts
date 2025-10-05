@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export interface CalendarEvent {
+  calendarId: string;
   start: string;   // YYYY-MM-DD
   end: string;     // YYYY-MM-DD
   title: string | null;
