@@ -104,7 +104,7 @@ const RentalCalendar = () => {
         <CardContent className="p-6 text-center">
           <XCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
           <p className="text-white font-semibold text-lg mb-2">
-            Die Verfügbarkeit konnte leider nicht geladen werden.
+            Die Verfügbarkeit unserer Location konnte leider nicht geladen werden.
           </p>
           <p className="text-gray-300 text-sm">
             Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.
