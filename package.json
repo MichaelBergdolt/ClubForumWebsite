@@ -1,0 +1,10 @@
+{
+  "name": "my-project",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"php -S localhost:8000 -t backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

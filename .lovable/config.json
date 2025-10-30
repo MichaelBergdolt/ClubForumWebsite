@@ -1,0 +1,11 @@
+{
+  "frontend": {
+    "path": "frontend",
+    "start": "npm run dev"
+  },
+  "backend": {
+    "path": "backend",
+    "start": "php -S localhost:8000"
+  }
+}
+
