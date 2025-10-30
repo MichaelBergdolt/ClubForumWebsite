@@ -3,43 +3,35 @@ name: Deploy Frontend + PHP to Netcup
 on:
   push:
     branches:
-      - main  # Branch für Produktion
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Code auschecken
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Node.js einrichten (für Frontend Build)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3️⃣ Abhängigkeiten installieren
-      - name: Install dependencies
-        run: npm ci
-
-      # 4️⃣ Frontend bauen
       - name: Build frontend
-        run: npm run build
+        run: |
+          cd frontend
+          npm ci
+          npm run build
 
-      # 5️⃣ Deploy-Ordner vorbereiten
       - name: Prepare deploy folder
         run: |
           rm -rf deploy
           mkdir deploy
-          # Frontend kopieren
           cp -r frontend/dist/* deploy/
-          # PHP-Backend kopieren
           mkdir -p deploy/api
           cp -r backend/* deploy/api/
 
-      # 6️⃣ Upload via FTP
       - name: Deploy to Netcup via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -49,4 +41,4 @@ jobs:
           protocol: ftp
           local-dir: ./deploy
           server-dir: /html
-          dangerous-clean-slate: true  # löscht alte Dateien auf dem Server
+          dangerous-clean-slate: true
