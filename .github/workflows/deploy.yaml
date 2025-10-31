@@ -39,6 +39,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          local-dir: ./deploy
-          server-dir: /html
+          local-dir: ./deploy/
+          server-dir: /httpdocs/
           dangerous-clean-slate: true
