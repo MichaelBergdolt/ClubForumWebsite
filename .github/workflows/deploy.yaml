@@ -40,5 +40,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy/
-          server-dir: /httpdocs/
+          server-dir: /hosting228358.ae9cc.netcup.net/httpdocs/
           dangerous-clean-slate: true
