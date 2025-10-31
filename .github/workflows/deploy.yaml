@@ -42,4 +42,3 @@ jobs:
           local-dir: ./deploy
           server-dir: /html
           dangerous-clean-slate: true
-
