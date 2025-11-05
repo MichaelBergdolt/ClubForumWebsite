@@ -64,5 +64,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy-backend/
-          server-dir: /api-preview.club-forum-bb.de/httpdocs
+          server-dir: /api-preview.club-forum-bb.de/httpdocs/
           dangerous-clean-slate: true
