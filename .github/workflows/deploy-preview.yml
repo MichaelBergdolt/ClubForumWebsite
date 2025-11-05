@@ -29,25 +29,40 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
-      # 4️⃣ Deployment-Ordner vorbereiten
-      - name: Prepare deploy folder
+      # 4️⃣ Deployment-Ordner für Frontend vorbereiten
+      - name: Prepare frontend deploy folder
         run: |
-          mkdir deploy
-          # Frontend-Build (dist)
-          cp -r frontend/dist/* deploy/frontend/
-          # Backend-PHP-Dateien (z. B. API)
-          mkdir -p deploy/api
-          cp -r backend/* deploy/api/
-          echo "Deployment folder ready"
+          mkdir deploy-frontend
+          cp -r frontend/dist/* deploy-frontend/
+          echo "Frontend deployment folder ready"
 
-      # 5️⃣ Deployment auf Netcup hochladen
-      - name: Deploy to Netcup (Preview)
+      # 5️⃣ Deployment-Ordner für Backend vorbereiten
+      - name: Prepare backend deploy folder
+        run: |
+          mkdir deploy-backend
+          cp -r backend/* deploy-backend/
+          echo "Backend deployment folder ready"
+
+      # 6️⃣ Frontend-Deployment auf Netcup hochladen
+      - name: Deploy Frontend to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          local-dir: ./deploy/
-          server-dir: /frontend-preview/
+          local-dir: ./deploy-frontend/
+          server-dir: /preview.club-forum-bb.de/httpdocs/
+          dangerous-clean-slate: true
+
+      # 7️⃣ Backend-Deployment auf Netcup hochladen
+      - name: Deploy Backend (PHP) to Netcup (Preview)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./deploy-backend/
+          server-dir: /api-preview.club-forum-bb.de/httpdocs
           dangerous-clean-slate: true
