@@ -48,6 +48,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          local-dir: ./deploy
+          local-dir: ./deploy/
           server-dir: /frontend-preview
           dangerous-clean-slate: true
