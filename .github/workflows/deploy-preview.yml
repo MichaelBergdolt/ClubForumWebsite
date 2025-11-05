@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir deploy
           # Frontend-Build (dist)
-          cp -r frontend/dist/* deploy/
+          cp -r frontend/dist/* deploy/frontend/
           # Backend-PHP-Dateien (z. B. API)
           mkdir -p deploy/api
           cp -r backend/* deploy/api/
