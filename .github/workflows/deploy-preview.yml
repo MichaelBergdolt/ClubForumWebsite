@@ -1,0 +1,53 @@
+name: Deploy Preview (Frontend + PHP) to Netcup
+
+on:
+  push:
+    branches:
+      - dev   # nur Deploy, wenn auf 'dev' gepusht wird
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Code auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Node.js Setup (für Frontend-Build)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3️⃣ Dependencies installieren und Build starten
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # 4️⃣ Deployment-Ordner vorbereiten
+      - name: Prepare deploy folder
+        run: |
+          mkdir deploy
+          # Frontend-Build (dist)
+          cp -r frontend/dist/* deploy/
+          # Backend-PHP-Dateien (z. B. API)
+          mkdir -p deploy/api
+          cp -r backend/* deploy/api/
+          echo "Deployment folder ready"
+
+      # 5️⃣ Deployment auf Netcup hochladen
+      - name: Deploy to Netcup (Preview)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./deploy
+          server-dir: /frontend-preview
+          dangerous-clean-slate: true
