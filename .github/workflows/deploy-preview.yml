@@ -49,5 +49,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy/
-          server-dir: /frontend-preview
+          server-dir: /frontend-preview/
           dangerous-clean-slate: true
