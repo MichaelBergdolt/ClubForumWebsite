@@ -20,30 +20,36 @@ jobs:
         with:
           node-version: 20
 
-      # 3️⃣ Dependencies installieren und Build starten
+      # 3️⃣ Dependencies installieren
       - name: Install dependencies
         working-directory: ./frontend
         run: npm ci
 
+      # 4️⃣ Environment-Datei für Preview erzeugen
+      - name: Create .env.production for Preview
+        working-directory: ./frontend
+        run: echo "VITE_API_URL=https://api-preview.club-forum-bb.de" > .env.production
+
+      # 5️⃣ Frontend builden
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 4️⃣ Deployment-Ordner für Frontend vorbereiten
+      # 6️⃣ Deployment-Ordner für Frontend vorbereiten
       - name: Prepare frontend deploy folder
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
           echo "Frontend deployment folder ready"
 
-      # 5️⃣ Deployment-Ordner für Backend vorbereiten
+      # 7️⃣ Deployment-Ordner für Backend vorbereiten
       - name: Prepare backend deploy folder
         run: |
           mkdir deploy-backend
           cp -r backend/* deploy-backend/
           echo "Backend deployment folder ready"
 
-      # 6️⃣ Frontend-Deployment auf Netcup hochladen
+      # 8️⃣ Frontend-Deployment auf Netcup (Preview)
       - name: Deploy Frontend to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -55,7 +61,7 @@ jobs:
           server-dir: /preview.club-forum-bb.de/httpdocs/
           dangerous-clean-slate: true
 
-      # 7️⃣ Backend-Deployment auf Netcup hochladen
+      # 9️⃣ Backend-Deployment auf Netcup (Preview)
       - name: Deploy Backend (PHP) to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

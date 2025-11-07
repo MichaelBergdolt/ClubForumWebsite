@@ -1,8 +1,19 @@
 <?php
-// CORS für Dev
-header("Access-Control-Allow-Origin: http://localhost:8080"); // ggf. Port anpassen
+// === CORS-Setup ===
+$allowedOrigins = [
+    "http://localhost:5173",             // dein lokales Vite-Dev
+    "http://localhost:8080",             // evtl. andere lokale Umgebung
+    "https://preview.club-forum-bb.de",  // deine Preview-Domain
+    "https://club-forum-bb.de",          // optional: später live
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+}
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -10,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+// === Google Calendar Logic ===
 require __DIR__ . '/vendor/autoload.php';
 
 $serviceAccountFile = __DIR__ . '/service-account.json';
