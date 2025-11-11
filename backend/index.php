@@ -1,5 +1,9 @@
 <?php
 // === CORS-Setup ===
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $allowedOrigins = [
     "http://localhost:5173",             // dein lokales Vite-Dev
     "http://localhost:8080",             // evtl. andere lokale Umgebung
