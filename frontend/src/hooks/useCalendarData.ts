@@ -22,7 +22,8 @@ export const useCalendarData = () => {
           throw new Error("API URL ist nicht konfiguriert");
         }
         
-        const response = await fetch(`${apiUrl}/calendar.php`);
+        const response = await fetch(`${apiUrl}/index.php`);
+        console.log(response)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
