@@ -10,51 +10,67 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1 Code auschecken
+      # 1️⃣ Code auschecken
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2 Node.js Setup (für Frontend-Build)
+      # 2️⃣ Node.js Setup (für Frontend-Build)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3 Dependencies installieren
+      # 3️⃣ Dependencies installieren
       - name: Install dependencies
         working-directory: ./frontend
         run: npm ci
 
-      # 4 Environment-Datei für Preview erzeugen
+      # 4️⃣ Environment-Datei für Preview erzeugen
       - name: Create .env.production for Preview
         working-directory: ./frontend
         run: echo "VITE_API_URL=https://api-preview.club-forum-bb.de" > .env.production
 
-      # 5 Frontend builden
+      # 5️⃣ Frontend builden
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 6 Deployment-Ordner für Frontend vorbereiten
+      # 6️⃣ Deployment-Ordner für Frontend vorbereiten
       - name: Prepare frontend deploy folder
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
           echo "Frontend deployment folder ready"
 
-      # 7 Install PHP dependencies for Backend
+      # 7️⃣ PHP Setup für Composer
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      # 8️⃣ Cache Composer dependencies (beschleunigt Builds massiv)
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # 9️⃣ Install PHP dependencies (Composer)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
         run: composer install --no-dev --optimize-autoloader
 
-      # 8 Deployment-Ordner für Backend vorbereiten
+      # 🔟 Deployment-Ordner für Backend vorbereiten
       - name: Prepare backend deploy folder
         run: |
           mkdir deploy-backend
           cp -r backend/* deploy-backend/
           echo "Backend deployment folder ready"
 
-      # 9 Frontend-Deployment auf Netcup (Preview)
+      # 1️⃣1️⃣ Frontend-Deployment auf Netcup (Preview)
       - name: Deploy Frontend to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -64,9 +80,15 @@ jobs:
           protocol: ftp
           local-dir: ./deploy-frontend/
           server-dir: /preview.club-forum-bb.de/httpdocs/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false # 🟢 Kein Full-Wipe
+          state-name: frontend-deploy-state.json # 🧠 merkt sich geänderte Dateien
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/tests/**
 
-      # 10 Backend-Deployment auf Netcup (Preview)
+      # 1️⃣2️⃣ Backend-Deployment auf Netcup (Preview)
       - name: Deploy Backend (PHP) to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -76,5 +98,10 @@ jobs:
           protocol: ftp
           local-dir: ./deploy-backend/
           server-dir: /api-preview.club-forum-bb.de/httpdocs/
-          dangerous-clean-slate: true
-
+          dangerous-clean-slate: false
+          state-name: backend-deploy-state.json
+          exclude: |
+            **/.git*
+            **/.github*
+            **/node_modules/**
+            **/tests/**

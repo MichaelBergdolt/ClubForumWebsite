@@ -1,6 +1,6 @@
 <?php
 // === CORS-Setup ===
-ini_set('display_errors', 1);
+ini_set('display_errors', 1); # TODO: darf auf keinen Fall in Production build sein! Unsicher!
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
