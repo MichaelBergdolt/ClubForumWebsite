@@ -1,123 +1,79 @@
-name: Deploy Preview (Frontend + PHP) to Netcup via ZIP
+name: Deploy Preview (Frontend + PHP) to Netcup
 
 on:
   push:
     branches:
-      - dev
+      - dev   # nur Deploy, wenn auf 'dev' gepusht wird
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # --- SCHRITTE 1-8: BUILD PROZESS (Leicht angepasst) ---
-
-      # 1. Code auschecken
+      # 1 Code auschecken
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Node.js Setup
+      # 2 Node.js Setup (für Frontend-Build)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3. Dependencies installieren (Frontend)
-      - name: Install dependencies (Frontend)
+      # 3 Dependencies installieren
+      - name: Install dependencies
         working-directory: ./frontend
         run: npm ci
 
-      # 4. Environment-Datei erzeugen
+      # 4 Environment-Datei für Preview erzeugen
       - name: Create .env.production for Preview
         working-directory: ./frontend
         run: echo "VITE_API_URL=https://api-preview.club-forum-bb.de" > .env.production
 
-      # 5. Frontend builden
+      # 5 Frontend builden
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 6. Deployment-Ordner für Frontend vorbereiten
+      # 6 Deployment-Ordner für Frontend vorbereiten
       - name: Prepare frontend deploy folder
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
+          echo "Frontend deployment folder ready"
 
-      # 7. Install PHP dependencies (Backend)
+      # 7 Install PHP dependencies for Backend
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
         run: composer install --no-dev --optimize-autoloader
 
-      # 8. Deployment-Ordner für Backend vorbereiten
+      # 8 Deployment-Ordner für Backend vorbereiten
       - name: Prepare backend deploy folder
         run: |
           mkdir deploy-backend
           cp -r backend/* deploy-backend/
+          echo "Backend deployment folder ready"
 
-      # --- SCHRITTE 9-13: NEUER DEPLOY PROZESS (ZIP & SSH) ---
-
-      # 9. Frontend-Build zippen
-      - name: Zip Frontend Build
-        run: |
-          cd deploy-frontend
-          zip -r ../frontend-build.zip .
-          cd ..
-
-      # 10. Backend-Build zippen
-      - name: Zip Backend Build
-        run: |
-          cd deploy-backend
-          zip -r ../backend-build.zip .
-          cd ..
-
-      # 11. Frontend-ZIP per FTP hochladen
-      - name: Deploy Frontend ZIP to Netcup
+      # 9 Frontend-Deployment auf Netcup (Preview)
+      - name: Deploy Frontend to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          local-file: ./frontend-build.zip
-          remote-file: /preview.club-forum-bb.de/httpdocs/frontend-build.zip
+          local-dir: ./deploy-frontend/
+          server-dir: /preview.club-forum-bb.de/httpdocs/
+          # clean: true # TODO checken ob noch hinzugefügt werden sollte
 
-      # 12. Backend-ZIP per FTP hochladen
-      - name: Deploy Backend ZIP to Netcup
+      # 10 Backend-Deployment auf Netcup (Preview)
+      - name: Deploy Backend (PHP) to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
-          local-file: ./backend-build.zip
-          remote-file: /api-preview.club-forum-bb.de/httpdocs/backend-build.zip
-
-      # 13. Builds auf Server per SSH entpacken
-      - name: Unzip Deployments on Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script_stop: true # Bricht ab, wenn ein Befehl fehlschlägt
-          script: |
-            echo "--- 1. Navigiere zum Frontend-Verzeichnis ---"
-            cd /preview.club-forum-bb.de/httpdocs/
-            
-            echo "--- 2. Entpacke Frontend (überschreibt alles) ---"
-            unzip -o frontend-build.zip
-            
-            echo "--- 3. Lösche Frontend-ZIP ---"
-            rm frontend-build.zip
-            
-            echo "--- 4. Navigiere zum Backend-Verzeichnis ---"
-            cd /api-preview.club-forum-bb.de/httpdocs/
-            
-            echo "--- 5. Entpacke Backend (das kann dauern) ---"
-            unzip -o backend-build.zip
-            
-            echo "--- 6. Lösche Backend-ZIP ---"
-            rm backend-build.zip
-            
-            echo "--- Deployment abgeschlossen ---"
+          local-dir: ./deploy-backend/
+          server-dir: /api-preview.club-forum-bb.de/httpdocs/
+          # clean: true # TODO checken ob noch hinzugefügt werden sollte
