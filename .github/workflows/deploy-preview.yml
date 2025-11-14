@@ -1,107 +1,77 @@
-name: Deploy Preview (Frontend + PHP) to Netcup
+name: Deploy Preview (Frontend + PHP) to Netcup via Rsync
 
 on:
   push:
     branches:
-      - dev   # nur Deploy, wenn auf 'dev' gepusht wird
+      - dev  # Nur Deploy, wenn auf 'dev' gepusht wird
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Code auschecken
+      # 1. Code auschecken
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Node.js Setup (für Frontend-Build)
+      # 2. Node.js Setup
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3️⃣ Dependencies installieren
-      - name: Install dependencies
+      # 3. Dependencies installieren (Frontend)
+      - name: Install dependencies (Frontend)
         working-directory: ./frontend
         run: npm ci
 
-      # 4️⃣ Environment-Datei für Preview erzeugen
+      # 4. Environment-Datei erzeugen
       - name: Create .env.production for Preview
         working-directory: ./frontend
         run: echo "VITE_API_URL=https://api-preview.club-forum-bb.de" > .env.production
 
-      # 5️⃣ Frontend builden
+      # 5. Frontend builden
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 6️⃣ Deployment-Ordner für Frontend vorbereiten
+      # 6. Deployment-Ordner für Frontend vorbereiten
       - name: Prepare frontend deploy folder
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
-          echo "Frontend deployment folder ready"
 
-      # 7️⃣ PHP Setup für Composer
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer
-
-      # 8️⃣ Cache Composer dependencies (beschleunigt Builds massiv)
-      - name: Cache Composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: backend/vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('backend/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-
-      # 9️⃣ Install PHP dependencies (Composer)
+      # 7. Install PHP dependencies (Backend)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
         run: composer install --no-dev --optimize-autoloader
 
-      # 🔟 Deployment-Ordner für Backend vorbereiten
+      # 8. Deployment-Ordner für Backend vorbereiten
       - name: Prepare backend deploy folder
         run: |
           mkdir deploy-backend
           cp -r backend/* deploy-backend/
-          echo "Backend deployment folder ready"
 
-      # 1️⃣1️⃣ Frontend-Deployment auf Netcup (Preview)
+      # --- SCHRITTE 9-11: NEUER DEPLOY PROZESS (Rsync statt FTP) ---
+
+      # 9. SSH Key installieren
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'unnecessary' # Akzeptiert den Host-Key automatisch
+          if_key_exists: replace
+
+      # 10. Frontend-Deployment auf Netcup (Rsync)
       - name: Deploy Frontend to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-frontend/
-          server-dir: /preview.club-forum-bb.de/httpdocs/
-          dangerous-clean-slate: false # 🟢 Kein Full-Wipe
-          state-name: frontend-deploy-state.json # 🧠 merkt sich geänderte Dateien
-          exclude: |
-            **/.git*
-            **/.github*
-            **/node_modules/**
-            **/tests/**
+        run: |
+          # -a: Archiv-Modus (behält Rechte, etc.)
+          # -v: Verbose (zeigt, was es tut)
+          # -z: Komprimiert Daten bei der Übertragung
+          # --delete: Löscht alte Dateien auf dem Server (wie dangerous-clean-slate)
+          rsync -avz --delete ./deploy-frontend/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
 
-      # 1️⃣2️⃣ Backend-Deployment auf Netcup (Preview)
+      # 11. Backend-Deployment auf Netcup (Rsync)
       - name: Deploy Backend (PHP) to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-backend/
-          server-dir: /api-preview.club-forum-bb.de/httpdocs/
-          dangerous-clean-slate: false
-          state-name: backend-deploy-state.json
-          exclude: |
-            **/.git*
-            **/.github*
-            **/node_modules/**
-            **/tests/**
+        run: |
+          rsync -avz --delete ./deploy-backend/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
