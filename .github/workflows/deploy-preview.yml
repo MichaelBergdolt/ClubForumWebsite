@@ -62,16 +62,20 @@ jobs:
           known_hosts: 'unnecessary' # Akzeptiert den Host-Key automatisch
           if_key_exists: replace
 
-      # 10. Frontend-Deployment auf Netcup (Rsync)
+      # 10. Frontend-Deployment (Versuch 2: mit rsync-path)
       - name: Deploy Frontend to Netcup (Preview)
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+          rsync -avz --delete \
+          --rsync-path=/usr/bin/rsync \
+          -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
           ./deploy-frontend/ \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
 
-      # 11. Backend-Deployment auf Netcup (Rsync)
+      # 11. Backend-Deployment (Versuch 2: mit rsync-path)
       - name: Deploy Backend (PHP) to Netcup (Preview)
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+          rsync -avz --delete \
+          --rsync-path=/usr/bin/rsync \
+          -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
           ./deploy-backend/ \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
