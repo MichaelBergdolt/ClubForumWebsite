@@ -65,13 +65,13 @@ jobs:
       # 10. Frontend-Deployment auf Netcup (Rsync)
       - name: Deploy Frontend to Netcup (Preview)
         run: |
-          # -a: Archiv-Modus (behält Rechte, etc.)
-          # -v: Verbose (zeigt, was es tut)
-          # -z: Komprimiert Daten bei der Übertragung
-          # --delete: Löscht alte Dateien auf dem Server (wie dangerous-clean-slate)
-          rsync -avz --delete ./deploy-frontend/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+          ./deploy-frontend/ \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
 
       # 11. Backend-Deployment auf Netcup (Rsync)
       - name: Deploy Backend (PHP) to Netcup (Preview)
         run: |
-          rsync -avz --delete ./deploy-backend/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+          ./deploy-backend/ \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
