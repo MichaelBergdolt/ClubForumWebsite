@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /
+
+# Wenn Datei oder Ordner existiert → normal ausliefern
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Alle anderen Routen auf index.html für SPA Routing
+RewriteRule . /index.html [L]

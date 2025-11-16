@@ -1,3 +1,4 @@
+<!-- TODO: in Response dürfen auf keinen Fall Kalenderdaten enthalten sein! Datenschutz!-->
 <?php
 // === CORS-Setup ===
 ini_set('display_errors', 1); # TODO: darf auf keinen Fall in Production build sein! Unsicher!
