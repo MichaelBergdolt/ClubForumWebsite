@@ -30,12 +30,16 @@ jobs:
         working-directory: ./frontend
         run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
 
-      # 5 Frontend builden
+      # 5 robots.txt für Preview setzen
+      - name: Use preview robots.txt
+        run: cp frontend/public/robots.preview.txt frontend/public/robots.txt
+
+      # 6 Frontend builden
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 6 Deployment-Ordner für Frontend vorbereiten
+      # 7 Deployment-Ordner für Frontend vorbereiten
       - name: Prepare frontend deploy folder
         run: |
           mkdir deploy-frontend
@@ -43,19 +47,19 @@ jobs:
           cp frontend/public/.htaccess deploy-frontend/.htaccess || true
           echo "Frontend deployment folder ready"
 
-      # 7 Install PHP dependencies for Backend
+      # 8 Install PHP dependencies for Backend
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
         run: composer install --no-dev --optimize-autoloader
 
-      # 8 Deployment-Ordner für Backend vorbereiten
+      # 9 Deployment-Ordner für Backend vorbereiten
       - name: Prepare backend deploy folder
         run: |
           mkdir deploy-backend
           cp -r backend/* deploy-backend/
           echo "Backend deployment folder ready"
 
-      # 9 Frontend-Deployment auf Netcup (Preview)
+      # 10 Frontend-Deployment auf Netcup (Preview)
       - name: Deploy Frontend to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -67,7 +71,7 @@ jobs:
           server-dir: /preview.club-forum-bb.de/httpdocs/
           # clean: true # TODO checken ob noch hinzugefügt werden sollte
 
-      # 10 Backend-Deployment auf Netcup (Preview)
+      # 11 Backend-Deployment auf Netcup (Preview)
       - name: Deploy Backend (PHP) to Netcup (Preview)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
