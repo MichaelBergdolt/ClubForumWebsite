@@ -28,7 +28,7 @@ jobs:
       # 4 Environment-Datei für Preview erzeugen
       - name: Create .env.production for Preview
         working-directory: ./frontend
-        run: echo "VITE_API_URL=https://api-preview.club-forum-bb.de" > .env.production
+        run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
 
       # 5 Frontend builden
       - name: Build frontend
@@ -77,3 +77,6 @@ jobs:
           local-dir: ./deploy-backend/
           server-dir: /api-preview.club-forum-bb.de/httpdocs/
           # clean: true # TODO checken ob noch hinzugefügt werden sollte
+
+# TODO: Über robots.txt noch verbieten, dass preview indiziert wird.
+# TODO: Wenn reload außerhalb von "Home" Seite kommt immer Seite nicht gefunden. Fixen!
