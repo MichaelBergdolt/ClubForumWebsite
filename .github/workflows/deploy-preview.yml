@@ -80,4 +80,3 @@ jobs:
           # clean: true # TODO checken ob noch hinzugefügt werden sollte
 
 # TODO: Über robots.txt noch verbieten, dass preview indiziert wird.
-# TODO: Wenn reload außerhalb von "Home" Seite kommt immer Seite nicht gefunden. Fixen!
