@@ -40,6 +40,7 @@ jobs:
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
+          cp frontend/public/.htaccess deploy-frontend/.htaccess || true
           echo "Frontend deployment folder ready"
 
       # 7 Install PHP dependencies for Backend
