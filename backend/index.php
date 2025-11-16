@@ -1,11 +1,11 @@
 <?php
 // === CORS-Setup ===
-ini_set('display_errors', 1); // TODO: In Production deaktivieren!
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0); // TODO: Dynamisch über .env Production / Development setzen
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 $allowedOrigins = [
-    "http://localhost:5173",
+    "http://localhost:5173", // TODO: Dynmisch über .env Production/Development zulassen oder eben auch nicht.
     "http://localhost:8080",
     "https://preview.club-forum-bb.de",
     "https://club-forum-bb.de",
