@@ -261,7 +261,7 @@ const Datenschutz = () => {
               <p>
                 Name: Club Forum<br />
                 Anschrift: Markstraße 9, 71032 Böblingen<br />
-                E-Mail-Adresse: club.forum.bb@gmail.com
+                E-Mail-Adresse: kontakt@club-forum-bb.de
               </p>
             </div>
 
