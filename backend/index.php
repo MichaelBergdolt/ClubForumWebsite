@@ -1,15 +1,14 @@
 <?php
 // === CORS-Setup ===
-// TODO: in Response dürfen auf keinen Fall Kalenderdaten enthalten sein! Datenschutz!
-ini_set('display_errors', 1); # TODO: darf auf keinen Fall in Production build sein! Unsicher!
+ini_set('display_errors', 1); // TODO: In Production deaktivieren!
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $allowedOrigins = [
-    "http://localhost:5173",             // dein lokales Vite-Dev
-    "http://localhost:8080",             // evtl. andere lokale Umgebung
-    "https://preview.club-forum-bb.de",  // deine Preview-Domain
-    "https://club-forum-bb.de",          // optional: später live
+    "http://localhost:5173",
+    "http://localhost:8080",
+    "https://preview.club-forum-bb.de",
+    "https://club-forum-bb.de",
 ];
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -28,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // === Google Calendar Logic ===
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/src/Calendar/GoogleCalendarService.php';
+require __DIR__ . '/src/Calendar/EventTransformer.php';
 
+// Google Client initialisieren
 $serviceAccountFile = __DIR__ . '/service-account.json';
 
 $client = new Google_Client();
@@ -37,11 +39,17 @@ $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
 
 $service = new Google_Service_Calendar($client);
 
+// Service & Transformer
+$calendarService = new GoogleCalendarService($service);
+$transformer = new EventTransformer();
+
+// Deine Kalender-IDs
 $calendarIds = [
     '1qumnn1ij0r7tmm427mgtsucag@group.calendar.google.com', // Kalender: "Club Forum"
     'dnbanuksheraorcd546uqrqhb8@group.calendar.google.com'  // Kalender: "Club Forum (Vermietungen)"
 ];
 
+// Parameter für Google Calendar API
 $optParams = [
     'singleEvents' => true,
     'orderBy' => 'startTime',
@@ -49,47 +57,18 @@ $optParams = [
     'maxResults' => 50
 ];
 
-$items = [];
-
 try {
-    foreach ($calendarIds as $calendarId) {
-        $events = $service->events->listEvents($calendarId, $optParams);
+    // Rohe Google-Events holen
+    $rawEvents = $calendarService->getRawEvents($calendarIds, $optParams);
 
-        foreach ($events->getItems() as $event) {
-            $start = $event->getStart()->getDate() ?: $event->getStart()->getDateTime();
-            $end = $event->getEnd()->getDate() ?: $event->getEnd()->getDateTime();
+    // DSGVO-konforme Transformation
+    $publicEvents = $transformer->transform($rawEvents);
 
-            // Normalisieren auf YYYY-MM-DD
-            $startDate = substr($start, 0, 10);
-            $endDate = substr($end, 0, 10);
+    // Sortieren nach Datum
+    usort($publicEvents, fn($a, $b) => strcmp($a['start'], $b['start']));
 
-            $title = $event->getSummary();
-            $color = null;
-            $isEvent = false;
-
-            // Format: EVENT;Titel;#Farbe
-            if ($title && stripos($title, 'EVENT;') === 0) {
-                $parts = explode(';', $title);
-                $title = $parts[1] ?? $title;
-                $color = $parts[2] ?? null;
-                $isEvent = true;
-            }
-
-            $items[] = [
-                'calendarId' => $calendarId,
-                'start' => $startDate,
-                'end' => $endDate,
-                'title' => $title,
-                'color' => $color,
-                'isEvent' => $isEvent,
-            ];
-        }
-    }
-
-    // Optional: Events nach Startdatum sortieren
-    usort($items, fn($a, $b) => strcmp($a['start'], $b['start']));
-
-    echo json_encode($items, JSON_UNESCAPED_UNICODE);
+    // Output der anonymisierten Events
+    echo json_encode($publicEvents, JSON_UNESCAPED_UNICODE);
 
 } catch (Exception $e) {
     http_response_code(500);

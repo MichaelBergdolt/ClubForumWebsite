@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export interface CalendarEvent {
-  calendarId: string;
   start: string;   // YYYY-MM-DD
   end: string;     // YYYY-MM-DD
   title: string | null;
@@ -23,7 +22,6 @@ export const useCalendarData = () => {
         }
         
         const response = await fetch(`${apiUrl}/index.php`);
-        console.log(response)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
