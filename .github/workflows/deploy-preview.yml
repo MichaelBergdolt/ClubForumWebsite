@@ -69,7 +69,6 @@ jobs:
           protocol: ftp
           local-dir: ./deploy-frontend/
           server-dir: /preview.club-forum-bb.de/httpdocs/
-          # clean: true # TODO checken ob noch hinzugefügt werden sollte
 
       # 11 Backend-Deployment auf Netcup (Preview)
       - name: Deploy Backend (PHP) to Netcup (Preview)
@@ -81,6 +80,3 @@ jobs:
           protocol: ftp
           local-dir: ./deploy-backend/
           server-dir: /api-preview.club-forum-bb.de/httpdocs/
-          # clean: true # TODO checken ob noch hinzugefügt werden sollte
-
-# TODO: Über robots.txt noch verbieten, dass preview indiziert wird.
