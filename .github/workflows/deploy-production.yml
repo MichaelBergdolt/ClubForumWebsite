@@ -1,9 +1,9 @@
-name: Deploy Preview (Frontend + PHP) to Netcup
+name: Deploy Production (Frontend + PHP) to Netcup
 
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2 Node.js Setup (für Frontend-Build)
+      # 2 Node.js Setup
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -25,14 +25,14 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      # 4 Environment-Datei für Preview erzeugen
-      - name: Create .env.production for Preview
+      # 4 Environment-Datei für Production erzeugen
+      - name: Create .env.production for Live
         working-directory: ./frontend
-        run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
+        run: echo "VITE_API_BASE_URL=https://api.club-forum-bb.de" > .env.production
 
-      # 5 robots.txt für Preview setzen
-      - name: Use preview robots.txt
-        run: cp frontend/public/robots.preview.txt frontend/public/robots.txt
+      # 5 robots.txt
+      - name: Use production robots.txt
+        run: cp frontend/public/robots.prod.txt frontend/public/robots.txt
 
       # 6 Frontend builden
       - name: Build frontend
@@ -44,10 +44,10 @@ jobs:
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
-          cp frontend/public/.htaccess deploy-frontend/.htaccess || true
+          cp frontend/public/.htaccess deploy-frontend/.htaccess
           echo "Frontend deployment folder ready"
 
-      # 8 Install PHP dependencies for Backend
+      # 8 Install PHP dependencies for Backend (Production Mode)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
         run: composer install --no-dev --optimize-autoloader
@@ -59,8 +59,8 @@ jobs:
           cp -r backend/* deploy-backend/
           echo "Backend deployment folder ready"
 
-      # 10 Frontend-Deployment auf Netcup (Preview)
-      - name: Deploy Frontend to Netcup (Preview)
+      # 10 Frontend-Deployment auf Netcup (LIVE)
+      - name: Deploy Frontend to Netcup (Live)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -68,10 +68,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy-frontend/
-          server-dir: /preview.club-forum-bb.de/httpdocs/
+          server-dir: /club-forum-bb.de/httpdocs/
 
-      # 11 Backend-Deployment auf Netcup (Preview)
-      - name: Deploy Backend (PHP) to Netcup (Preview)
+      # 11 Backend-Deployment auf Netcup (LIVE)
+      - name: Deploy Backend (PHP) to Netcup (Live)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -79,4 +79,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy-backend/
-          server-dir: /api-preview.club-forum-bb.de/httpdocs/
+          server-dir: /api.club-forum-bb.de/httpdocs/
