@@ -106,7 +106,7 @@ Das Projekt wird über **Firebase Hosting** automatisch bei Änderungen am main 
 
 ## 📬 Kontakt
 
-📧 **E-Mail:** [club.forum.bb@gmail.com](mailto:club.forum.bb@gmail.com)
+📧 **E-Mail:** [kontakt@club-forum-bb.de](mailto:kontakt@club-forum-bb.de)
 
 ---
 

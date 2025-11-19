@@ -71,14 +71,14 @@ export const nextEvent: EventConfig = {
 };
 
 export const upcomingEvents: UpcomingEvent[] = [
-  {
-    title: "Halloween",
-    date: "31.10.2025",
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-    image: "/images/events/upcoming_events/Halloween.png",
-  },
+  // {
+  //   title: "Halloween",
+  //   date: "31.10.2025",
+  //   locationName: "Club Forum",
+  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
+  //   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
+  //   image: "/images/events/upcoming_events/Halloween.png",
+  // },
   {
     title: "Die CLUB FORUM OFTAS",
     date: "27.-29.12.2025",

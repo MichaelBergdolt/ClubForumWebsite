@@ -122,7 +122,7 @@ const Kontakt = () => {
                     In der Zwischenzeit kannst du uns gerne direkt per E-Mail kontaktieren.
                   </p>
                   <a 
-                    href="mailto:club.forum.bb@gmail.com" 
+                    href="mailto:vermietung@club-forum-bb.de" 
                     className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                   >
                     <Mail className="h-5 w-5 mr-2" />
@@ -239,10 +239,19 @@ const Kontakt = () => {
                   <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-accent-primary" />
                     <a 
-                      href="mailto:club.forum.bb@gmail.com" 
+                      href="mailto:kontakt@club-forum-bb.de" 
                       className="text-white hover:underline"
                     >
-                      club.forum.bb@gmail.com
+                      kontakt@club-forum-bb.de
+                    </a>
+                  </div>
+                                    <div className="flex items-center space-x-2">
+                    <Mail className="h-5 w-5 text-accent-primary" />
+                    <a 
+                      href="mailto:vermietung@club-forum-bb.de" 
+                      className="text-white hover:underline"
+                    >
+                      vermietung@club-forum-bb.de
                     </a>
                   </div>
                 </CardContent>

@@ -1,0 +1,82 @@
+name: Deploy Preview (Frontend + PHP) to Netcup
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1 Code auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2 Node.js Setup (für Frontend-Build)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3 Dependencies installieren
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      # 4 Environment-Datei für Preview erzeugen
+      - name: Create .env.production for Preview
+        working-directory: ./frontend
+        run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
+
+      # 5 robots.txt für Preview setzen
+      - name: Use preview robots.txt
+        run: cp frontend/public/robots.preview.txt frontend/public/robots.txt
+
+      # 6 Frontend builden
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # 7 Deployment-Ordner für Frontend vorbereiten
+      - name: Prepare frontend deploy folder
+        run: |
+          mkdir deploy-frontend
+          cp -r frontend/dist/* deploy-frontend/
+          cp frontend/public/.htaccess deploy-frontend/.htaccess || true
+          echo "Frontend deployment folder ready"
+
+      # 8 Install PHP dependencies for Backend
+      - name: Install Composer dependencies (Backend)
+        working-directory: ./backend
+        run: composer install --no-dev --optimize-autoloader
+
+      # 9 Deployment-Ordner für Backend vorbereiten
+      - name: Prepare backend deploy folder
+        run: |
+          mkdir deploy-backend
+          cp -r backend/* deploy-backend/
+          echo "Backend deployment folder ready"
+
+      # 10 Frontend-Deployment auf Netcup (Preview)
+      - name: Deploy Frontend to Netcup (Preview)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./deploy-frontend/
+          server-dir: /preview.club-forum-bb.de/httpdocs/
+
+      # 11 Backend-Deployment auf Netcup (Preview)
+      - name: Deploy Backend (PHP) to Netcup (Preview)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./deploy-backend/
+          server-dir: /api-preview.club-forum-bb.de/httpdocs/
