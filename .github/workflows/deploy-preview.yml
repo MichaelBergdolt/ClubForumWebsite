@@ -68,7 +68,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy-frontend/
-          server-dir: /preview.club-forum-bb.de/httpdocs/
+          server-dir: /club-forum-bb.de/httpdocs/
 
       # 11 Backend-Deployment auf Netcup (Preview)
       - name: Deploy Backend (PHP) to Netcup (Preview)
@@ -80,4 +80,3 @@ jobs:
           protocol: ftp
           local-dir: ./deploy-backend/
           server-dir: /api-preview.club-forum-bb.de/httpdocs/
-          
