@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir deploy-frontend
           cp -r frontend/dist/* deploy-frontend/
-          cp frontend/public/.htaccess deploy-frontend/.htaccess || true
+          cp frontend/public/.htaccess deploy-frontend/.htaccess
           echo "Frontend deployment folder ready"
 
       # 8 Install PHP dependencies for Backend (Production Mode)
@@ -68,7 +68,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./deploy-frontend/
-          server-dir: /httpdocs/
+          server-dir: /club-forum-bb.de/httpdocs/
 
       # 11 Backend-Deployment auf Netcup (LIVE)
       - name: Deploy Backend (PHP) to Netcup (Live)
