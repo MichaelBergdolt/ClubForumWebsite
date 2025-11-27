@@ -160,7 +160,7 @@ const LocationMieten = () => {
             <div className="bg-gray-900 rounded-lg p-8 mb-8">
               <p className="text-lg leading-relaxed mb-6">
                 Das gesamte Forum ist ehrenamtlich und non-profit. Deshalb bieten wir die Location 
-                pro Abend für nur <span className="text-accent-primary font-bold text-2xl">300€</span> an.
+                pro Abend für nur <span className="text-accent-primary font-bold text-2xl">350€</span> an.
               </p>
               <p className="text-lg leading-relaxed mb-6">
                 <span className="text-accent-primary font-bold">Schüler und Studenten erhalten 100€ Rabatt!</span>
