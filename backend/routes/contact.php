@@ -31,7 +31,8 @@ if (!$email || strlen($message) < 3) {
 
 $mail = new PHPMailer(true);
 
-if (empty($_ENV['SMTP_HOST'])) {
+if (empty(env('SMTP_HOST'))) {
+    http_response_code(500);
     echo json_encode(["error" => "Environment variables not loaded. Check .env file."]);
     exit;
 }
@@ -39,19 +40,19 @@ if (empty($_ENV['SMTP_HOST'])) {
 try {
     // 3. SMTP Settings – Werte aus $_ENV nutzen (geladen via bootstrap.php)
     $mail->isSMTP();
-    $mail->Host       = $_ENV['SMTP_HOST'];
+    $mail->Host       = env('SMTP_HOST');
     $mail->SMTPAuth   = true;
-    $mail->Username   = $_ENV['SMTP_USER'];
-    $mail->Password   = $_ENV['SMTP_PASS'];
+    $mail->Username   = env('SMTP_USER');
+    $mail->Password   = env('SMTP_PASS');
     $mail->SMTPSecure = 'tls'; // Netcup nutzt meist TLS auf 587
-    $mail->Port       = $_ENV['SMTP_PORT'];
+    $mail->Port       = env('SMTP_PORT');
     $mail->CharSet    = 'UTF-8'; // Wichtig für Umlaute!
 
     // Absender + Empfänger
     // Absender muss meist identisch mit dem Login-User sein bei Netcup
-    $mail->setFrom($_ENV['SMTP_USER'], $_ENV['SMTP_FROM_NAME']);
+    $mail->setFrom(env('SMTP_USER'), env('SMTP_FROM_NAME'));
     $mail->addReplyTo($email); // Damit du auf "Antworten" klicken kannst und an den Kunden schreibst
-    $mail->addAddress($_ENV['SMTP_USER']); // Email geht an dich
+    $mail->addAddress(env('SMTP_USER')); // Email geht an dich
 
     $mail->Subject = 'Neue Anfrage von der Website';
     $mail->Body    = "Du hast eine neue Nachricht erhalten:\n\nEmail: {$email}\n\nNachricht:\n{$message}";
