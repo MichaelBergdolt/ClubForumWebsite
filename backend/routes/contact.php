@@ -31,6 +31,11 @@ if (!$email || strlen($message) < 3) {
 
 $mail = new PHPMailer(true);
 
+if (empty($_ENV['SMTP_HOST'])) {
+    echo json_encode(["error" => "Environment variables not loaded. Check .env file."]);
+    exit;
+}
+
 try {
     // 3. SMTP Settings – Werte aus $_ENV nutzen (geladen via bootstrap.php)
     $mail->isSMTP();
