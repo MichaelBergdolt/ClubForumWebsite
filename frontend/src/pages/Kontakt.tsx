@@ -114,7 +114,7 @@ const Kontakt = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
+                {/* <div className="text-center py-12">
                   <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-gray-300 mb-2">Kontaktformular wird überarbeitet</h3>
                   <p className="text-gray-400 mb-6">
@@ -128,10 +128,9 @@ const Kontakt = () => {
                     <Mail className="h-5 w-5 mr-2" />
                     E-Mail senden
                   </a>
-                </div>
+                </div> */}
                 
-                {/* 
-                COMMENTED OUT FORM CODE - DO NOT DELETE:
+                { 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
@@ -216,7 +215,7 @@ const Kontakt = () => {
                     Nachricht absenden
                   </Button>
                 </form>
-                */}
+                }
               </CardContent>
             </Card>
 
