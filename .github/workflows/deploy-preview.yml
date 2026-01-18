@@ -56,18 +56,38 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      # 10 Deploy Frontend via Rsync
-      - name: Deploy Frontend (Rsync)
+      # 10 Deployment-Ordner vorbereiten & Packen (Beispiel für Backend)
+      - name: Archive Backend
         run: |
-          rsync -avz --delete \
-            ./frontend/dist/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
+          # Wir packen alles in eine Datei. Das ist 100x schneller beim Upload.
+          tar -czf backend.tar.gz -C ./backend .
 
-      # 11 Deploy Backend via Rsync
-      - name: Deploy Backend (Rsync)
+      # 11 Archiv hochladen
+      - name: Upload Backend Tarball
         run: |
-          rsync -avz --delete \
-            --exclude='.env' \
-            --exclude='.git' \
-            ./backend/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
+          scp backend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/
+
+      # 12 Archiv auf dem Server entpacken und aufräumen
+      - name: Extract Backend on Server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /api-preview.club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../backend.tar.gz && \
+            rm ../backend.tar.gz
+          "
+
+      # --- Analog für das Frontend ---
+
+      - name: Archive Frontend
+        run: tar -czf frontend.tar.gz -C ./frontend/dist .
+
+      - name: Upload Frontend Tarball
+        run: scp frontend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/
+
+      - name: Extract Frontend on Server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /preview.club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../frontend.tar.gz && \
+            rm ../frontend.tar.gz
+          "
