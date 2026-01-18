@@ -20,63 +20,72 @@ jobs:
         with:
           node-version: 20
 
-      # 3 Dependencies installieren
-      - name: Install dependencies
+      # 3 Frontend Dependencies
+      - name: Install dependencies (Frontend)
         working-directory: ./frontend
         run: npm ci
 
-      # 4 Environment-Datei für Production erzeugen
-      - name: Create .env.production for Live
+      # 4 Env Datei für Production
+      - name: Create .env.production
         working-directory: ./frontend
         run: echo "VITE_API_BASE_URL=https://api.club-forum-bb.de" > .env.production
 
-      # 5 robots.txt
+      # 5 Robots.txt
       - name: Use production robots.txt
         run: cp frontend/public/robots.prod.txt frontend/public/robots.txt
 
-      # 6 Frontend builden
+      # 6 Build Frontend
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 7 Deployment-Ordner für Frontend vorbereiten
-      - name: Prepare frontend deploy folder
-        run: |
-          mkdir deploy-frontend
-          cp -r frontend/dist/* deploy-frontend/
-          cp frontend/public/.htaccess deploy-frontend/.htaccess
-          echo "Frontend deployment folder ready"
-
-      # 8 Install PHP dependencies for Backend (Production Mode)
+      # 7 PHP Dependencies (Backend)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
-        run: composer install --no-dev --optimize-autoloader
+        run: composer install --no-dev --optimize-autoloader --prefer-dist
 
-      # 9 Deployment-Ordner für Backend vorbereiten
-      - name: Prepare backend deploy folder
+      # 8 SSH Key Setup
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+          if_key_exists: replace
+
+      # 9 Known Hosts hinzufügen
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      # 10 Backend packen
+      - name: Archive Backend
+        run: tar -czf backend.tar.gz -C ./backend .
+
+      # 11 Backend hochladen
+      - name: Upload Backend Tarball
+        run: scp backend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api.club-forum-bb.de/
+
+      # 12 Backend entpacken
+      - name: Extract Backend on Server
         run: |
-          mkdir deploy-backend
-          cp -r backend/* deploy-backend/
-          echo "Backend deployment folder ready"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /api.club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../backend.tar.gz && \
+            rm ../backend.tar.gz
+          "
 
-      # 10 Frontend-Deployment auf Netcup (LIVE)
-      - name: Deploy Frontend to Netcup (Live)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-frontend/
-          server-dir: /club-forum-bb.de/httpdocs/
+      # 13 Frontend packen
+      - name: Archive Frontend
+        run: tar -czf frontend.tar.gz -C ./frontend/dist .
 
-      # 11 Backend-Deployment auf Netcup (LIVE)
-      - name: Deploy Backend (PHP) to Netcup (Live)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-backend/
-          server-dir: /api.club-forum-bb.de/httpdocs/
+      # 14 Frontend hochladen
+      - name: Upload Frontend Tarball
+        run: scp frontend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/club-forum-bb.de/
+
+      # 15 Frontend entpacken
+      - name: Extract Frontend on Server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../frontend.tar.gz && \
+            rm ../frontend.tar.gz
+          "
