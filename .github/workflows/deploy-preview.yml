@@ -42,7 +42,7 @@ jobs:
       # 7 PHP Dependencies (Backend)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
-        run: composer install --no-dev --optimize-autoloader --dist
+        run: composer install --no-dev --optimize-autoloader --prefer-dist
 
       # 8 SSH Key Setup
       - name: Install SSH Key
@@ -61,8 +61,8 @@ jobs:
         run: |
           rsync -avz --delete \
             ./frontend/dist/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/httpdocs/preview.club-forum-bb.de/
-            
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
+
       # 11 Deploy Backend via Rsync
       - name: Deploy Backend (Rsync)
         run: |
@@ -70,4 +70,4 @@ jobs:
             --exclude='.env' \
             --exclude='.git' \
             ./backend/ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/httpdocs/api-preview.club-forum-bb.de/
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
