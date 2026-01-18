@@ -133,7 +133,7 @@ const Kontakt = () => {
                 { 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
+                    <Label htmlFor="name" className="text-gray-200">Name *</Label>
                     <Input
                       id="name"
                       type="text"
@@ -146,7 +146,7 @@ const Kontakt = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">E-Mail *</Label>
+                    <Label htmlFor="email" className="text-gray-200">E-Mail *</Label>
                     <Input
                       id="email"
                       type="email"
@@ -159,7 +159,7 @@ const Kontakt = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="betreff">Betreff *</Label>
+                    <Label htmlFor="betreff" className="text-gray-200">Betreff *</Label>
                     <Select value={formData.betreff} onValueChange={(value) => handleInputChange("betreff", value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Wähle einen Betreff" />
@@ -174,7 +174,7 @@ const Kontakt = () => {
 
                   {formData.betreff === "mietanfrage" && (
                     <div className="space-y-2">
-                      <Label htmlFor="datum">Gewünschtes Datum</Label>
+                      <Label htmlFor="datum" className="text-gray-200">Gewünschtes Datum</Label>
                       <Input
                         id="datum"
                         type="date"
@@ -185,7 +185,7 @@ const Kontakt = () => {
                   )}
 
                   <div className="space-y-2">
-                    <Label htmlFor="nachricht">Deine Nachricht *</Label>
+                    <Label htmlFor="nachricht" className="text-gray-200">Deine Nachricht *</Label>
                     <Textarea
                       id="nachricht"
                       value={formData.nachricht}
@@ -197,7 +197,7 @@ const Kontakt = () => {
                     {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
 
-                  <div className="space-y-2 text-xs text-gray-600">
+                  <div className="space-y-2 text-xs text-gray-400">
                     <p>Mit * markierte Felder sind Pflichtfelder.</p>
                     <p>
                       Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
