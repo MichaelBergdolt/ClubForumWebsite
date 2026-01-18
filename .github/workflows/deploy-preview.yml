@@ -59,24 +59,17 @@ jobs:
           cp -r backend/* deploy-backend/
           echo "Backend deployment folder ready"
 
-      # 10 Frontend-Deployment auf Netcup (Preview)
-      - name: Deploy Frontend to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-frontend/
-          server-dir: /preview.club-forum-bb.de/httpdocs/
+      # 10 Deploy Frontend via Rsync
+      - name: Deploy Frontend (Rsync)
+        run: |
+          rsync -avz --delete \
+            ./deploy-frontend/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/httpdocs/
 
-      # 11 Backend-Deployment auf Netcup (Preview)
-      - name: Deploy Backend (PHP) to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-backend/
-          server-dir: /api-preview.club-forum-bb.de/httpdocs/
+      # 11 Deploy Backend via Rsync
+      - name: Deploy Backend (Rsync)
+        run: |
+          rsync -avz --delete \
+            --exclude='.env' \
+            ./deploy-backend/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/httpdocs/
