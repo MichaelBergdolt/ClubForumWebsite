@@ -152,7 +152,7 @@ try {
     $mail->Subject = "Eingangsbestätigung: " . $mailSubject;
 
     $confirmBody = "Hallo {$name},\n\n";
-    $confirmBody .= "vielen Dank für deine Nachricht an das Club Forum Böblingen\n";
+    $confirmBody .= "vielen Dank für deine Nachricht an das Club Forum Böblingen.\n";
     $confirmBody .= "Wir haben deine Anfrage erhalten und werden uns schnellstmöglich bei dir melden.\n\n";
     $confirmBody .= "Zusammenfassung deiner Anfrage:\n";
     $confirmBody .= "----------------------------------------\n";
