@@ -9,13 +9,15 @@ import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
-import SuccessToast from "@/components/ui/SuccessToast"; // Neu
+import SuccessToast from "@/components/ui/SuccessToast";
 
 const Kontakt = () => {
+  // State angepasst: 'anfrageArt' steuert das Dropdown, 'betreff' ist das Textfeld
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    betreff: "",
+    anfrageArt: "", // Früher 'betreff'
+    betreff: "",    // Neu: Freitextfeld
     datum: "",
     nachricht: ""
   });
@@ -23,11 +25,12 @@ const Kontakt = () => {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
+    anfrageArt: "",
     betreff: "",
     nachricht: ""
   });
 
-  const [showSuccess, setShowSuccess] = useState(false); // Neu
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,6 +41,7 @@ const Kontakt = () => {
     const newErrors = {
       name: "",
       email: "",
+      anfrageArt: "",
       betreff: "",
       nachricht: ""
     };
@@ -48,7 +52,15 @@ const Kontakt = () => {
     } else if (!validateEmail(formData.email)) {
       newErrors.email = "Bitte gib eine gültige E-Mail-Adresse ein";
     }
-    if (!formData.betreff) newErrors.betreff = "Betreff ist erforderlich";
+    
+    // Validierung für Dropdown
+    if (!formData.anfrageArt) newErrors.anfrageArt = "Bitte wähle eine Art der Anfrage";
+
+    // Validierung für Betreff (nur wenn Allgemein ausgewählt ist)
+    if (formData.anfrageArt === "allgemein" && !formData.betreff.trim()) {
+      newErrors.betreff = "Bitte gib einen Betreff an";
+    }
+
     if (!formData.nachricht.trim()) newErrors.nachricht = "Nachricht ist erforderlich";
 
     setErrors(newErrors);
@@ -59,13 +71,18 @@ const Kontakt = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Zeige Erfolg
+    // show Success
     setShowSuccess(true);
+
+    // Hier würdest du die Daten vermutlich an dein Backend senden.
+    // Hinweis: Wenn anfrageArt === 'mietanfrage', kannst du den Betreff 
+    // im Backend automatisch auf z.B. `Mietanfrage für den ${formData.datum}` setzen.
 
     // Reset form
     setFormData({
       name: "",
       email: "",
+      anfrageArt: "",
       betreff: "",
       datum: "",
       nachricht: ""
@@ -74,6 +91,7 @@ const Kontakt = () => {
     setErrors({
       name: "",
       email: "",
+      anfrageArt: "",
       betreff: "",
       nachricht: ""
     });
@@ -105,7 +123,7 @@ const Kontakt = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
-            {/* Kontaktformular - TEMPORARILY DISABLED */}
+            {/* Kontaktformular */}
             <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold flex items-center text-white">
@@ -114,23 +132,6 @@ const Kontakt = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {/* <div className="text-center py-12">
-                  <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-300 mb-2">Kontaktformular wird überarbeitet</h3>
-                  <p className="text-gray-400 mb-6">
-                    Unser Kontaktformular wird gerade technisch überarbeitet. 
-                    In der Zwischenzeit kannst du uns gerne direkt per E-Mail kontaktieren.
-                  </p>
-                  <a 
-                    href="mailto:vermietung@club-forum-bb.de" 
-                    className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                  >
-                    <Mail className="h-5 w-5 mr-2" />
-                    E-Mail senden
-                  </a>
-                </div> */}
-                
-                { 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-gray-200">Name *</Label>
@@ -158,22 +159,24 @@ const Kontakt = () => {
                     {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
                   </div>
 
+                  {/* Art der Anfrage (Dropdown) */}
                   <div className="space-y-2">
-                    <Label htmlFor="betreff" className="text-gray-200">Betreff *</Label>
-                    <Select value={formData.betreff} onValueChange={(value) => handleInputChange("betreff", value)}>
+                    <Label htmlFor="anfrageArt" className="text-gray-200">Art der Anfrage *</Label>
+                    <Select value={formData.anfrageArt} onValueChange={(value) => handleInputChange("anfrageArt", value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Wähle einen Betreff" />
+                        <SelectValue placeholder="Worum geht es?" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="mietanfrage">Mietanfrage</SelectItem>
                         <SelectItem value="allgemein">Allgemeine Anfrage</SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.betreff && <p className="text-sm text-red-600">{errors.betreff}</p>}
+                    {errors.anfrageArt && <p className="text-sm text-red-600">{errors.anfrageArt}</p>}
                   </div>
 
-                  {formData.betreff === "mietanfrage" && (
-                    <div className="space-y-2">
+                  {/* Conditional: Datum nur bei Mietanfrage */}
+                  {formData.anfrageArt === "mietanfrage" && (
+                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
                       <Label htmlFor="datum" className="text-gray-200">Gewünschtes Datum</Label>
                       <Input
                         id="datum"
@@ -181,6 +184,21 @@ const Kontakt = () => {
                         value={formData.datum}
                         onChange={(e) => handleInputChange("datum", e.target.value)}
                       />
+                    </div>
+                  )}
+
+                  {/* Conditional: Betreff Textfeld nur bei Allgemein */}
+                  {formData.anfrageArt === "allgemein" && (
+                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                      <Label htmlFor="betreff" className="text-gray-200">Betreff *</Label>
+                      <Input
+                        id="betreff"
+                        type="text"
+                        value={formData.betreff}
+                        onChange={(e) => handleInputChange("betreff", e.target.value)}
+                        placeholder="Kurz zusammengefasst worum es geht"
+                      />
+                      {errors.betreff && <p className="text-sm text-red-600">{errors.betreff}</p>}
                     </div>
                   )}
 
@@ -215,7 +233,6 @@ const Kontakt = () => {
                     Nachricht absenden
                   </Button>
                 </form>
-                }
               </CardContent>
             </Card>
 
@@ -244,7 +261,7 @@ const Kontakt = () => {
                       kontakt@club-forum-bb.de
                     </a>
                   </div>
-                                    <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-accent-primary" />
                     <a 
                       href="mailto:vermietung@club-forum-bb.de" 
