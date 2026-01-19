@@ -3,8 +3,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// TODO: Wie funktioniert verarbeitung wenn Mietanfrage ohne Datum. Checken!!!
-
 // -----------------------------
 // 1. Request-Methode prüfen
 // -----------------------------
@@ -23,7 +21,7 @@ if (
     !$data ||
     empty($data['name']) ||
     empty($data['email']) ||
-    empty($data['betreff']) ||
+    empty($data['anfrageArt']) ||
     empty($data['nachricht'])
 ) {
     http_response_code(400);
@@ -34,11 +32,12 @@ if (
 // -----------------------------
 // 3. Felder aufbereiten
 // -----------------------------
-$name      = trim($data['name']);
-$email     = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
-$betreff   = trim($data['betreff']);
-$nachricht = trim($data['nachricht']);
-$datum     = isset($data['datum']) ? trim($data['datum']) : null;
+$name       = trim($data['name']);
+$email      = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
+$anfrageArt = trim($data['anfrageArt']); // 'mietanfrage' oder 'allgemein'
+$betreffRaw = isset($data['betreff']) ? trim($data['betreff']) : ''; // Freitext-Betreff
+$nachricht  = trim($data['nachricht']);
+$datum      = isset($data['datum']) ? trim($data['datum']) : null;
 
 // -----------------------------
 // 4. Validierung
@@ -47,24 +46,24 @@ if (
     !$email ||
     strlen($name) < 2 ||
     strlen($nachricht) < 5 ||
-    !in_array($betreff, ['mietanfrage', 'allgemein'], true)
+    !in_array($anfrageArt, ['mietanfrage', 'allgemein'], true)
 ) {
     http_response_code(422);
     echo json_encode(["error" => "Validation failed"]);
     exit;
 }
 
-// Datum nur bei Mietanfrage erforderlich
-if ($betreff === 'mietanfrage' && empty($datum)) {
+// Wenn Allgemein, muss ein Betreff angegeben sein
+if ($anfrageArt === 'allgemein' && empty($betreffRaw)) {
     http_response_code(422);
-    echo json_encode(["error" => "Datum required for Mietanfrage"]);
+    echo json_encode(["error" => "Betreff required for general request"]);
     exit;
 }
 
 // -----------------------------
-// 5. Empfänger bestimmen
+// 5. Empfänger & Betreff bestimmen
 // -----------------------------
-$recipient = match ($betreff) {
+$recipient = match ($anfrageArt) {
     'mietanfrage' => env('RENT_EMAIL'),
     'allgemein'   => env('CONTACT_EMAIL'),
     default       => env('CONTACT_EMAIL'),
@@ -76,8 +75,27 @@ if (empty($recipient)) {
     exit;
 }
 
+// Datum formatieren (deutsch), falls vorhanden
+$datumFormatiert = '';
+if (!empty($datum)) {
+    $dateTime = DateTime::createFromFormat('Y-m-d', $datum);
+    if ($dateTime !== false) {
+        $datumFormatiert = $dateTime->format('d.m.Y');
+    }
+}
+
+// Betreff für die E-Mail an den Verein generieren
+if ($anfrageArt === 'mietanfrage') {
+    // Wenn Datum da: "Mietanfrage 12.12.2024", sonst "Mietanfrage (Datum offen)"
+    $mailSubject = 'Mietanfrage';
+    $mailSubject .= $datumFormatiert ? " " . $datumFormatiert : " (Datum offen)";
+} else {
+    // Bei Allgemein den eingegebenen Betreff nutzen
+    $mailSubject = "Anfrage: " . $betreffRaw;
+}
+
 // -----------------------------
-// 6. Mail versenden
+// 6. Mails versenden
 // -----------------------------
 $mail = new PHPMailer(true);
 
@@ -96,43 +114,58 @@ try {
     $mail->Port       = env('SMTP_PORT');
     $mail->CharSet    = 'UTF-8';
 
-    // Absender & Empfänger
+    // ==========================================
+    // MAIL 1: An den Verein
+    // ==========================================
     $mail->setFrom(env('SMTP_USER'), env('SMTP_FROM_NAME'));
     $mail->addReplyTo($email, $name);
     $mail->addAddress($recipient);
 
-    // Datum formatieren (deutsch)
-    $datumFormatiert = '';
-    if (!empty($datum)) {
-        $dateTime = DateTime::createFromFormat('Y-m-d', $datum);
-        if ($dateTime !== false) {
-            $datumFormatiert = $dateTime->format('d.m.Y');
-        }
+    $mail->Subject = $mailSubject;
+    
+    // Body aufbauen
+    $bodyContent = "Name: {$name}\n";
+    $bodyContent .= "E-Mail: {$email}\n";
+    
+    if ($anfrageArt === 'mietanfrage') {
+         $bodyContent .= "Gewünschtes Datum: " . ($datumFormatiert ?: "Nicht angegeben") . "\n";
     }
+    
+    $bodyContent .= "\nNachricht:\n{$nachricht}";
+    
+    $mail->Body = $bodyContent;
+    $mail->send();
 
-    // Betreff zusammenbauen
-    $subjectMap = [
-        'mietanfrage' => 'Mietanfrage',
-        'allgemein'   => 'Allgemeine Anfrage',
-    ];
+    // ==========================================
+    // MAIL 2: Bestätigung an den Nutzer
+    // ==========================================
+    
+    // WICHTIG: Empfänger zurücksetzen, damit der Verein die Bestätigung nicht nochmal bekommt
+    $mail->clearAllRecipients(); 
+    $mail->clearReplyTos();
 
-    $subject = $subjectMap[$betreff] ?? 'Neue Anfrage';
-    if ($betreff === 'mietanfrage' && $datumFormatiert) {
-        $subject .= " " . $datumFormatiert;
-    }
-    $mail->Subject = $subject;
+    $mail->addAddress($email); // An den Nutzer senden
+    
+    // Optional: No-Reply Adresse oder Standard-Absender lassen
+    $mail->setFrom(env('SMTP_USER'), "Club Forum - Keine Antwort"); 
 
-    // Mail-Body
-    $mail->Body =
-        "Name: {$name}\n" .
-        ($datum ? "Gewünschtes Datum: {$datumFormatiert}\n" : "") .
-        "\nNachricht:\n{$nachricht}";
+    $mail->Subject = "Eingangsbestätigung: " . $mailSubject;
 
+    $confirmBody = "Hallo {$name},\n\n";
+    $confirmBody .= "vielen Dank für deine Nachricht an das Club Forum Böblingen\n";
+    $confirmBody .= "Wir haben deine Anfrage erhalten und werden uns schnellstmöglich bei dir melden.\n\n";
+    $confirmBody .= "Zusammenfassung deiner Anfrage:\n";
+    $confirmBody .= "----------------------------------------\n";
+    $confirmBody .= $bodyContent . "\n";
+    $confirmBody .= "----------------------------------------\n\n";
+    $confirmBody .= "Dies ist eine automatisch generierte Nachricht.";
+
+    $mail->Body = $confirmBody;
     $mail->send();
 
     echo json_encode([
         "success" => true,
-        "type"    => $betreff
+        "type"    => $anfrageArt
     ]);
 
 } catch (Exception $e) {
