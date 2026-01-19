@@ -5,11 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
+import { MapPin, Mail, MessageSquare, Map, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
 import SuccessToast from "@/components/ui/SuccessToast";
+import { useContactForm } from "@/hooks/useContactForm";
 
 const Kontakt = () => {
   // State angepasst: 'anfrageArt' steuert das Dropdown, 'betreff' ist das Textfeld
@@ -31,6 +32,7 @@ const Kontakt = () => {
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
+  const { submitContact, loading, error: submitError } = useContactForm();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,34 +69,43 @@ const Kontakt = () => {
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // show Success
-    setShowSuccess(true);
+    try {
+      await submitContact({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        anfrageArt: formData.anfrageArt as "mietanfrage" | "allgemein",
+        betreff: formData.anfrageArt === "allgemein" ? formData.betreff.trim() : undefined,
+        datum: formData.anfrageArt === "mietanfrage" && formData.datum ? formData.datum : undefined,
+        nachricht: formData.nachricht.trim(),
+      });
 
-    // Hier würdest du die Daten vermutlich an dein Backend senden.
-    // Hinweis: Wenn anfrageArt === 'mietanfrage', kannst du den Betreff 
-    // im Backend automatisch auf z.B. `Mietanfrage für den ${formData.datum}` setzen.
+      // show Success
+      setShowSuccess(true);
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      anfrageArt: "",
-      betreff: "",
-      datum: "",
-      nachricht: ""
-    });
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        anfrageArt: "",
+        betreff: "",
+        datum: "",
+        nachricht: ""
+      });
 
-    setErrors({
-      name: "",
-      email: "",
-      anfrageArt: "",
-      betreff: "",
-      nachricht: ""
-    });
+      setErrors({
+        name: "",
+        email: "",
+        anfrageArt: "",
+        betreff: "",
+        nachricht: ""
+      });
+    } catch {
+      // Fehler wird im Hook behandelt
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -226,11 +237,25 @@ const Kontakt = () => {
                     </p>
                   </div>
 
+                  {submitError && (
+                    <p className="text-sm text-red-500 bg-red-500/10 p-3 rounded">
+                      Fehler: {submitError}
+                    </p>
+                  )}
+
                   <Button
                     type="submit"
-                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold"
+                    disabled={loading}
+                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold disabled:opacity-50"
                   >
-                    Nachricht absenden
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Wird gesendet...
+                      </>
+                    ) : (
+                      "Nachricht absenden"
+                    )}
                   </Button>
                 </form>
               </CardContent>
