@@ -118,36 +118,40 @@ try {
     // MAIL 1: An den Verein
     // ==========================================
     $mail->setFrom(env('SMTP_USER'), env('SMTP_FROM_NAME'));
-    $mail->addReplyTo($email, $name);
-    $mail->addAddress($recipient);
 
+
+    // =========================
+    // MAIL 1: An das Club Forum
+    // =========================
+    
+    // WICHTIG: Damit der Verein beim Klick auf "Antworten" 
+    // direkt dem Kunden schreibt und nicht der Noreply-Adresse:
+    $mail->addReplyTo($email, $name);
+    
+    $mail->addAddress($recipient);
     $mail->Subject = $mailSubject;
     
     // Body aufbauen
     $bodyContent = "Name: {$name}\n";
     $bodyContent .= "E-Mail: {$email}\n";
-    
     if ($anfrageArt === 'mietanfrage') {
          $bodyContent .= "Gewünschtes Datum: " . ($datumFormatiert ?: "Nicht angegeben") . "\n";
     }
-    
     $bodyContent .= "\nNachricht:\n{$nachricht}";
     
     $mail->Body = $bodyContent;
     $mail->send();
 
+
     // ==========================================
     // MAIL 2: Bestätigung an den Nutzer
     // ==========================================
     
-    // WICHTIG: Empfänger zurücksetzen, damit der Verein die Bestätigung nicht nochmal bekommt
+    // Aufräumen für die zweite Mail
     $mail->clearAllRecipients(); 
-    $mail->clearReplyTos();
-
-    $mail->addAddress($email); // An den Nutzer senden
+    $mail->clearReplyTos(); // Hier löschen wir die Reply-To des Kunden wieder!
     
-    // Optional: No-Reply Adresse oder Standard-Absender lassen
-    $mail->setFrom(env('SMTP_USER'), "Club Forum - Keine Antwort"); 
+    $mail->addAddress($email); // Ziel: Der Kunde 
 
     $mail->Subject = "Eingangsbestätigung: " . $mailSubject;
 
@@ -158,7 +162,7 @@ try {
     $confirmBody .= "----------------------------------------\n";
     $confirmBody .= $bodyContent . "\n";
     $confirmBody .= "----------------------------------------\n\n";
-    $confirmBody .= "Dies ist eine automatisch generierte Nachricht.";
+    $confirmBody .= "Bitte antworte nicht direkt auf diese automatische E-Mail.";
 
     $mail->Body = $confirmBody;
     $mail->send();
