@@ -162,7 +162,7 @@ try {
     $confirmBody .= "----------------------------------------\n";
     $confirmBody .= $bodyContent . "\n";
     $confirmBody .= "----------------------------------------\n\n";
-    $confirmBody .= "Bitte antworte nicht direkt auf diese automatische E-Mail.";
+    $confirmBody .= "Bitte antworte nicht auf diese automatisch generierte E-Mail.";
 
     $mail->Body = $confirmBody;
     $mail->send();
