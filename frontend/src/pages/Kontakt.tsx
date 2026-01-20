@@ -262,7 +262,7 @@ const Kontakt = () => {
             </Card>
 
             {/* Location Info */}
-            <div className="space-y-8">
+            <div className="flex flex-col gap-8 h-full">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
@@ -280,14 +280,14 @@ const Kontakt = () => {
               </Card>
 
               {/* Google Maps with GDPR Consent */}
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-gray-800/50 border-gray-700 flex-1 flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
                     <Map className="h-6 w-6 mr-2 text-accent-primary" />
                     Anfahrt
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                   <GoogleMapsConsent />
                 </CardContent>
               </Card>
