@@ -276,25 +276,6 @@ const Kontakt = () => {
                     <p className="text-gray-300">Marktstraße 9</p>
                     <p className="text-gray-300">71032 Böblingen</p>
                   </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Mail className="h-5 w-5 text-accent-primary" />
-                    <a 
-                      href="mailto:kontakt@club-forum-bb.de" 
-                      className="text-white hover:underline"
-                    >
-                      kontakt@club-forum-bb.de
-                    </a>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Mail className="h-5 w-5 text-accent-primary" />
-                    <a 
-                      href="mailto:vermietung@club-forum-bb.de" 
-                      className="text-white hover:underline"
-                    >
-                      vermietung@club-forum-bb.de
-                    </a>
-                  </div>
                 </CardContent>
               </Card>
 
