@@ -29,7 +29,7 @@ export const useContactForm = (): UseContactFormResult => {
         throw new Error("API URL ist nicht konfiguriert");
       }
 
-      const response = await fetch(`${apiUrl}/routes/contact.php`, {
+      const response = await fetch(`${apiUrl}/index.php?route=contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

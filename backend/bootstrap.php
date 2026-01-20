@@ -30,6 +30,8 @@ if ($appEnv === 'development') {
     error_reporting(0);
 }
 
+// error_log('APP_ENV = ' . $appEnv);
+
 // === CORS Setup ===
 $allowedOrigins = [
     "https://preview.club-forum-bb.de",
