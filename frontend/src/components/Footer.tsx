@@ -77,7 +77,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 Club Forum Böblingen. Alle Rechte vorbehalten.
+            © {new Date().getFullYear()} Club Forum Böblingen. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>
