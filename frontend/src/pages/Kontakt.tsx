@@ -219,7 +219,11 @@ const Kontakt = () => {
                       id="nachricht"
                       value={formData.nachricht}
                       onChange={(e) => handleInputChange("nachricht", e.target.value)}
-                      placeholder="Erzähl uns von deiner Idee oder stelle deine Frage..."
+                      placeholder={
+                        formData.anfrageArt === "mietanfrage"
+                          ? "Erzähl uns von deiner Feier: Anlass, Anzahl an Gästen, ..."
+                          : "Erzähl uns von deiner Idee oder stelle deine Frage..."
+                      }
                       rows={5}
                       required
                     />
