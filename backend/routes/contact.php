@@ -162,7 +162,7 @@ try {
     $confirmBody .= "----------------------------------------\n";
     $confirmBody .= $bodyContent . "\n";
     $confirmBody .= "----------------------------------------\n\n";
-    $confirmBody .= "Bitte antworte nicht auf diese automatisch generierte E-Mail.";
+    $confirmBody .= "Bitte antworte nicht auf diese automatisch generierte E-Mail."; // TODO: Bei Mietanfrage sollte noch weiterer Ablauf in den Text: Wir fragen ob jemand die Vermietung von uns Ehrenamtlich übernehmen kann. Auf Mietdetails auf der Website verweisen.
 
     $mail->Body = $confirmBody;
     $mail->send();
