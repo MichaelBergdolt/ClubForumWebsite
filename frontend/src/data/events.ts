@@ -71,15 +71,27 @@ export type PastEvent = {
 // };
 
 export const nextEvent: EventConfig = {
-  title: "OFTAS",
-  description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
+  title: "Bierpongturnier",
+  description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
   eventDetails: [
-    { icon: "CalendarDays", title: "Datum", value: "Samstag, 27.12.2025 - Montag, 29.12.2025" },
-    { icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr" },
-    { icon: "MapPin", title: "Ort", value: "Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen" },
-    { icon: "Ticket", title: "Eintritt", value: "frei" },
+    {icon: "CalendarDays", title: "Datum", value: "Samstag, 11.04.2026"},
+    {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
+    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+    {icon: "Ticket", title: "Eintritt", value: "20€ pro Team\n(2 Personen)"}
   ],
-  artists: [
+  artists: []
+};
+
+// export const nextEvent: EventConfig = {
+//   title: "OFTAS",
+//   description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
+//   eventDetails: [
+//     { icon: "CalendarDays", title: "Datum", value: "Samstag, 27.12.2025 - Montag, 29.12.2025" },
+//     { icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr" },
+//     { icon: "MapPin", title: "Ort", value: "Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen" },
+//     { icon: "Ticket", title: "Eintritt", value: "frei" },
+//   ],
+//   artists: [
 //     {
 //       name: "<- Was s' sagt",
 //       image: "/images/events/stay_tuned_logo.png",
@@ -105,35 +117,61 @@ export const nextEvent: EventConfig = {
 //       image: "/images/events/upcoming_events/forum_fortyfive/joost.png",
 //       description: "Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion."
 //     }
-  ],
-};
+//   ],
+// };
 
 export const upcomingEvents: UpcomingEvent[] = [
   // {
-  //   title: "Halloween",
-  //   date: "31.10.2025",
-  //   locationName: "Club Forum",
-  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
-  //   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-  //   image: "/images/events/upcoming_events/Halloween.png",
+  //   title: "Bierpongturnier",
+  //   date: "Coming Soon",
+  //   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
+  //   image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
   // },
   {
+    title: "Halloween",
+    date: `31.10.${new Date().getFullYear()}`,
+    locationName: "Club Forum",
+    locationAddress: "Marktstraße 9, 71032 Böblingen",
+    description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
+    image: "/images/events/upcoming_events/Halloween.png",
+  },
+  {
     title: "Die CLUB FORUM OFTAS",
-    date: "27.-29.12.2025",
+    date: `27.-29.12.${new Date().getFullYear()}`,
     locationName: "Waldheim Tannenberg",
     locationAddress: "Murkenbachweg 120, 71032 Böblingen",
     description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
     image: "/images/events/upcoming_events/OFTAS_Logo.png"
   },
-  {
-    title: "Bierpongturnier",
-    date: "Coming Soon",
-    description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
-    image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
-  }
 ];
 
 export const pastEvents: PastEvent[] = [
+  {
+    title: "Oftas 2025",
+    images: [
+      "/images/events/past_events/oftas_2025/oftas_1.jpg",
+      "/images/events/past_events/oftas_2025/oftas_2.jpg",
+      "/images/events/past_events/oftas_2025/oftas_3.jpg",
+      "/images/events/past_events/oftas_2025/oftas_4.jpg",
+      "/images/events/past_events/oftas_2025/oftas_5.jpg",
+      "/images/events/past_events/oftas_2025/oftas_6.jpg",
+      "/images/events/past_events/oftas_2025/oftas_7.jpg",
+      "/images/events/past_events/oftas_2025/oftas_8.jpg",
+      "/images/events/past_events/oftas_2025/oftas_9.jpg",
+      "/images/events/past_events/oftas_2025/oftas_10.jpg",
+      "/images/events/past_events/oftas_2025/oftas_11.jpg",
+    ]
+  },
+  {
+    title: "Halloween 2025",
+    images: [
+      "/images/events/past_events/halloween_2025/halloween_1.jpg",
+      "/images/events/past_events/halloween_2025/halloween_2.jpg",
+      "/images/events/past_events/halloween_2025/halloween_3.jpg",
+      "/images/events/past_events/halloween_2025/halloween_4.jpg",
+      "/images/events/past_events/halloween_2025/halloween_5.jpg",
+    ]
+  },
   {
     title: "Forum Fortyfive 2025",
     images: [
@@ -156,10 +194,10 @@ export const pastEvents: PastEvent[] = [
   {
     title: "Oftas 2024",
     images: [
-      "/images/events/past_events/oftas_2024/Oftas_1.jpg",
-      "/images/events/past_events/oftas_2024/Oftas_2.jpg",
-      "/images/events/past_events/oftas_2024/Oftas_3.jpg",
-      "/images/events/past_events/oftas_2024/Oftas_4.jpg",
+      "/images/events/past_events/oftas_2024/oftas_1.jpg",
+      "/images/events/past_events/oftas_2024/oftas_2.jpg",
+      "/images/events/past_events/oftas_2024/oftas_3.jpg",
+      "/images/events/past_events/oftas_2024/oftas_4.jpg",
     ]
   },
 ];
