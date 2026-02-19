@@ -71,7 +71,7 @@ export type PastEvent = {
 // };
 
 export const nextEvent: EventConfig = {
-  title: "Bierpong\u00adturnier",
+  title: "Bier\u00adpong\u00adturnier",
   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
   eventDetails: [
     {icon: "CalendarDays", title: "Datum", value: "Samstag, 11.04.2026"},
