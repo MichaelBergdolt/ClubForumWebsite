@@ -81,7 +81,7 @@ const Footer = () => {
             <img
               src="/images/Logo_Kirche_BB.png"
               alt="Evangelische Kirchengemeinde Böblingen"
-              className="w-full max-w-sm object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+              className="w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
           <div className="border-t border-gray-800 w-full pt-6 text-center">
