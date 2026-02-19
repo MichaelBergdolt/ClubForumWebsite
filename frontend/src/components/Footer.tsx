@@ -75,17 +75,19 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Club Forum Böblingen. Alle Rechte vorbehalten.
-          </p>
-          <div className="flex items-center gap-3 opacity-60 hover:opacity-90 transition-opacity">
-            <span className="text-gray-500 text-xs whitespace-nowrap">Ein Angebot der</span>
+        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-3 w-full">
+            <span className="text-gray-500 text-xs tracking-widest uppercase">Teil der</span>
             <img
               src="/images/Logo_Kirche_BB.png"
               alt="Evangelische Kirchengemeinde Böblingen"
-              className="h-6 object-contain"
+              className="w-full max-w-sm object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
+          </div>
+          <div className="border-t border-gray-800 w-full pt-6 text-center">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} Club Forum Böblingen. Alle Rechte vorbehalten.
+            </p>
           </div>
         </div>
       </div>
