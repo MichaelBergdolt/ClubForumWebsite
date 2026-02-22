@@ -28,7 +28,7 @@ jobs:
       # 4 Env Datei für Production
       - name: Create .env.production
         working-directory: ./frontend
-        run: echo "VITE_API_BASE_URL=https://api.club-forum-bb.de" > .env.production
+        run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
 
       # 5 Robots.txt
       - name: Use production robots.txt
