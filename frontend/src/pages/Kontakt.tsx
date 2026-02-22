@@ -5,17 +5,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail, MessageSquare, Map } from "lucide-react";
+import { MapPin, Mail, MessageSquare, Map, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import GoogleMapsConsent from "@/components/GoogleMapsConsent";
-import SuccessToast from "@/components/ui/SuccessToast"; // Neu
+import SuccessToast from "@/components/ui/SuccessToast";
+import { useContactForm } from "@/hooks/useContactForm";
 
 const Kontakt = () => {
+  // State angepasst: 'anfrageArt' steuert das Dropdown, 'betreff' ist das Textfeld
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    betreff: "",
+    anfrageArt: "", // Früher 'betreff'
+    betreff: "",    // Neu: Freitextfeld
     datum: "",
     nachricht: ""
   });
@@ -23,11 +26,13 @@ const Kontakt = () => {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
+    anfrageArt: "",
     betreff: "",
     nachricht: ""
   });
 
-  const [showSuccess, setShowSuccess] = useState(false); // Neu
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { submitContact, loading, error: submitError } = useContactForm();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,6 +43,7 @@ const Kontakt = () => {
     const newErrors = {
       name: "",
       email: "",
+      anfrageArt: "",
       betreff: "",
       nachricht: ""
     };
@@ -48,35 +54,58 @@ const Kontakt = () => {
     } else if (!validateEmail(formData.email)) {
       newErrors.email = "Bitte gib eine gültige E-Mail-Adresse ein";
     }
-    if (!formData.betreff) newErrors.betreff = "Betreff ist erforderlich";
+    
+    // Validierung für Dropdown
+    if (!formData.anfrageArt) newErrors.anfrageArt = "Bitte wähle eine Art der Anfrage";
+
+    // Validierung für Betreff (nur wenn Allgemein ausgewählt ist)
+    if (formData.anfrageArt === "allgemein" && !formData.betreff.trim()) {
+      newErrors.betreff = "Bitte gib einen Betreff an";
+    }
+
     if (!formData.nachricht.trim()) newErrors.nachricht = "Nachricht ist erforderlich";
 
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Zeige Erfolg
-    setShowSuccess(true);
+    try {
+      await submitContact({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        anfrageArt: formData.anfrageArt as "mietanfrage" | "allgemein",
+        betreff: formData.anfrageArt === "allgemein" ? formData.betreff.trim() : undefined,
+        datum: formData.anfrageArt === "mietanfrage" && formData.datum ? formData.datum : undefined,
+        nachricht: formData.nachricht.trim(),
+      });
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      betreff: "",
-      datum: "",
-      nachricht: ""
-    });
+      // show Success
+      setShowSuccess(true);
 
-    setErrors({
-      name: "",
-      email: "",
-      betreff: "",
-      nachricht: ""
-    });
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        anfrageArt: "",
+        betreff: "",
+        datum: "",
+        nachricht: ""
+      });
+
+      setErrors({
+        name: "",
+        email: "",
+        anfrageArt: "",
+        betreff: "",
+        nachricht: ""
+      });
+    } catch {
+      // Fehler wird im Hook behandelt
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -105,7 +134,7 @@ const Kontakt = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
-            {/* Kontaktformular - TEMPORARILY DISABLED */}
+            {/* Kontaktformular */}
             <Card className="bg-gray-800/50 border-gray-700">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold flex items-center text-white">
@@ -114,27 +143,9 @@ const Kontakt = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-300 mb-2">Kontaktformular wird überarbeitet</h3>
-                  <p className="text-gray-400 mb-6">
-                    Unser Kontaktformular wird gerade technisch überarbeitet. 
-                    In der Zwischenzeit kannst du uns gerne direkt per E-Mail kontaktieren.
-                  </p>
-                  <a 
-                    href="mailto:vermietung@club-forum-bb.de" 
-                    className="inline-flex items-center bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                  >
-                    <Mail className="h-5 w-5 mr-2" />
-                    E-Mail senden
-                  </a>
-                </div>
-                
-                {/* 
-                COMMENTED OUT FORM CODE - DO NOT DELETE:
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
+                    <Label htmlFor="name" className="text-gray-200">Name *</Label>
                     <Input
                       id="name"
                       type="text"
@@ -147,7 +158,7 @@ const Kontakt = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">E-Mail *</Label>
+                    <Label htmlFor="email" className="text-gray-200">E-Mail *</Label>
                     <Input
                       id="email"
                       type="email"
@@ -159,23 +170,25 @@ const Kontakt = () => {
                     {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
                   </div>
 
+                  {/* Art der Anfrage (Dropdown) */}
                   <div className="space-y-2">
-                    <Label htmlFor="betreff">Betreff *</Label>
-                    <Select value={formData.betreff} onValueChange={(value) => handleInputChange("betreff", value)}>
+                    <Label htmlFor="anfrageArt" className="text-gray-200">Art der Anfrage *</Label>
+                    <Select value={formData.anfrageArt} onValueChange={(value) => handleInputChange("anfrageArt", value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Wähle einen Betreff" />
+                        <SelectValue placeholder="Worum geht es?" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="mietanfrage">Mietanfrage</SelectItem>
                         <SelectItem value="allgemein">Allgemeine Anfrage</SelectItem>
                       </SelectContent>
                     </Select>
-                    {errors.betreff && <p className="text-sm text-red-600">{errors.betreff}</p>}
+                    {errors.anfrageArt && <p className="text-sm text-red-600">{errors.anfrageArt}</p>}
                   </div>
 
-                  {formData.betreff === "mietanfrage" && (
-                    <div className="space-y-2">
-                      <Label htmlFor="datum">Gewünschtes Datum</Label>
+                  {/* Conditional: Datum nur bei Mietanfrage */}
+                  {formData.anfrageArt === "mietanfrage" && (
+                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                      <Label htmlFor="datum" className="text-gray-200">Gewünschtes Datum</Label>
                       <Input
                         id="datum"
                         type="date"
@@ -185,20 +198,39 @@ const Kontakt = () => {
                     </div>
                   )}
 
+                  {/* Conditional: Betreff Textfeld nur bei Allgemein */}
+                  {formData.anfrageArt === "allgemein" && (
+                    <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                      <Label htmlFor="betreff" className="text-gray-200">Betreff *</Label>
+                      <Input
+                        id="betreff"
+                        type="text"
+                        value={formData.betreff}
+                        onChange={(e) => handleInputChange("betreff", e.target.value)}
+                        placeholder="Kurz zusammengefasst worum es geht"
+                      />
+                      {errors.betreff && <p className="text-sm text-red-600">{errors.betreff}</p>}
+                    </div>
+                  )}
+
                   <div className="space-y-2">
-                    <Label htmlFor="nachricht">Deine Nachricht *</Label>
+                    <Label htmlFor="nachricht" className="text-gray-200">Deine Nachricht *</Label>
                     <Textarea
                       id="nachricht"
                       value={formData.nachricht}
                       onChange={(e) => handleInputChange("nachricht", e.target.value)}
-                      placeholder="Erzähl uns von deiner Idee oder stelle deine Frage..."
+                      placeholder={
+                        formData.anfrageArt === "mietanfrage"
+                          ? "Erzähl uns von deiner Feier: Anlass, Anzahl an Gästen, ..."
+                          : "Erzähl uns von deiner Idee oder stelle deine Frage..."
+                      }
                       rows={5}
                       required
                     />
                     {errors.nachricht && <p className="text-sm text-red-600">{errors.nachricht}</p>}
                   </div>
 
-                  <div className="space-y-2 text-xs text-gray-600">
+                  <div className="space-y-2 text-xs text-gray-400">
                     <p>Mit * markierte Felder sind Pflichtfelder.</p>
                     <p>
                       Mit dem Absenden des Formulars erklärst du dich mit unserer{" "}
@@ -209,19 +241,32 @@ const Kontakt = () => {
                     </p>
                   </div>
 
+                  {submitError && (
+                    <p className="text-sm text-red-500 bg-red-500/10 p-3 rounded">
+                      Fehler: {submitError}
+                    </p>
+                  )}
+
                   <Button
                     type="submit"
-                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold"
+                    disabled={loading}
+                    className="w-full bg-accent-primary hover:bg-accent-primary/80 text-white font-semibold disabled:opacity-50"
                   >
-                    Nachricht absenden
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Wird gesendet...
+                      </>
+                    ) : (
+                      "Nachricht absenden"
+                    )}
                   </Button>
                 </form>
-                */}
               </CardContent>
             </Card>
 
             {/* Location Info */}
-            <div className="space-y-8">
+            <div className="flex flex-col gap-8 h-full">
               <Card className="bg-gray-800/50 border-gray-700">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
@@ -235,7 +280,7 @@ const Kontakt = () => {
                     <p className="text-gray-300">Marktstraße 9</p>
                     <p className="text-gray-300">71032 Böblingen</p>
                   </div>
-
+                  
                   <div className="flex items-center space-x-2">
                     <Mail className="h-5 w-5 text-accent-primary" />
                     <a 
@@ -245,27 +290,18 @@ const Kontakt = () => {
                       kontakt@club-forum-bb.de
                     </a>
                   </div>
-                                    <div className="flex items-center space-x-2">
-                    <Mail className="h-5 w-5 text-accent-primary" />
-                    <a 
-                      href="mailto:vermietung@club-forum-bb.de" 
-                      className="text-white hover:underline"
-                    >
-                      vermietung@club-forum-bb.de
-                    </a>
-                  </div>
                 </CardContent>
               </Card>
 
               {/* Google Maps with GDPR Consent */}
-              <Card className="bg-gray-800/50 border-gray-700">
+              <Card className="bg-gray-800/50 border-gray-700 flex-1 flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold flex items-center text-white">
                     <Map className="h-6 w-6 mr-2 text-accent-primary" />
                     Anfahrt
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                   <GoogleMapsConsent />
                 </CardContent>
               </Card>

@@ -50,7 +50,7 @@ const Events = () => {
             {/* Main Title */}
             <div className="text-center mb-16">
               <h1
-                className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight"
+                className="text-6xl sm:text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight break-words"
                 style={eventAccentColor ? {
                   backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--event-primary)) 40%, hsl(var(--event-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
                   lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden

@@ -1,44 +1,24 @@
 <?php
+// 1. Zentrale Konfiguration laden (für ALLE Routes)
 require __DIR__ . '/bootstrap.php';
 
-require __DIR__ . '/src/Calendar/GoogleCalendarService.php';
-require __DIR__ . '/src/Calendar/EventTransformer.php';
+// 2. Welcher Endpunkt wird angefragt?
+// Standard ist 'calendar', wenn nichts angegeben ist (oder du machst eine Fehlerseite)
+$route = $_GET['route'] ?? 'calendar';
 
-// === Google Calendar Logic ===
-$serviceAccountFile = __DIR__ . '/service-account.json';
+// 3. Routing Logik
+switch ($route) {
+    case 'calendar':
+        require __DIR__ . '/routes/calendar.php';
+        break;
 
-$client = new Google_Client();
-$client->setAuthConfig($serviceAccountFile);
-$client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
+    case 'contact':
+        require __DIR__ . '/routes/contact.php';
+        break;
 
-$service = new Google_Service_Calendar($client);
-
-// Service & Transformer
-$calendarService = new GoogleCalendarService($service);
-$transformer = new EventTransformer();
-
-$calendarIds = [
-    '1qumnn1ij0r7tmm427mgtsucag@group.calendar.google.com', // Kalender: "Club Forum"
-    'dnbanuksheraorcd546uqrqhb8@group.calendar.google.com'  // Kalender: "Club Forum (Vermietungen)"
-];
-
-// Parameter für Google Calendar API
-$optParams = [
-    'singleEvents' => true,
-    'orderBy' => 'startTime',
-    'timeMin' => date('c'),
-    'maxResults' => 50
-];
-
-try {
-    $rawEvents = $calendarService->getRawEvents($calendarIds, $optParams);
-    $publicEvents = $transformer->transform($rawEvents);
-
-    // sortieren nach Datum
-    usort($publicEvents, fn($a, $b) => strcmp($a['start'], $b['start']));
-
-    echo json_encode($publicEvents, JSON_UNESCAPED_UNICODE);
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['error' => $e->getMessage()]);
+    default:
+        // Wenn eine unbekannte Route angefragt wird
+        http_response_code(404);
+        echo json_encode(["error" => "Route not found"]);
+        break;
 }

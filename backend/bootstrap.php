@@ -5,11 +5,19 @@ require __DIR__ . '/vendor/autoload.php';
 $appEnv = 'production';
 $envFile = __DIR__ . '/.env';
 
+// Wenn eine .env Datei da ist (lokal), lade sie.
 if (file_exists($envFile)) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
-    $appEnv = $_ENV['APP_ENV'] ?? 'development';
 }
+
+// Hilfsfunktion, um Variablen überall sicher abzugreifen.
+function env($key, $default = null) {
+    return $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key) ?? $default;
+}
+
+// App-Status bestimmen
+$appEnv = env('APP_ENV', 'production');
 
 // === Error Handling ===
 if ($appEnv === 'development') {
@@ -21,6 +29,8 @@ if ($appEnv === 'development') {
     ini_set('display_startup_errors', 0);
     error_reporting(0);
 }
+
+// error_log('APP_ENV = ' . $appEnv);
 
 // === CORS Setup ===
 $allowedOrigins = [

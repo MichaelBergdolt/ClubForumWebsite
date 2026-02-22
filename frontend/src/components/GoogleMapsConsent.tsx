@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -33,7 +32,7 @@ const GoogleMapsConsent = () => {
 
   if (!hasConsent) {
     return (
-      <div className="flex items-center justify-center min-h-64 bg-gray-900 border border-gray-700 rounded-lg p-4 md:p-6">
+      <div className="flex items-center justify-center h-full min-h-64 bg-gray-900 border border-gray-700 rounded-lg p-4 md:p-6">
         <div className="text-center space-y-2 md:space-y-3 max-w-md mx-auto w-full px-2">
           <MapPin className="h-10 w-10 md:h-12 md:w-12 mx-auto text-gray-400" />
           <h3 className="text-base md:text-lg font-semibold text-white">Google Maps</h3>
@@ -73,8 +72,8 @@ const GoogleMapsConsent = () => {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
+    <div className="flex flex-col h-full gap-4">
+      <div className="w-full flex-1 min-h-64 rounded-lg overflow-hidden shadow-lg">
         <iframe
           src="https://maps.google.com/maps?q=Marktstraße+9,+71032+Böblingen&output=embed"
           width="100%"

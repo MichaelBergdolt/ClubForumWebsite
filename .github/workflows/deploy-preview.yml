@@ -1,4 +1,4 @@
-name: Deploy Preview (Frontend + PHP) to Netcup
+name: Deploy Preview (Frontend + PHP) to Netcup via SSH
 
 on:
   push:
@@ -14,69 +14,80 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2 Node.js Setup (für Frontend-Build)
+      # 2 Node.js Setup
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3 Dependencies installieren
-      - name: Install dependencies
+      # 3 Frontend Dependencies
+      - name: Install dependencies (Frontend)
         working-directory: ./frontend
         run: npm ci
 
-      # 4 Environment-Datei für Preview erzeugen
+      # 4 Env Datei
       - name: Create .env.production for Preview
         working-directory: ./frontend
         run: echo "VITE_API_BASE_URL=https://api-preview.club-forum-bb.de" > .env.production
 
-      # 5 robots.txt für Preview setzen
+      # 5 Robots.txt
       - name: Use preview robots.txt
         run: cp frontend/public/robots.preview.txt frontend/public/robots.txt
 
-      # 6 Frontend builden
+      # 6 Build Frontend
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
 
-      # 7 Deployment-Ordner für Frontend vorbereiten
-      - name: Prepare frontend deploy folder
-        run: |
-          mkdir deploy-frontend
-          cp -r frontend/dist/* deploy-frontend/
-          cp frontend/public/.htaccess deploy-frontend/.htaccess || true
-          echo "Frontend deployment folder ready"
-
-      # 8 Install PHP dependencies for Backend
+      # 7 PHP Dependencies (Backend)
       - name: Install Composer dependencies (Backend)
         working-directory: ./backend
-        run: composer install --no-dev --optimize-autoloader
+        run: composer install --no-dev --optimize-autoloader --prefer-dist
 
-      # 9 Deployment-Ordner für Backend vorbereiten
-      - name: Prepare backend deploy folder
+      # 8 SSH Key Setup
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+          if_key_exists: replace
+
+      # 9 Known Hosts hinzufügen (Verhindert Man-in-the-Middle Warnungen)
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      # 10 Deployment-Ordner vorbereiten & Packen (Beispiel für Backend)
+      - name: Archive Backend
         run: |
-          mkdir deploy-backend
-          cp -r backend/* deploy-backend/
-          echo "Backend deployment folder ready"
+          # Wir packen alles in eine Datei. Das ist 100x schneller beim Upload.
+          tar -czf backend.tar.gz -C ./backend .
 
-      # 10 Frontend-Deployment auf Netcup (Preview)
-      - name: Deploy Frontend to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-frontend/
-          server-dir: /preview.club-forum-bb.de/httpdocs/
+      # 11 Archiv hochladen
+      - name: Upload Backend Tarball
+        run: |
+          scp backend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/api-preview.club-forum-bb.de/
 
-      # 11 Backend-Deployment auf Netcup (Preview)
-      - name: Deploy Backend (PHP) to Netcup (Preview)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./deploy-backend/
-          server-dir: /api-preview.club-forum-bb.de/httpdocs/
+      # 12 Archiv auf dem Server entpacken und aufräumen
+      - name: Extract Backend on Server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /api-preview.club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../backend.tar.gz && \
+            rm ../backend.tar.gz
+          "
+
+      # --- Analog für das Frontend ---
+
+      - name: Archive Frontend
+        run: tar -czf frontend.tar.gz -C ./frontend/dist .
+
+      - name: Upload Frontend Tarball
+        run: scp frontend.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/preview.club-forum-bb.de/
+
+      - name: Extract Frontend on Server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /preview.club-forum-bb.de/httpdocs/ && \
+            tar -xzf ../frontend.tar.gz && \
+            rm ../frontend.tar.gz
+          "
