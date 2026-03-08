@@ -38,4 +38,37 @@ class EventTransformer {
 
         return $items;
     }
+
+    public function mapEventsToWeekends(array $rawEvents, array $weekends): array {
+        $result = [];
+        foreach ($weekends as $wknd) {
+            $isBooked = false;
+            $specialTitle = null;
+
+            foreach ($rawEvents as $event) {
+                $eStart = substr($event->getStart()->getDate() ?: $event->getStart()->getDateTime(), 0, 10);
+                $eEnd   = substr($event->getEnd()->getDate() ?: $event->getEnd()->getDateTime(), 0, 10);
+
+                // Prüfen auf Überschneidung: (StartA <= EndeB) und (EndeA >= StartB)
+                if ($eStart < $wknd['end'] && $eEnd > $wknd['start']) {
+                    $isBooked = true;
+                    // Optional: Sondernamen wie "Pfingsten" extrahieren
+                    if (stripos($event->getSummary(), "EVENT;") === 0) {
+                        $parts = explode(';', $event->getSummary());
+                        $specialTitle = $parts[1] ?? null;
+                    }
+                    break;
+                }
+            }
+
+            $result[] = [
+                'startDate' => $wknd['start'],
+                'endDate'   => $wknd['end'],
+                'label'     => $wknd['label'],
+                'status'    => $isBooked ? 'GEBUCHT' : 'FREI',
+                'specialEvent' => $specialTitle
+            ];
+        }
+        return $result;
+    }
 }
