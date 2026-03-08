@@ -70,14 +70,27 @@ export type PastEvent = {
 //   artists: []
 // };
 
+// export const nextEvent: EventConfig = {
+//   // 
+//   title: "Bier\u00adpong\u00adturnier",
+//   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
+//   eventDetails: [
+//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 11.04.2026"},
+//     {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
+//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+//     {icon: "Ticket", title: "Eintritt", value: "20€ pro Team\n(2 Personen)"}
+//   ],
+//   artists: []
+// };
+
 export const nextEvent: EventConfig = {
-  title: "Bier\u00adpong\u00adturnier",
-  description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
+  title: "Sip & Create",
+  description: "Ein entspannter Nachmittag mit Drinks und Kreativität. Ob malen, basteln oder häkeln: einfach ausprobieren. Beim Sip & Create steht der Spaß im Vordergrund!",
   eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Samstag, 11.04.2026"},
+    {icon: "CalendarDays", title: "Datum", value: "Samstag, 25.04.2026"},
     {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "20€ pro Team\n(2 Personen)"}
+    {icon: "Ticket", title: "Eintritt", value: "frei"}
   ],
   artists: []
 };
