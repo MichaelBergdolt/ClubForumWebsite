@@ -1,22 +1,16 @@
 <?php
+// Config laden
+$config = require_once __DIR__ . '/../config.php';
+
 require_once __DIR__ . '/../src/Calendar/GoogleCalendarService.php';
 require_once __DIR__ . '/../src/Calendar/EventTransformer.php';
-require_once __DIR__ . '/../src/Calendar/WeekendGenerator.php'; // Diese Datei erstellen wir als nächstes
-
-// Konfiguration (Manuell hier drin, bis du eine config.php hast)
-$calendarIds = [ // TODO: auslagern in config.php
-    '1qumnn1ij0r7tmm427mgtsucag@group.calendar.google.com', // Club Forum
-    'dnbanuksheraorcd546uqrqhb8@group.calendar.google.com'  // Vermietungen
-];
-$rentalMonths = [1, 2, 3, 4, 5, 9, 10, 11]; // Deine Vermietungs-Saison
-$maxFutureMonths = 36;
-$initialVisible = 8;
+require_once __DIR__ . '/../src/Calendar/WeekendGenerator.php';
 
 $action = $_GET['action'] ?? 'months';
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    // === Google Client Setup (wie in deinem Original) ===
+    // --- Google API Setup ---
     $serviceAccountFile = __DIR__ . '/../service-account.json';
     $client = new Google_Client();
     $client->setAuthConfig($serviceAccountFile);
@@ -38,8 +32,8 @@ try {
         $checkYear = $currentYear;
         $checkMonth = $currentMonth;
 
-        while ($monthsAdded < $maxFutureMonths) {
-            if (in_array($checkMonth, $rentalMonths)) {
+        while ($monthsAdded < $config['max_future_months']) {
+            if (in_array($checkMonth, $config['rental_months'])) {
                 $monthsList[] = [
                     'year'  => $checkYear,
                     'month' => $checkMonth,
@@ -52,7 +46,11 @@ try {
         }
 
         echo json_encode([
-            'settings' => ['initialVisible' => $initialVisible, 'totalAvailable' => count($monthsList)],
+            'settings' => [
+                'initialVisible' => $config['initial_visible_months'], 
+                'totalAvailable' => count($monthsList),
+                'bookingMode'    => $config['booking_mode'] // Dem Frontend mitteilen, welcher Modus aktiv ist
+            ],
             'data' => $monthsList
         ], JSON_UNESCAPED_UNICODE);
     } 
@@ -62,7 +60,6 @@ try {
         $year = (int)($_GET['year'] ?? date('Y'));
         $month = (int)($_GET['month'] ?? date('n'));
         
-        // Zeitraum auf den gewählten Monat einschränken
         $timeMin = date('c', strtotime("$year-$month-01 00:00:00"));
         $timeMax = date('c', strtotime("$year-$month-01 23:59:59 +1 month -1 day"));
 
@@ -73,13 +70,15 @@ try {
             'timeMax' => $timeMax
         ];
 
-        $rawEvents = $calendarService->getRawEvents($calendarIds, $optParams);
+        // IDs aus der Config nehmen!
+        $rawEvents = $calendarService->getRawEvents($config['calendar_ids'], $optParams);
         
-        // Hier nutzen wir den neuen WeekendGenerator (Code folgt unten)
-        $weekends = WeekendGenerator::getWeekendsForMonth($year, $month);
+        // Modus aus der Config nehmen (Fallback: FULL_WEEKEND)
+        $bookingMode = $config['booking_mode'] ?? 'FULL_WEEKEND';
         
-        // Wir erweitern deinen Transformer um eine Mapping-Funktion
-        $availability = $transformer->mapEventsToWeekends($rawEvents, $weekends);
+        // Blöcke generieren und abgleichen
+        $blocks = WeekendGenerator::getBlocksForMonth($year, $month, $bookingMode);
+        $availability = $transformer->mapEventsToBlocks($rawEvents, $blocks);
 
         echo json_encode($availability, JSON_UNESCAPED_UNICODE);
     }
