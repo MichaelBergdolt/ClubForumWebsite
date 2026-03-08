@@ -141,6 +141,14 @@ export const upcomingEvents: UpcomingEvent[] = [
   //   image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
   // },
   {
+    title: "Stadtfest",
+    date: "3.-5.07.2026",
+    locationName: "Club Forum",
+    locationAddress: "Marktstraße 9, 71032 Böblingen",
+    description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
+    image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
+  },
+  {
     title: "Halloween",
     date: `31.10.${new Date().getFullYear()}`,
     locationName: "Club Forum",
