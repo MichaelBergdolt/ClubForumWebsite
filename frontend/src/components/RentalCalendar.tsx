@@ -1,95 +1,38 @@
-import { useMemo } from 'react';
-import { useCalendarData, CalendarEvent } from '@/hooks/useCalendarData';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-
-interface WeekendDay {
-  date: Date;
-  day: 'Freitag' | 'Samstag';
-  isOccupied: boolean;
-  month: string;
-  year: number;
-  dateString: string; // YYYY-MM-DD für Vergleich
-}
-
-// Farbpalette für Special Events (transparente Hintergrundfarben, passend zu Website-Akzentfarben)
-const eventColors: Record<string, { bg: string; border: string; text: string }> = {
-  purple:   { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' },
-  cyan:     { bg: 'bg-cyan-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400' },
-  indigo:   { bg: 'bg-indigo-500/20', border: 'border-indigo-500/30', text: 'text-indigo-400' },
-  sky:      { bg: 'bg-sky-500/20', border: 'border-sky-500/30', text: 'text-sky-400' },
-  pink:     { bg: 'bg-pink-500/20', border: 'border-pink-500/30', text: 'text-pink-400' },
-  yellow:   { bg: 'bg-yellow-500/20', border: 'border-yellow-500/30', text: 'text-yellow-400' },
-
-  // explizit gleiche Farben wie Frei/Belegt
-  eventRed:   { bg: 'bg-red-500/20', border: 'border-red-500/30', text: 'text-red-400' },
-  eventGreen: { bg: 'bg-green-500/20', border: 'border-green-500/30', text: 'text-green-400' },
-};
-
-// Fallback-Farbe: Lilane Akzentfarbe der Website
-const fallbackColor = { bg: 'bg-purple-500/20', border: 'border-purple-500/30', text: 'text-purple-400' };
+import { useState, useMemo } from 'react';
+import { useCalendarMonths, useAvailability, type CalendarMonth } from '@/hooks/useCalendarData';
+import { Calendar, Loader2, XCircle, ArrowRight, Lock, Flame, CalendarDays, Plus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const RentalCalendar = () => {
-  const { events, loading, error } = useCalendarData();
+  const { months: allMonths, settings, loading: monthsLoading, error: monthsError } = useCalendarMonths();
+  const [visibleCount, setVisibleCount] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Alle möglichen Wochenendtage bestimmen
-  const weekendDays = useMemo(() => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const days: WeekendDay[] = [];
+  // Set initial visibleCount once settings load
+  const effectiveVisibleCount = visibleCount ?? settings?.initialVisible ?? allMonths.length;
 
-    const allRentalMonths = [0, 1, 2, 3, 4, 8, 9, 10]; // Jan–Mai, Sep–Nov
+  const visibleMonths = useMemo(
+    () => allMonths.slice(0, effectiveVisibleCount),
+    [allMonths, effectiveVisibleCount]
+  );
 
-    const futureRentalMonths = allRentalMonths.filter(month => month >= currentMonth);
-    const nextYearMonths = allRentalMonths.filter(month => month < currentMonth);
+  const selectedMonth: CalendarMonth | null = visibleMonths[selectedIndex] ?? null;
 
-    let rentalMonthsWithYears: { month: number; year: number }[] = [];
-    futureRentalMonths.forEach(month => rentalMonthsWithYears.push({ month, year: currentYear }));
-    nextYearMonths.slice(0, 4 - futureRentalMonths.length).forEach(month =>
-      rentalMonthsWithYears.push({ month, year: currentYear + 1 })
-    );
-    rentalMonthsWithYears = rentalMonthsWithYears.slice(0, 4);
+  const { blocks, loading: blocksLoading, error: blocksError } = useAvailability(
+    selectedMonth?.year ?? null,
+    selectedMonth?.month ?? null
+  );
 
-    rentalMonthsWithYears.forEach(({ month, year }) => {
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
+  // Determine current year to decide whether to show year in tab label
+  const currentYear = new Date().getFullYear();
 
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const dayOfWeek = date.getDay();
+  const canShowMore = settings
+    ? effectiveVisibleCount < settings.totalAvailable && effectiveVisibleCount < allMonths.length
+    : false;
 
-        // Nur Freitage (5) und Samstage (6)
-        if (dayOfWeek === 5 || dayOfWeek === 6) {
-          if (year === currentYear && month === currentMonth && date < currentDate) continue;
+  const nextHiddenYear = canShowMore ? allMonths[effectiveVisibleCount]?.year : null;
 
-          const dayName = dayOfWeek === 5 ? 'Freitag' : 'Samstag';
-          const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-
-          const isOccupied = events.some(event => {
-            const eventStart = event.start;
-            const eventEnd = event.end || eventStart;
-            return dateString >= eventStart && dateString <= eventEnd;
-          });
-
-          days.push({ date, day: dayName, isOccupied, month: date.toLocaleDateString('de-DE', { month: 'long' }), year, dateString });
-        }
-      }
-    });
-    return days.sort((a, b) => a.date.getTime() - b.date.getTime());
-  }, [events]);
-
-  // Gruppierung nach Monat
-  const groupedByMonth = useMemo(() => {
-    const groups: { [key: string]: WeekendDay[] } = {};
-    weekendDays.forEach(day => {
-      const key = `${day.month} ${day.year}`;
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(day);
-    });
-    return groups;
-  }, [weekendDays]);
-
-  if (loading) {
+  if (monthsLoading) {
     return (
       <div className="flex items-center justify-center p-8">
         <Loader2 className="h-8 w-8 animate-spin text-accent-primary" />
@@ -98,106 +41,185 @@ const RentalCalendar = () => {
     );
   }
 
-  if (error) {
+  if (monthsError) {
     return (
-      <Card className="bg-red-500/10 border-red-500/30">
-        <CardContent className="p-6 text-center">
-          <XCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
-          <p className="text-white font-semibold text-lg mb-2">
-            Die Verfügbarkeit unserer Location konnte leider nicht geladen werden.
-          </p>
-          <p className="text-gray-300 text-sm">
-            Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.
-          </p>
-        </CardContent>
-      </Card>
+      <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 text-center">
+        <XCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
+        <p className="text-white font-semibold text-lg mb-2">
+          Die Verfügbarkeit konnte leider nicht geladen werden.
+        </p>
+        <p className="text-gray-300 text-sm">
+          Bitte versuche es später erneut oder kontaktiere uns direkt.
+        </p>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Erklärung */}
-      <div className="text-center mb-8">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Calendar className="h-6 w-6 text-accent-primary" />
-          <h3 className="text-2xl font-bold text-white">Verfügbarkeit</h3>
-        </div>
-        <p className="text-gray-300 max-w-3xl mx-auto">
-          Unsere Location ist von Januar–Mai und September–November jeweils Freitags und Samstags buchbar. 
-          Hier siehst du, welche Termine in den kommenden Monaten noch frei sind.
-        </p>
+    <div>
+      {/* Header */}
+      <div className="flex items-center justify-center gap-3 mb-12">
+        <Calendar className="h-7 w-7 text-accent-primary" />
+        <h2 className="text-3xl font-bold text-white">Verfügbarkeit</h2>
       </div>
 
-      {/* Kalender-Gitter */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(groupedByMonth).map(([monthYear, days]) => (
-          <Card key={monthYear} className="bg-gray-800/50 border-gray-700 hover:bg-gray-800/70 transition-colors">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-bold text-white text-center">{monthYear}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {days.map((day, index) => {
-                // Events an diesem Tag
-                const specialEvent: CalendarEvent | undefined = events.find(event => {
-                  if (!event.isEvent) return false;
-                  const start = event.start;
-                  const end = event.end || start;
-                  return day.dateString >= start && day.dateString <= end;
-                });
+      {/* Month Tabs */}
+      <div className="mb-10 flex justify-start md:justify-center overflow-x-auto hide-scrollbar py-2">
+        <div className="flex gap-3 px-2">
+          {visibleMonths.map((m, i) => {
+            const isActive = i === selectedIndex;
+            const showYear = m.year !== currentYear;
+            return (
+              <button
+                key={`${m.year}-${m.month}`}
+                onClick={() => setSelectedIndex(i)}
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap border ${
+                  isActive
+                    ? 'bg-accent-primary text-white border-accent-primary shadow-[0_0_10px_hsl(var(--accent-primary)/0.5)]'
+                    : 'bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white border-gray-700'
+                }`}
+              >
+                {m.label}{showYear ? ` ${m.year}` : ''}
+              </button>
+            );
+          })}
 
-                const eventStyle = specialEvent ? eventColors[specialEvent.color || ''] || fallbackColor : null;
+          {/* "+" Button */}
+          {canShowMore && (
+            <button
+              onClick={() => setVisibleCount((effectiveVisibleCount) + 1)}
+              className="w-10 h-10 rounded-full bg-gray-900 hover:bg-gray-800 text-accent-primary border border-accent-primary/30 hover:border-accent-primary transition-all flex items-center justify-center flex-shrink-0"
+              title={`${nextHiddenYear} anzeigen`}
+            >
+              <Plus className="h-5 w-5" />
+            </button>
+          )}
+        </div>
+      </div>
 
-                return (
-                  <div
-                    key={index}
-                    className={`flex items-center justify-between p-3 rounded-lg transition-all relative
-                      ${specialEvent ? `${eventStyle.bg} ${eventStyle.border} ${eventStyle.text}` :
-                        day.isOccupied ? 'bg-red-500/20 border border-red-500/30 text-red-400' :
-                        'bg-green-500/20 border border-green-500/30 text-green-400'}
-                      border border-white/20`}
-                  >
-                    {/* Datum & Tag */}
-                    <div className="flex flex-col text-white">
-                      <span className="font-semibold">{day.day}</span>
-                      <span className="text-sm text-gray-200">
-                        {day.date.getDate().toString().padStart(2, '0')}.
-                        {(day.date.getMonth() + 1).toString().padStart(2, '0')}.
-                      </span>
-                    </div>
+      {/* Cards Grid */}
+      {blocksLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-gray-900 rounded-2xl p-6 border border-gray-800 h-60 animate-pulse"
+            >
+              <div className="h-4 bg-gray-800 rounded w-1/3 mb-4" />
+              <div className="h-6 bg-gray-800 rounded w-2/3 mb-2" />
+              <div className="h-4 bg-gray-800 rounded w-1/2" />
+            </div>
+          ))}
+        </div>
+      ) : blocksError ? (
+        <div className="text-center text-red-400 py-8">
+          <p>Fehler beim Laden: {blocksError}</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blocks.map((block) => {
+            const isFrei = block.status === 'FREI';
+            const hasEvent = block.specialEvent !== null;
 
-                    {/* Rechts: Status oder Event-Titel */}
-                    {specialEvent ? (
-                      <span className="font-semibold">{specialEvent.title}</span>
-                    ) : day.isOccupied ? (
-                      <div className="flex items-center gap-2">
-                        <XCircle className="h-5 w-5" />
-                        <span className="font-semibold">Belegt</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="h-5 w-5" />
-                        <span className="font-semibold">Frei</span>
-                      </div>
-                    )}
+            if (isFrei) {
+              return (
+                <div
+                  key={block.id}
+                  className={`group bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg hover:shadow-2xl hover:border-accent-primary/50 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-60 ${
+                    hasEvent ? 'ring-1 ring-accent-primary/20' : ''
+                  }`}
+                >
+                  {/* Status Badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-cyan-900/20 text-accent-secondary border border-accent-secondary/30 shadow-[0_0_10px_hsl(var(--accent-secondary)/0.5)]">
+                      <span className="w-2 h-2 rounded-full bg-accent-secondary mr-2 animate-pulse shadow-[0_0_8px_hsl(var(--accent-secondary))]" />
+                      FREI
+                    </span>
                   </div>
-                );
-              })}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
 
-      {/* Legende */}
-      <div className="flex justify-center gap-8 pt-4">
-        <div className="flex items-center gap-2">
-          <CheckCircle className="h-5 w-5 text-green-400" />
-          <span className="text-gray-300">Frei – Buchung möglich</span>
+                  {/* Content */}
+                  <div className="mt-2">
+                    {hasEvent ? (
+                      <h3 className="text-sm font-medium text-accent-primary uppercase tracking-widest mb-2 flex items-center gap-1">
+                        <Flame className="h-3.5 w-3.5" /> {block.specialEvent}
+                      </h3>
+                    ) : (
+                      <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-2">
+                        Wochenende
+                      </h3>
+                    )}
+                    <div className="text-2xl font-bold text-white mb-2 group-hover:text-accent-primary transition-colors">
+                      {block.label}
+                    </div>
+                    <p className="text-sm text-gray-500 font-medium">{block.subLabel}</p>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="mt-6">
+                    <Link
+                      to="/kontakt"
+                      className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+                        hasEvent
+                          ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/30 hover:shadow-accent-primary/50 hover:scale-[1.02]'
+                          : 'bg-gray-800 border border-gray-700 text-white hover:bg-accent-primary hover:border-accent-primary group-hover:shadow-lg'
+                      }`}
+                    >
+                      Jetzt Anfragen
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              );
+            }
+
+            // GEBUCHT card
+            return (
+              <div
+                key={block.id}
+                className="bg-gray-900/60 rounded-2xl p-6 border border-gray-800/50 relative overflow-hidden flex flex-col justify-between h-60 opacity-80"
+              >
+                {/* Status Badge */}
+                <div className="absolute top-4 right-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
+                    GEBUCHT
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="mt-2">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                    Wochenende
+                  </h3>
+                  <div className="text-2xl font-bold text-gray-500 mb-2 line-through decoration-gray-600 decoration-2">
+                    {block.label}
+                  </div>
+                  <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
+                </div>
+
+                {/* Disabled Button */}
+                <div className="mt-6">
+                  <button
+                    disabled
+                    className="w-full py-3 rounded-lg bg-transparent border border-gray-800 text-gray-600 font-medium cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    <Lock className="h-4 w-4" />
+                    Bereits vergeben
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* "Weitere Termine" placeholder card */}
+          <div className="bg-gray-900 rounded-2xl p-6 border border-dashed border-gray-800 flex flex-col justify-center items-center h-60 text-center">
+            <CalendarDays className="h-10 w-10 text-gray-700 mb-3" />
+            <h3 className="text-lg font-bold text-gray-500">Weitere Termine</h3>
+            <p className="text-sm text-gray-600 mt-2 max-w-[200px]">
+              Für spätere Monate wähle bitte oben den entsprechenden Zeitraum aus.
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <XCircle className="h-5 w-5 text-red-400" />
-          <span className="text-gray-300">Belegt – Bereits vergeben</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
