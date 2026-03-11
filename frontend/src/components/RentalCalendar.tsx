@@ -231,36 +231,39 @@ const RentalCalendar = () => {
             return (
               <div
                 key={block.id}
-                className="bg-gray-900/60 rounded-2xl p-6 border border-gray-800/50 relative overflow-hidden flex flex-col justify-between h-60 opacity-80"
+                className={`bg-gray-900/60 rounded-2xl p-6 border border-gray-800/50 relative overflow-hidden flex flex-col justify-between ${
+                  isSingleDays ? '' : 'h-60'
+                } opacity-80`}
               >
-                {/* Status Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
-                    GEBUCHT
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="mt-2">
-                  {!isSingleDays && (
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
-                      Wochenende
-                    </h3>
-                  )}
-                  
-                  <div className={`text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2 ${
-                    isSingleDays ? 'mt-6 mb-4' : 'mb-2'
-                  }`}>
-                    {block.label}
+                {isSingleDays ? (
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2">
+                      {block.label}
+                    </div>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
+                      GEBUCHT
+                    </span>
                   </div>
-                  
-                  {!isSingleDays && (
-                    <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
-                  )}
-                </div>
+                ) : (
+                  <>
+                    <div className="absolute top-4 right-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
+                        GEBUCHT
+                      </span>
+                    </div>
+                    <div className="mt-2">
+                      <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                        Wochenende
+                      </h3>
+                      <div className="text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2 mb-2">
+                        {block.label}
+                      </div>
+                      <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
+                    </div>
+                  </>
+                )}
 
-                {/* Disabled Button */}
-                <div className="mt-6">
+                <div className={isSingleDays ? 'mt-4' : 'mt-6'}>
                   <button
                     disabled
                     className="w-full py-3 rounded-lg bg-transparent border border-gray-800 text-gray-600 font-medium cursor-not-allowed flex items-center justify-center gap-2"
