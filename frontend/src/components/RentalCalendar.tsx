@@ -62,6 +62,12 @@ const RentalCalendar = () => {
         <Calendar className="h-7 w-7 text-accent-primary" />
         <h2 className="text-3xl font-bold text-white">Verfügbarkeit</h2>
       </div>
+      <div>
+        <p className="text-gray-300 max-w-3xl mx-auto">
+          Unsere Location ist von Januar–Mai und September–November jeweils Freitags oder Samstags buchbar. 
+          Hier siehst du, an welchen Wochenenden in den kommenden Monaten noch Termine frei sind.
+        </p>
+      </div>
 
       {/* Month Tabs */}
       <div className="mb-10 flex justify-start md:justify-center overflow-x-auto hide-scrollbar py-2">
