@@ -115,4 +115,22 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .calendar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent-primary) / 0.3) transparent;
+  }
+  .calendar-scrollbar::-webkit-scrollbar {
+    height: 4px;
+  }
+  .calendar-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .calendar-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent-primary) / 0.3);
+    border-radius: 9999px;
+  }
+  .calendar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent-primary) / 0.5);
+  }
 }
