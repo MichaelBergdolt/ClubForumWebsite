@@ -35,6 +35,7 @@ const RentalCalendar = () => {
   const { months: allMonths, settings, loading: monthsLoading, error: monthsError } = useCalendarMonths();
   const [visibleCount, setVisibleCount] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { scrollRef, handleMouseDown, handleMouseMove, handleMouseUp } = useDragScroll();
 
   // Set initial visibleCount once settings load
   const effectiveVisibleCount = visibleCount ?? settings?.initialVisible ?? allMonths.length;
