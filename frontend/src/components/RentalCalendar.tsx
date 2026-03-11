@@ -1,12 +1,41 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import { useCalendarMonths, useAvailability, type CalendarMonth } from '@/hooks/useCalendarData';
 import { Calendar, Loader2, XCircle, ArrowRight, Lock, Flame, CalendarDays, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+const useDragScroll = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    isDragging.current = true;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    isDragging.current = false;
+  }, []);
+
+  return { scrollRef, handleMouseDown, handleMouseMove, handleMouseUp };
+};
 
 const RentalCalendar = () => {
   const { months: allMonths, settings, loading: monthsLoading, error: monthsError } = useCalendarMonths();
   const [visibleCount, setVisibleCount] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { scrollRef, handleMouseDown, handleMouseMove, handleMouseUp } = useDragScroll();
 
   // Set initial visibleCount once settings load
   const effectiveVisibleCount = visibleCount ?? settings?.initialVisible ?? allMonths.length;
@@ -62,16 +91,21 @@ const RentalCalendar = () => {
         <Calendar className="h-7 w-7 text-accent-primary" />
         <h2 className="text-3xl font-bold text-white">Verfügbarkeit</h2>
       </div>
-      <div>
-        <p className="text-gray-300 max-w-3xl mx-auto">
-          Unsere Location ist von Januar–Mai und September–November jeweils Freitags oder Samstags buchbar. 
-          Hier siehst du, an welchen Wochenenden in den kommenden Monaten noch Termine frei sind.
-        </p>
-      </div>
+      <p className="text-gray-300 max-w-3xl mx-auto text-center mb-12">
+        Unsere Location ist von Januar–Mai und September–November jeweils Freitags oder Samstags buchbar.
+        Hier siehst du, an welchen Wochenenden in den kommenden Monaten noch Termine frei sind.
+      </p>
 
       {/* Month Tabs */}
-      <div className="mb-10 flex justify-start md:justify-center overflow-x-auto hide-scrollbar py-2">
-        <div className="flex gap-3 px-2">
+      <div
+        className="mb-10 overflow-x-auto py-2 cursor-grab active:cursor-grabbing calendar-scrollbar"
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        <div className="flex gap-3 px-2 w-max mx-auto">
           {visibleMonths.map((m, i) => {
             const isActive = i === selectedIndex;
             const showYear = m.year !== currentYear;
