@@ -61,6 +61,9 @@ const RentalCalendar = () => {
 
   const nextHiddenYear = canShowMore ? allMonths[effectiveVisibleCount]?.year : null;
 
+  // Prüfen, welcher Buchungsmodus in den Settings aktiv ist
+  const isSingleDays = settings?.bookingMode === 'SINGLE_DAYS';
+
   if (monthsLoading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -183,15 +186,21 @@ const RentalCalendar = () => {
                       <h3 className="text-sm font-medium text-accent-primary uppercase tracking-widest mb-2 flex items-center gap-1">
                         <Flame className="h-3.5 w-3.5" /> {block.specialEvent}
                       </h3>
-                    ) : (
+                    ) : !isSingleDays ? (
                       <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-2">
                         Wochenende
                       </h3>
-                    )}
-                    <div className="text-2xl font-bold text-white mb-2 group-hover:text-accent-primary transition-colors">
+                    ) : null}
+                    
+                    <div className={`text-2xl font-bold text-white group-hover:text-accent-primary transition-colors ${
+                      isSingleDays && !hasEvent ? 'mt-6 mb-4' : 'mb-2'
+                    }`}>
                       {block.label}
                     </div>
-                    <p className="text-sm text-gray-500 font-medium">{block.subLabel}</p>
+                    
+                    {!isSingleDays && (
+                      <p className="text-sm text-gray-500 font-medium">{block.subLabel}</p>
+                    )}
                   </div>
 
                   {/* CTA Button */}
@@ -227,13 +236,21 @@ const RentalCalendar = () => {
 
                 {/* Content */}
                 <div className="mt-2">
-                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
-                    Wochenende
-                  </h3>
-                  <div className="text-2xl font-bold text-gray-500 mb-2 line-through decoration-gray-600 decoration-2">
+                  {!isSingleDays && (
+                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                      Wochenende
+                    </h3>
+                  )}
+                  
+                  <div className={`text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2 ${
+                    isSingleDays ? 'mt-6 mb-4' : 'mb-2'
+                  }`}>
                     {block.label}
                   </div>
-                  <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
+                  
+                  {!isSingleDays && (
+                    <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
+                  )}
                 </div>
 
                 {/* Disabled Button */}
