@@ -18,5 +18,5 @@ return [
     // --- Buchungsmodus ---
     // 'FULL_WEEKEND' = Freitag bis Sonntag als ein Block
     // 'SINGLE_DAYS'  = Freitag und Samstag als getrennte Blöcke
-    'booking_mode' => 'FULL_WEEKEND',
+    'booking_mode' => 'SINGLE_DAYS',
 ];

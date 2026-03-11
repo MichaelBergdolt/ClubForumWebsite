@@ -8,12 +8,30 @@ class EventTransformer {
             $isBooked = false;
             $specialTitle = null;
 
-            foreach ($rawEvents as $event) {
-                $eStart = substr($event->getStart()->getDate() ?: $event->getStart()->getDateTime(), 0, 10);
-                $eEnd   = substr($event->getEnd()->getDate() ?: $event->getEnd()->getDateTime(), 0, 10);
+            // Start und Ende des Blocks laden
+            $blockStart = $block['start'];
+            $blockEnd   = $block['end'];
 
-                // Überschneidungsprüfung: Fällt das Event in diesen Block?
-                if ($eStart < $block['end'] && $eEnd > $block['start']) {
+            foreach ($rawEvents as $event) {
+                $startObj = $event->getStart();
+                $endObj = $event->getEnd();
+                
+                // Wir wandeln Google-Events so um, dass wir immer das INKLUSIVE Enddatum haben.
+                if ($startObj->getDate()) {
+                    // Ganztägiges Event: Google liefert das Enddatum immer exklusiv (z.B. einen Tag später)
+                    // Wir ziehen einen Tag ab, damit ein Event am 3. Mai auch als Ende 3. Mai gerechnet wird.
+                    $eStart = $startObj->getDate();
+                    $eEndInclusive = (new DateTime($endObj->getDate()))->modify('-1 day')->format('Y-m-d');
+                } else {
+                    // Event mit Uhrzeit (Kurze Termine)
+                    // Wir extrahieren nur das reine Datum, um es als inklusiven Zeitraum zu nutzen.
+                    $eStart = substr($startObj->getDateTime(), 0, 10);
+                    $eEndInclusive = substr($endObj->getDateTime(), 0, 10);
+                }
+
+                // Start des Events muss <= Ende des Blocks sein UND
+                // Ende des Events muss >= Start des Blocks sein.
+                if ($eStart <= $blockEnd && $eEndInclusive >= $blockStart) {
                     $isBooked = true;
                     
                     // Optional: Eventnamen auslesen, falls es ein Sonder-Event ist
@@ -21,7 +39,8 @@ class EventTransformer {
                         $parts = explode(';', $event->getSummary());
                         $specialTitle = $parts[1] ?? null;
                     }
-                    // Sobald wir ein Event im Block gefunden haben, ist er "GEBUCHT"
+                    
+                    // Sobald wir einen Termin haben (egal wie lang), markieren wir den Block als GEBUCHT.
                     break; 
                 }
             }
