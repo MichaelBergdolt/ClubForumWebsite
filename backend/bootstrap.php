@@ -35,12 +35,15 @@ if ($appEnv === 'development') {
 // === CORS Setup ===
 $allowedOrigins = [
     "https://preview.club-forum-bb.de",
+    "https://www.preview.club-forum-bb.de",
     "https://club-forum-bb.de",
+    "https://www.club-forum-bb.de"
 ];
 
 if ($appEnv === 'development') {
     $allowedOrigins[] = "http://localhost:5173";
     $allowedOrigins[] = "http://localhost:8080";
+    $allowedOrigins[] = "http://192.168.2.212:8080";
 }
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
