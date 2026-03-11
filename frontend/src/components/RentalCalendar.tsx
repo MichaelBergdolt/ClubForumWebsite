@@ -168,43 +168,49 @@ const RentalCalendar = () => {
               return (
                 <div
                   key={block.id}
-                  className={`group bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg hover:shadow-2xl hover:border-accent-primary/50 transition-all duration-300 relative overflow-hidden flex flex-col justify-between h-60 ${
-                    hasEvent ? 'ring-1 ring-accent-primary/20' : ''
-                  }`}
+                  className={`group bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-lg hover:shadow-2xl hover:border-accent-primary/50 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
+                    isSingleDays && !hasEvent ? '' : 'h-60'
+                  } ${hasEvent ? 'ring-1 ring-accent-primary/20' : ''}`}
                 >
-                  {/* Status Badge */}
-                  <div className="absolute top-4 right-4">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-cyan-900/20 text-accent-secondary border border-accent-secondary/30 shadow-[0_0_10px_hsl(var(--accent-secondary)/0.5)]">
-                      <span className="w-2 h-2 rounded-full bg-accent-secondary mr-2 animate-pulse shadow-[0_0_8px_hsl(var(--accent-secondary))]" />
-                      FREI
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="mt-2">
-                    {hasEvent ? (
-                      <h3 className="text-sm font-medium text-accent-primary uppercase tracking-widest mb-2 flex items-center gap-1">
-                        <Flame className="h-3.5 w-3.5" /> {block.specialEvent}
-                      </h3>
-                    ) : !isSingleDays ? (
-                      <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-2">
-                        Wochenende
-                      </h3>
-                    ) : null}
-                    
-                    <div className={`text-2xl font-bold text-white group-hover:text-accent-primary transition-colors ${
-                      isSingleDays && !hasEvent ? 'mt-6 mb-4' : 'mb-2'
-                    }`}>
-                      {block.label}
+                  {/* Header row: label (single) or badge */}
+                  {isSingleDays && !hasEvent ? (
+                    <div className="flex items-center justify-between">
+                      <div className="text-2xl font-bold text-white group-hover:text-accent-primary transition-colors">
+                        {block.label}
+                      </div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-cyan-900/20 text-accent-secondary border border-accent-secondary/30 shadow-[0_0_10px_hsl(var(--accent-secondary)/0.5)]">
+                        <span className="w-2 h-2 rounded-full bg-accent-secondary mr-2 animate-pulse shadow-[0_0_8px_hsl(var(--accent-secondary))]" />
+                        FREI
+                      </span>
                     </div>
-                    
-                    {!isSingleDays && (
-                      <p className="text-sm text-gray-500 font-medium">{block.subLabel}</p>
-                    )}
-                  </div>
+                  ) : (
+                    <>
+                      <div className="absolute top-4 right-4">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-cyan-900/20 text-accent-secondary border border-accent-secondary/30 shadow-[0_0_10px_hsl(var(--accent-secondary)/0.5)]">
+                          <span className="w-2 h-2 rounded-full bg-accent-secondary mr-2 animate-pulse shadow-[0_0_8px_hsl(var(--accent-secondary))]" />
+                          FREI
+                        </span>
+                      </div>
+                      <div className="mt-2">
+                        {hasEvent ? (
+                          <h3 className="text-sm font-medium text-accent-primary uppercase tracking-widest mb-2 flex items-center gap-1">
+                            <Flame className="h-3.5 w-3.5" /> {block.specialEvent}
+                          </h3>
+                        ) : (
+                          <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-2">
+                            Wochenende
+                          </h3>
+                        )}
+                        <div className="text-2xl font-bold text-white group-hover:text-accent-primary transition-colors mb-2">
+                          {block.label}
+                        </div>
+                        <p className="text-sm text-gray-500 font-medium">{block.subLabel}</p>
+                      </div>
+                    </>
+                  )}
 
                   {/* CTA Button */}
-                  <div className="mt-6">
+                  <div className={isSingleDays && !hasEvent ? 'mt-4' : 'mt-6'}>
                     <Link
                       to="/kontakt"
                       className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
@@ -225,36 +231,39 @@ const RentalCalendar = () => {
             return (
               <div
                 key={block.id}
-                className="bg-gray-900/60 rounded-2xl p-6 border border-gray-800/50 relative overflow-hidden flex flex-col justify-between h-60 opacity-80"
+                className={`bg-gray-900/60 rounded-2xl p-6 border border-gray-800/50 relative overflow-hidden flex flex-col justify-between ${
+                  isSingleDays ? '' : 'h-60'
+                } opacity-80`}
               >
-                {/* Status Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
-                    GEBUCHT
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="mt-2">
-                  {!isSingleDays && (
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
-                      Wochenende
-                    </h3>
-                  )}
-                  
-                  <div className={`text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2 ${
-                    isSingleDays ? 'mt-6 mb-4' : 'mb-2'
-                  }`}>
-                    {block.label}
+                {isSingleDays ? (
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2">
+                      {block.label}
+                    </div>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
+                      GEBUCHT
+                    </span>
                   </div>
-                  
-                  {!isSingleDays && (
-                    <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
-                  )}
-                </div>
+                ) : (
+                  <>
+                    <div className="absolute top-4 right-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gray-800 text-gray-400 border border-gray-700">
+                        GEBUCHT
+                      </span>
+                    </div>
+                    <div className="mt-2">
+                      <h3 className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                        Wochenende
+                      </h3>
+                      <div className="text-2xl font-bold text-gray-500 line-through decoration-gray-600 decoration-2 mb-2">
+                        {block.label}
+                      </div>
+                      <p className="text-sm text-gray-600 font-medium">{block.subLabel}</p>
+                    </div>
+                  </>
+                )}
 
-                {/* Disabled Button */}
-                <div className="mt-6">
+                <div className={isSingleDays ? 'mt-4' : 'mt-6'}>
                   <button
                     disabled
                     className="w-full py-3 rounded-lg bg-transparent border border-gray-800 text-gray-600 font-medium cursor-not-allowed flex items-center justify-center gap-2"
