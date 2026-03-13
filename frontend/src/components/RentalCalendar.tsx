@@ -277,13 +277,25 @@ const RentalCalendar = () => {
           })}
 
           {/* "Weitere Termine" placeholder card */}
-          <div className="bg-gray-900 rounded-2xl p-6 border border-dashed border-gray-800 flex flex-col justify-center items-center h-60 text-center">
-            <CalendarDays className="h-10 w-10 text-gray-700 mb-3" />
-            <h3 className="text-lg font-bold text-gray-500">Weitere Termine</h3>
-            <p className="text-sm text-gray-600 mt-2 max-w-[200px]">
-              Für spätere Monate wähle bitte oben den entsprechenden Zeitraum aus.
-            </p>
-          </div>
+          {isSingleDays ? (
+            <div className="bg-gray-900 rounded-2xl p-6 border border-dashed border-gray-800 flex items-center gap-4">
+              <CalendarDays className="h-8 w-8 text-gray-700 flex-shrink-0" />
+              <div>
+                <h3 className="text-base font-bold text-gray-500">Weitere Termine</h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Wähle oben den entsprechenden Zeitraum aus.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-gray-900 rounded-2xl p-6 border border-dashed border-gray-800 flex flex-col justify-center items-center h-60 text-center">
+              <CalendarDays className="h-10 w-10 text-gray-700 mb-3" />
+              <h3 className="text-lg font-bold text-gray-500">Weitere Termine</h3>
+              <p className="text-sm text-gray-600 mt-2 max-w-[200px]">
+                Für spätere Monate wähle bitte oben den entsprechenden Zeitraum aus.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
