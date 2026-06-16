@@ -83,12 +83,24 @@ export type PastEvent = {
 //   artists: []
 // };
 
+// export const nextEvent: EventConfig = {
+//   title: "Sip & Create",
+//   description: "Ein entspannter Nachmittag mit Drinks und Kreativität. Ob malen, basteln oder häkeln: einfach ausprobieren. Beim Sip & Create steht der Spaß im Vordergrund!",
+//   eventDetails: [
+//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 25.04.2026"},
+//     {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
+//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+//     {icon: "Ticket", title: "Eintritt", value: "frei"}
+//   ],
+//   artists: []
+// };
+
 export const nextEvent: EventConfig = {
-  title: "Sip & Create",
-  description: "Ein entspannter Nachmittag mit Drinks und Kreativität. Ob malen, basteln oder häkeln: einfach ausprobieren. Beim Sip & Create steht der Spaß im Vordergrund!",
+  title: "Stadtfest",
+  description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
   eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Samstag, 25.04.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
+    {icon: "CalendarDays", title: "Datum", value: "Samstag, 03-04.07.2026"},
+    {icon: "Clock", title: "Uhrzeit", value: "16-00 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
     {icon: "Ticket", title: "Eintritt", value: "frei"}
   ],
@@ -140,14 +152,14 @@ export const upcomingEvents: UpcomingEvent[] = [
   //   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
   //   image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
   // },
-  {
-    title: "Stadtfest",
-    date: "3.-5.07.2026",
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
-    image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
-  },
+  // {
+  //   title: "Stadtfest",
+  //   date: "3.-5.07.2026",
+  //   locationName: "Club Forum",
+  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
+  //   description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
+  //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
+  // },
   {
     title: "Halloween",
     date: `31.10.${new Date().getFullYear()}`,
