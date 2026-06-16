@@ -98,7 +98,7 @@ const RentalCalendar = () => {
         Unsere Location ist von Januar bis Mai sowie von September bis November jeweils freitags oder samstags buchbar.
         Unten siehst du unsere freien Wochenenden.
         Wähle einfach direkt den gewünschten Freitag oder Samstag über den jeweiligen Button aus.
-
+        \n\n
         Hinweis: Da jede Vermietung für uns mit erheblichem organisatorischem Aufwand einhergeht, können wir als "verfügbar" angezeigte Termine nicht immer garantieren. Die endgültige Zu- oder Absage schicken wir dir nach deiner Anfrage zeitnah per E-Mail.
       </p>
 

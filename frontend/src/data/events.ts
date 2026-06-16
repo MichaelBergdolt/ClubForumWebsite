@@ -161,6 +161,14 @@ export const upcomingEvents: UpcomingEvent[] = [
   //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
   // },
   {
+    title: "Summer Vibes",
+    date: "01.08.2026",
+    locationName: "Club Forum",
+    locationAddress: "Marktstraße 9, 71032 Böblingen",
+    description: "Das Event, um den Sommer in vollen Zügen zu genießen. Freut euch auf entspannte Beats, kalte Getränke und eine unvergessliche Atmosphäre mitten im Herzen von Böblingen. Kommt vorbei, bringt eure Crew mit und lasst uns gemeinsam bei guten Vibes den perfekten Sommertag feiern!",
+    image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
+  },
+  {
     title: "Halloween",
     date: `31.10.${new Date().getFullYear()}`,
     locationName: "Club Forum",
