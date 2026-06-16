@@ -94,13 +94,16 @@ const RentalCalendar = () => {
         <Calendar className="h-7 w-7 text-accent-primary" />
         <h2 className="text-3xl font-bold text-white">Verfügbarkeit</h2>
       </div>
-      <p className="text-gray-300 max-w-3xl mx-auto text-center mb-12">
-        Unsere Location ist von Januar bis Mai sowie von September bis November jeweils freitags oder samstags buchbar.
-        Unten siehst du unsere freien Wochenenden.
-        Wähle einfach direkt den gewünschten Freitag oder Samstag über den jeweiligen Button aus.
-        \n\n
-        Hinweis: Da jede Vermietung für uns mit erheblichem organisatorischem Aufwand einhergeht, können wir als "verfügbar" angezeigte Termine nicht immer garantieren. Die endgültige Zu- oder Absage schicken wir dir nach deiner Anfrage zeitnah per E-Mail.
-      </p>
+      <div className="max-w-3xl mx-auto text-center mb-12 space-y-6">
+        <p className="text-gray-300">
+          Unsere Location ist von Januar bis Mai sowie von September bis November jeweils freitags oder samstags buchbar.
+          Unten siehst du unsere freien Wochenenden.
+          Wähle einfach direkt den gewünschten Freitag oder Samstag über den jeweiligen Button aus.
+        </p>
+        <p className="text-sm text-gray-400 italic border-t border-gray-800 pt-4 mx-auto max-w-2xl">
+          <span className="font-semibold text-gray-300">Hinweis:</span> Da jede Vermietung für uns mit erheblichem organisatorischem Aufwand einhergeht, können wir als „verfügbar" angezeigte Termine nicht immer garantieren. Die endgültige Zu- oder Absage schicken wir dir nach deiner Anfrage zeitnah per E-Mail.
+        </p>
+      </div>
 
       {/* Month Tabs */}
       <div
