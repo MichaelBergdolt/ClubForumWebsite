@@ -100,7 +100,7 @@ const RentalCalendar = () => {
           Unten siehst du unsere freien Wochenenden.
           Wähle einfach direkt den gewünschten Freitag oder Samstag über den jeweiligen Button aus.
         </p>
-        <p className="text-sm text-gray-400 italic border-t border-gray-800 pt-4 mx-auto max-w-2xl">
+        <p className="text-sm text-gray-400 italic mx-auto max-w-2xl">
           <span className="font-semibold text-gray-300">Hinweis:</span> Da jede Vermietung für uns mit erheblichem organisatorischem Aufwand einhergeht, können wir als „verfügbar" angezeigte Termine nicht immer garantieren. Die endgültige Zu- oder Absage schicken wir dir nach deiner Anfrage zeitnah per E-Mail.
         </p>
       </div>
