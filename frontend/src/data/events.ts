@@ -53,22 +53,22 @@ export type PastEvent = {
 //   ],
 // };
 
-// export const nextEvent: EventConfig = {
-//   title: "Halloween",
-//   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
-//   accentColor: {
-//   primary: "355 80% 35%",       // kräftiges Weinrot
-//   primaryDark: "355 80% 25%",   // dunklerer Ton
-//   primaryLight: "355 80% 50%",  // hellerer Ton
-// },
-//   eventDetails: [
-//     {icon: "CalendarDays", title: "Datum", value: "Freitag, 31.10.2025"},
-//     {icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr"},
-//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-//     {icon: "Ticket", title: "Eintritt", value: "konstenlos mit Kostüm\n 3€ ohne Kostüm"}
-//   ],
-//   artists: []
-// };
+export const nextEvent: EventConfig = {
+  title: "Halloween",
+  description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
+  accentColor: {
+  primary: "355 80% 35%",       // kräftiges Weinrot
+  primaryDark: "355 80% 25%",   // dunklerer Ton
+  primaryLight: "355 80% 50%",  // hellerer Ton
+},
+  eventDetails: [
+    {icon: "CalendarDays", title: "Datum", value: "Freitag, 31.10.2025"},
+    {icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr"},
+    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+    {icon: "Ticket", title: "Eintritt", value: "konstenlos mit Kostüm\n 3€ ohne Kostüm"}
+  ],
+  artists: []
+};
 
 // export const nextEvent: EventConfig = {
 //   // 
@@ -95,17 +95,17 @@ export type PastEvent = {
 //   artists: []
 // };
 
-export const nextEvent: EventConfig = {
-  title: "Stadtfest",
-  description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
-  eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Samstag, 03-04.07.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "16-00 Uhr"},
-    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "frei"}
-  ],
-  artists: []
-};
+// export const nextEvent: EventConfig = {
+//   title: "Stadtfest",
+//   description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
+//   eventDetails: [
+//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 03-04.07.2026"},
+//     {icon: "Clock", title: "Uhrzeit", value: "16-00 Uhr"},
+//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+//     {icon: "Ticket", title: "Eintritt", value: "frei"}
+//   ],
+//   artists: []
+// };
 
 // export const nextEvent: EventConfig = {
 //   title: "OFTAS",
@@ -160,22 +160,22 @@ export const upcomingEvents: UpcomingEvent[] = [
   //   description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
   //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
   // },
-  {
-    title: "Summer Vibes",
-    date: "01.08.2026",
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Wir laden euch herzlich zu unserem Sommerfest ein. Schnappt eure Sonnenbrille, schaltet vom Alltag ab und genießt das lockere Open-Air-Ambiente bei kühlen Drinks und entspannter Musik. Ein perfekter Tag, um einfach mal die Seele baumeln zu lassen und mit alten und neuen Gesichtern zu quatschen.",
-    image: "/images/events/past_events/stadtfest_2025/Stadtfest_2.jpg"
-  },
-  {
-    title: "Halloween",
-    date: `31.10.${new Date().getFullYear()}`,
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-    image: "/images/events/upcoming_events/Halloween.png",
-  },
+  // {
+  //   title: "Summer Vibes",
+  //   date: "01.08.2026",
+  //   locationName: "Club Forum",
+  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
+  //   description: "Wir laden euch herzlich zu unserem Sommerfest ein. Schnappt eure Sonnenbrille, schaltet vom Alltag ab und genießt das lockere Open-Air-Ambiente bei kühlen Drinks und entspannter Musik. Ein perfekter Tag, um einfach mal die Seele baumeln zu lassen und mit alten und neuen Gesichtern zu quatschen.",
+  //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_2.jpg"
+  // },
+  // {
+  //   title: "Halloween",
+  //   date: `31.10.${new Date().getFullYear()}`,
+  //   locationName: "Club Forum",
+  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
+  //   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
+  //   image: "/images/events/upcoming_events/Halloween.png",
+  // },
   {
     title: "Die CLUB FORUM OFTAS",
     date: `27.-29.12.${new Date().getFullYear()}`,
