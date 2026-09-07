@@ -2,10 +2,8 @@
 
 return [
     // --- Kalender IDs ---
-    'calendar_ids' => [
-        '1qumnn1ij0r7tmm427mgtsucag@group.calendar.google.com', // Club Forum
-        'dnbanuksheraorcd546uqrqhb8@group.calendar.google.com'  // Vermietungen
-    ],
+    // Kommagetrennte Liste in CALENDAR_IDS in der .env
+    'calendar_ids' => array_filter(array_map('trim', explode(',', env('CALENDAR_IDS', '')))),
 
     // --- Zeitraum Einstellungen ---
     // Welche Monate sind Vermietungsmonate? (1 = Jan, 5 = Mai, 9 = Sep, 11 = Nov)

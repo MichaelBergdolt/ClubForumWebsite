@@ -10,7 +10,8 @@ Die offizielle Website des **Club Forum** – Events, Location & Community!
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![shadcn/ui](https://img.shields.io/badge/shadcn/ui-Latest-000000?logo=react)](https://ui.shadcn.com/)
-[![Firebase Hosting](https://img.shields.io/badge/Deployed-Firebase-FFCA28?logo=firebase)](https://firebase.google.com/)
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php)](https://www.php.net/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 </div>
 
@@ -50,30 +51,36 @@ Hier finden Besucher **Informationen über unsere Location**, **aktuelle Events*
 | **TypeScript**       | Statische Typisierung für besseren Code | [typescriptlang.org](https://www.typescriptlang.org/) |
 | **Tailwind CSS**     | Utility-First CSS Framework             | [tailwindcss.com](https://tailwindcss.com/)           |
 | **shadcn/ui**        | UI-Komponentenbibliothek für React      | [ui.shadcn.com](https://ui.shadcn.com/)               |
-| **Firebase Hosting** | Deployment & Hosting                    | [firebase.google.com](https://firebase.google.com/)   |
+| **PHP**               | Backend-API (Kalender, Kontaktformular) | [php.net](https://www.php.net/)                        |
+| **Google Calendar API** | Verfügbarkeits- & Terminabgleich      | [developers.google.com](https://developers.google.com/calendar) |
 
 ---
 
 ## ⚙️ Installation & Setup
 
-> **Voraussetzung**: [Node.js](https://nodejs.org/) **>=18** und npm müssen installiert sein.
+> **Voraussetzung**: [Node.js](https://nodejs.org/) **>=18**, npm sowie **PHP >=8.1** mit [Composer](https://getcomposer.org/) müssen installiert sein.
 
 ```bash
 # Repository klonen
 git clone https://github.com/MichaelBergdolt/ClubForumWebsite.git
-
-# In das Projektverzeichnis wechseln
 cd ClubForumWebsite
 
-# Abhängigkeiten installieren
+# Abhängigkeiten installieren (Frontend + Root)
 npm install
 
-# Entwicklungsserver starten
+# Backend-Abhängigkeiten installieren
+cd backend && composer install && cd ..
+
+# .env-Dateien anlegen (siehe backend/.env.example)
+cp backend/.env.example backend/.env
+
+# Frontend + Backend gemeinsam im Dev-Modus starten
 npm run dev
 ```
 
-Die Website läuft nun unter
-**[http://localhost:8080](http://localhost:8080)**
+Die Website läuft nun unter **[http://localhost:8080](http://localhost:8080)**, das Backend unter **[http://localhost:8000](http://localhost:8000)**.
+
+Für den Kalender-Abgleich wird zusätzlich ein Google Service Account benötigt (`backend/service-account.json`, siehe `backend/service-account.example.json`) sowie die zugehörigen Kalender-IDs in `CALENDAR_IDS` in der `.env`.
 
 ---
 
@@ -81,26 +88,35 @@ Die Website läuft nun unter
 
 ```plaintext
 .
-├── public/              # Statische Assets (Bilder, Icons, Fonts)
-├── src/
-│   ├── components/      # Wiederverwendbare UI-Komponenten
-│   ├── pages/           # Hauptseiten der Website
-│   ├── lib/             # Hilfsfunktionen & Hooks
-│   ├── styles/          # Globale Styles & Tailwind-Konfiguration
-│   ├── main.tsx         # Einstiegspunkt der App
-│   └── App.tsx          # Hauptrender-Komponente
-├── firebase.json        # Firebase Hosting Konfiguration
-├── .firebaserc          # Firebase Projekt-Konfiguration
+├── frontend/             # React + Vite Frontend
+│   ├── public/           # Statische Assets (Bilder, Icons, Fonts)
+│   └── src/
+│       ├── components/   # Wiederverwendbare UI-Komponenten
+│       ├── pages/        # Hauptseiten der Website
+│       ├── hooks/        # Custom Hooks
+│       ├── lib/          # Hilfsfunktionen
+│       ├── main.tsx      # Einstiegspunkt der App
+│       └── App.tsx       # Hauptrender-Komponente
+├── backend/              # PHP-API (Kalender, Kontaktformular)
+│   ├── routes/           # Endpunkte (calendar, contact)
+│   ├── src/Calendar/     # Google-Calendar-Integration
+│   ├── config.php        # App-Konfiguration
+│   └── bootstrap.php     # Env-/CORS-/Error-Setup
+├── .github/workflows/    # CI/CD (GitHub Actions)
 ├── package.json
-├── tailwind.config.ts
-└── vite.config.ts
+└── tailwind.config.ts
 ```
 
 ---
 
-## 🔥 Deployment über Firebase
+## 🚀 Deployment
 
-Das Projekt wird über **Firebase Hosting** automatisch bei Änderungen am main Branch deployed.
+Deployment erfolgt automatisiert über **GitHub Actions**:
+
+* Push auf `dev` → Build & Deploy auf die Preview-Umgebung
+* Push auf `main` → Build & Deploy auf die Production-Umgebung
+
+Frontend und Backend werden gebaut und per SSH auf den Server (Netcup) übertragen (siehe `.github/workflows/`).
 
 ---
 
@@ -112,4 +128,6 @@ Das Projekt wird über **Firebase Hosting** automatisch bei Änderungen am main 
 
 ## 📄 Lizenz
 
-Dieses Projekt ist privat und nicht zur öffentlichen Weiterverwendung freigegeben.
+Der **Quellcode** dieses Projekts steht unter der [MIT-Lizenz](./LICENSE).
+
+**Ausgenommen davon sind alle Bilder, Logos und sonstigen Markeninhalte** (u. a. in `frontend/public/images/`) sowie der Vereinsname "Club Forum". Diese sind urheberrechtlich geschützt und dürfen **nicht** ohne ausdrückliche Genehmigung verwendet werden.

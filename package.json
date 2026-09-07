@@ -1,5 +1,6 @@
 {
   "name": "my-project",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix frontend\" \"php -S 0.0.0.0:8000 -t backend\"",
