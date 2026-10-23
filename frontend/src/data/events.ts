@@ -81,7 +81,7 @@ const halloween: EventConfig = {
     {icon: "CalendarDays", title: "Datum", value: "Samstag, 31.10.2026"},
     {icon: "Clock", title: "Uhrzeit", value: "19 – 2 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "kostenlos mit Kostüm\n3€ ohne Kostüm"}
+    {icon: "Ticket", title: "Eintritt", value: "kostenlos mit Kostüm\n2€ ohne Kostüm"}
   ],
   artists: []
 };
