@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import BarBrokerHero from "@/components/BarBrokerHero";
+import BarBrokerHero, { BarBrokerTeaser } from "@/components/BarBrokerHero";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ExpandableText from "@/components/ui/ExpandableText";
@@ -205,12 +205,22 @@ const Events = () => {
                 className="hover:shadow-xl transition-all duration-300 group overflow-hidden bg-gray-800/50 border-gray-700"
               >
                 <div className="relative">
-                  <AspectRatio ratio={4 / 3}>
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <AspectRatio ratio={4 / 3} className="overflow-hidden rounded-t-lg">
+                    {event.teaser === "barbroker" ? (
+                      <BarBrokerTeaser />
+                    ) : event.image ? (
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      // Platzhalter, bis es ein Bild gibt
+                      <div className="w-full h-full flex flex-col justify-end p-6 bg-gradient-to-br from-gray-900 via-gray-950 to-black">
+                        <span className="text-5xl font-bold text-white">{event.date}</span>
+                        <span className="mt-2 h-1 w-16 bg-accent-primary transition-all duration-500 group-hover:w-24" />
+                      </div>
+                    )}
                   </AspectRatio>
                 </div>
                 <CardHeader>

@@ -1,6 +1,8 @@
 export type EventConfig = {
   title: string;
   description: string;
+  // Ab diesem Zeitpunkt ist das Event vorbei und das nächste im Zeitplan wird angezeigt
+  until?: string;
   accentColor?: { primary: string; primaryDark: string; primaryLight: string };
   // Eigener Hero statt des Standard-Layouts, z. B. "barbroker"
   hero?: "barbroker";
@@ -11,10 +13,15 @@ export type EventConfig = {
 export type UpcomingEvent = {
   title: string;
   date?: string;
+  // Ab diesem Zeitpunkt wird die Karte ausgeblendet
+  until?: string;
   locationName?: string;
   locationAddress?: string;
   description?: string;
-  image: string;
+  // Ohne Bild wird eine Kachel mit Datum angezeigt
+  image?: string;
+  // Eigene animierte Vorschau statt Bild, z. B. "barbroker"
+  teaser?: "barbroker";
 };
 
 export type PastEvent = {
@@ -55,22 +62,58 @@ export type PastEvent = {
 //   ],
 // };
 
-export const nextEvent: EventConfig = {
+const halloween: EventConfig = {
   title: "Halloween",
   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
+  until: "2026-11-01T06:00:00+01:00",
   accentColor: {
-  primary: "355 80% 35%",       // kräftiges Weinrot
-  primaryDark: "355 80% 25%",   // dunklerer Ton
-  primaryLight: "355 80% 50%",  // hellerer Ton
-},
+    primary: "355 80% 35%",       // kräftiges Weinrot
+    primaryDark: "355 80% 25%",   // dunklerer Ton
+    primaryLight: "355 80% 50%",  // hellerer Ton
+  },
   eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Freitag, 31.10.2025"},
+    {icon: "CalendarDays", title: "Datum", value: "Samstag, 31.10.2026"},
     {icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "konstenlos mit Kostüm\n 3€ ohne Kostüm"}
+    {icon: "Ticket", title: "Eintritt", value: "kostenlos mit Kostüm\n3€ ohne Kostüm"}
   ],
   artists: []
 };
+
+const marioKart: EventConfig = {
+  title: "Mario Kart Turnier",
+  description: "Controller in die Hand und ab auf die Strecke! Beim Mario Kart Turnier im Club Forum fahrt ihr um den Sieg. Bananenschalen, blaue Panzer und knappe Zieleinläufe garantiert.",
+  until: "2026-11-09T06:00:00+01:00",
+  eventDetails: [
+    {icon: "CalendarDays", title: "Datum", value: "Sonntag, 08.11.2026"},
+    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
+    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+    {icon: "Ticket", title: "Eintritt", value: "folgt"}
+  ],
+  artists: []
+};
+
+const barBroker: EventConfig = {
+  title: "BarBroker",
+  description: "An diesem Abend wird die Bar zur Börse: Die Getränkepreise richten sich nach Angebot und Nachfrage und ändern sich live, den ganzen Abend lang. Wer antizyklisch bestellt, trinkt günstiger. Wer mit der Masse geht, zahlt drauf.",
+  until: "2026-11-28T06:00:00+01:00",
+  hero: "barbroker",
+  eventDetails: [
+    {icon: "CalendarDays", title: "Datum", value: "Freitag, 27.11.2026"},
+    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
+    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
+    {icon: "Ticket", title: "Eintritt", value: "folgt"}
+  ],
+  artists: []
+};
+
+// Chronologisch sortiert: Das erste Event, das noch nicht vorbei ist, wird oben groß angezeigt
+const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker];
+
+const isOver = (until?: string) => until !== undefined && new Date() >= new Date(until);
+
+export const nextEvent: EventConfig =
+  eventSchedule.find((event) => !isOver(event.until)) ?? eventSchedule[eventSchedule.length - 1];
 
 // export const nextEvent: EventConfig = {
 //   // 
@@ -147,7 +190,24 @@ export const nextEvent: EventConfig = {
 //   ],
 // };
 
-export const upcomingEvents: UpcomingEvent[] = [
+const allUpcomingEvents: UpcomingEvent[] = [
+  {
+    title: "Mario Kart Turnier",
+    date: "08.11.2026",
+    until: marioKart.until,
+    locationName: "Club Forum",
+    locationAddress: "Marktstraße 9, 71032 Böblingen",
+    description: "Controller in die Hand und ab auf die Strecke! Wer holt sich den Pokal?",
+  },
+  {
+    title: "BarBroker",
+    date: "27.11.2026",
+    until: barBroker.until,
+    locationName: "Club Forum",
+    locationAddress: "Marktstraße 9, 71032 Böblingen",
+    description: "Die Bar wird zur Börse: Die Preise steigen und fallen live mit der Nachfrage. Wer clever bestellt, trinkt günstiger.",
+    teaser: "barbroker",
+  },
   // {
   //   title: "Bierpongturnier",
   //   date: "Coming Soon",
@@ -187,6 +247,11 @@ export const upcomingEvents: UpcomingEvent[] = [
     image: "/images/events/upcoming_events/OFTAS_Logo.png"
   },
 ];
+
+// Vergangene Events und das aktuelle Hero-Event nicht doppelt anzeigen
+export const upcomingEvents: UpcomingEvent[] = allUpcomingEvents.filter(
+  (event) => !isOver(event.until) && event.title !== nextEvent.title
+);
 
 export const pastEvents: PastEvent[] = [
   {
