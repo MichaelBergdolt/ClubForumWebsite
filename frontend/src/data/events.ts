@@ -68,7 +68,7 @@ const halloween: EventConfig = {
   title: "Halloween",
   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
   startsAt: "2026-10-31T19:00:00+01:00",
-  until: "2026-11-01T06:00:00+01:00",
+  until: "2026-11-01T02:00:00+01:00",
   hero: "halloween",
   accentColor: {
     primary: "355 80% 35%",       // kräftiges Weinrot
@@ -77,7 +77,7 @@ const halloween: EventConfig = {
   },
   eventDetails: [
     {icon: "CalendarDays", title: "Datum", value: "Samstag, 31.10.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr"},
+    {icon: "Clock", title: "Uhrzeit", value: "19 – 2 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
     {icon: "Ticket", title: "Eintritt", value: "kostenlos mit Kostüm\n3€ ohne Kostüm"}
   ],
