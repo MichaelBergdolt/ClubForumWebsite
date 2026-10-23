@@ -7,7 +7,7 @@ export type EventConfig = {
   until?: string;
   accentColor?: { primary: string; primaryDark: string; primaryLight: string };
   // Eigener Hero statt des Standard-Layouts
-  hero?: "barbroker" | "mariokart";
+  hero?: "barbroker" | "mariokart" | "halloween";
   eventDetails: { icon: string; title: string; value: string }[];
   artists: { name: string; image: string; description: string }[];
 };
@@ -67,7 +67,9 @@ export type PastEvent = {
 const halloween: EventConfig = {
   title: "Halloween",
   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
+  startsAt: "2026-10-31T19:00:00+01:00",
   until: "2026-11-01T06:00:00+01:00",
+  hero: "halloween",
   accentColor: {
     primary: "355 80% 35%",       // kräftiges Weinrot
     primaryDark: "355 80% 25%",   // dunklerer Ton
