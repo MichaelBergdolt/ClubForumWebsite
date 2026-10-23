@@ -67,6 +67,7 @@ export default {
 				sans: ['Inter', 'system-ui', 'sans-serif'],
 				display: ['Archivo', 'system-ui', 'sans-serif'],
 				ticker: ['"Geist Mono"', 'ui-monospace', 'monospace'],
+				hand: ['"Patrick Hand SC"', 'cursive'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

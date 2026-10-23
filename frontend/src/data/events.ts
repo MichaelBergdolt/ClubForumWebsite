@@ -1,11 +1,13 @@
 export type EventConfig = {
   title: string;
   description: string;
+  // Beginn des Events, z. B. für einen Countdown
+  startsAt?: string;
   // Ab diesem Zeitpunkt ist das Event vorbei und das nächste im Zeitplan wird angezeigt
   until?: string;
   accentColor?: { primary: string; primaryDark: string; primaryLight: string };
-  // Eigener Hero statt des Standard-Layouts, z. B. "barbroker"
-  hero?: "barbroker";
+  // Eigener Hero statt des Standard-Layouts
+  hero?: "barbroker" | "mariokart";
   eventDetails: { icon: string; title: string; value: string }[];
   artists: { name: string; image: string; description: string }[];
 };
@@ -20,8 +22,8 @@ export type UpcomingEvent = {
   description?: string;
   // Ohne Bild wird eine Kachel mit Datum angezeigt
   image?: string;
-  // Eigene animierte Vorschau statt Bild, z. B. "barbroker"
-  teaser?: "barbroker";
+  // Eigene animierte Vorschau statt Bild
+  teaser?: "barbroker" | "mariokart";
 };
 
 export type PastEvent = {
@@ -83,12 +85,14 @@ const halloween: EventConfig = {
 const marioKart: EventConfig = {
   title: "Mario Kart Turnier",
   description: "Controller in die Hand und ab auf die Strecke! Beim Mario Kart Turnier im Club Forum fahrt ihr um den Sieg. Bananenschalen, blaue Panzer und knappe Zieleinläufe garantiert.",
+  startsAt: "2026-11-08T15:00:00+01:00",
   until: "2026-11-09T06:00:00+01:00",
+  hero: "mariokart",
   eventDetails: [
     {icon: "CalendarDays", title: "Datum", value: "Sonntag, 08.11.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
+    {icon: "Clock", title: "Uhrzeit", value: "ab 15 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "folgt"}
+    {icon: "Ticket", title: "Eintritt", value: "5 €"}
   ],
   artists: []
 };
@@ -112,8 +116,14 @@ const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker];
 
 const isOver = (until?: string) => until !== undefined && new Date() >= new Date(until);
 
+// Nur lokal (npm run dev): /events?vorschau=mariokart zeigt ein bestimmtes Event als Hero
+const previewKey = import.meta.env.DEV ? new URLSearchParams(window.location.search).get("vorschau") : null;
+const previewEvent = eventSchedule.find(
+  (event) => previewKey !== null && (event.hero === previewKey || event.title.toLowerCase() === previewKey.toLowerCase())
+);
+
 export const nextEvent: EventConfig =
-  eventSchedule.find((event) => !isOver(event.until)) ?? eventSchedule[eventSchedule.length - 1];
+  previewEvent ?? eventSchedule.find((event) => !isOver(event.until)) ?? eventSchedule[eventSchedule.length - 1];
 
 // export const nextEvent: EventConfig = {
 //   // 
@@ -197,7 +207,8 @@ const allUpcomingEvents: UpcomingEvent[] = [
     until: marioKart.until,
     locationName: "Club Forum",
     locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Controller in die Hand und ab auf die Strecke! Wer holt sich den Pokal?",
+    description: "Controller in die Hand und ab auf die Strecke! Ab 15 Uhr, 5 € Eintritt. Wer holt sich den Pokal?",
+    teaser: "mariokart",
   },
   {
     title: "BarBroker",

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import BarBrokerHero, { BarBrokerTeaser } from "@/components/BarBrokerHero";
+import MarioKartHero, { MarioKartTeaser } from "@/components/MarioKartHero";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ExpandableText from "@/components/ui/ExpandableText";
@@ -38,6 +39,8 @@ const Events = () => {
       {/* Next Event Hero Section */}
       {nextEvent.hero === "barbroker" ? (
         <BarBrokerHero event={nextEvent} />
+      ) : nextEvent.hero === "mariokart" ? (
+        <MarioKartHero event={nextEvent} />
       ) : (
         <section
           className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
@@ -208,6 +211,8 @@ const Events = () => {
                   <AspectRatio ratio={4 / 3} className="overflow-hidden rounded-t-lg">
                     {event.teaser === "barbroker" ? (
                       <BarBrokerTeaser />
+                    ) : event.teaser === "mariokart" ? (
+                      <MarioKartTeaser />
                     ) : event.image ? (
                       <img
                         src={event.image}
