@@ -129,6 +129,9 @@ const previewEvent = eventSchedule.find(
 export const nextEvent: EventConfig =
   previewEvent ?? eventSchedule.find((event) => !isOver(event.until)) ?? eventSchedule[eventSchedule.length - 1];
 
+// false, wenn auch das letzte Event im Plan schon vorbei ist
+export const nextEventIsUpcoming = previewEvent !== undefined || !isOver(nextEvent.until);
+
 // export const nextEvent: EventConfig = {
 //   // 
 //   title: "Bier\u00adpong\u00adturnier",

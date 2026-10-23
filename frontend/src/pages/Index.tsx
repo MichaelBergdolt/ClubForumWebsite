@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowDown, CalendarDays, MapPin } from "lucide-react";
+import NextEventHint from "@/components/NextEventHint";
 
 const Index = () => {
   return (
@@ -17,6 +18,9 @@ const Index = () => {
           }}
         />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+          <div className="mb-6 animate-fade-in">
+            <NextEventHint />
+          </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-shadow animate-fade-in">
             Club Forum Böblingen
           </h1>
