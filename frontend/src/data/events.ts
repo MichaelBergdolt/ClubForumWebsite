@@ -2,6 +2,8 @@ export type EventConfig = {
   title: string;
   description: string;
   accentColor?: { primary: string; primaryDark: string; primaryLight: string };
+  // Eigener Hero statt des Standard-Layouts, z. B. "barbroker"
+  hero?: "barbroker";
   eventDetails: { icon: string; title: string; value: string }[];
   artists: { name: string; image: string; description: string }[];
 };

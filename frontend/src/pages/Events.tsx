@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
+import BarBrokerHero from "@/components/BarBrokerHero";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ExpandableText from "@/components/ui/ExpandableText";
@@ -35,79 +36,83 @@ const Events = () => {
   return (
     <Layout>
       {/* Next Event Hero Section */}
-      <section
-        className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
-        style={
-          eventAccentColor ? {
-            "--event-primary": eventAccentColor.primary,
-            "--event-primary-dark": eventAccentColor.primaryDark,
-            "--event-primary-light": eventAccentColor.primaryLight,
-          } as React.CSSProperties : undefined
-        }
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            {/* Main Title */}
-            <div className="text-center mb-16">
-              <h1
-                className="text-6xl sm:text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight break-words"
-                style={eventAccentColor ? {
-                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--event-primary)) 40%, hsl(var(--event-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
-                  lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden
-                } : {
-                  backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--accent-primary)) 40%, hsl(var(--accent-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
-                  lineHeight: "1.2",
-                }}
-              >
-                {nextEvent.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                {nextEvent.description}
-              </p>
-            </div>
+      {nextEvent.hero === "barbroker" ? (
+        <BarBrokerHero event={nextEvent} />
+      ) : (
+        <section
+          className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+          style={
+            eventAccentColor ? {
+              "--event-primary": eventAccentColor.primary,
+              "--event-primary-dark": eventAccentColor.primaryDark,
+              "--event-primary-light": eventAccentColor.primaryLight,
+            } as React.CSSProperties : undefined
+          }
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              {/* Main Title */}
+              <div className="text-center mb-16">
+                <h1
+                  className="text-6xl sm:text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r bg-clip-text text-transparent leading-tight break-words"
+                  style={eventAccentColor ? {
+                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--event-primary)) 40%, hsl(var(--event-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
+                    lineHeight: "1.2", // Erhöht die Zeilenhöhe, damit Buchstaben wie "y" nicht abgeschnitten werden
+                  } : {
+                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.8) 0%, hsl(var(--accent-primary)) 40%, hsl(var(--accent-primary)) 60%, rgba(255,255,255,0.8) 100%)`,
+                    lineHeight: "1.2",
+                  }}
+                >
+                  {nextEvent.title}
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                  {nextEvent.description}
+                </p>
+              </div>
 
-            {/* Event Info Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-              {nextEvent.eventDetails.map((detail, index) => {
-                const IconComponent = getIconComponent(detail.icon);
-                return (
-                  <div key={index} className="text-center group h-full">
-                    <div
-                      className="rounded-lg p-6 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px] border"
-                      style={eventAccentColor ? {
-                        backgroundColor: `hsl(var(--event-primary) / 0.2)`,
-                        borderColor: `hsl(var(--event-primary) / 0.5)`,
-                      } : {
-                        backgroundColor: `hsl(var(--accent-primary) / 0.2)`,
-                        borderColor: `hsl(var(--accent-primary) / 0.5)`,
-                      }}
-                      onMouseEnter={(e) => {
-                        const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.3)` : `hsl(var(--accent-primary) / 0.3)`;
-                        e.currentTarget.style.backgroundColor = bgColor;
-                      }}
-                      onMouseLeave={(e) => {
-                        const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.2)` : `hsl(var(--accent-primary) / 0.2)`;
-                        e.currentTarget.style.backgroundColor = bgColor;
-                      }}
-                    >
-                      <IconComponent
-                        className="h-8 w-8 mx-auto mb-3"
-                        style={eventAccentColor ? { color: `hsl(var(--event-primary))` } : { color: `hsl(var(--accent-primary))` }}
-                      />
-                      <h3 className="text-lg font-bold text-white mb-2">
-                        {detail.title}
-                      </h3>
-                      <p className="text-gray-300 whitespace-pre-line">
-                        {detail.value}
-                      </p>
+              {/* Event Info Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                {nextEvent.eventDetails.map((detail, index) => {
+                  const IconComponent = getIconComponent(detail.icon);
+                  return (
+                    <div key={index} className="text-center group h-full">
+                      <div
+                        className="rounded-lg p-6 transition-all duration-300 h-full flex flex-col justify-center min-h-[140px] border"
+                        style={eventAccentColor ? {
+                          backgroundColor: `hsl(var(--event-primary) / 0.2)`,
+                          borderColor: `hsl(var(--event-primary) / 0.5)`,
+                        } : {
+                          backgroundColor: `hsl(var(--accent-primary) / 0.2)`,
+                          borderColor: `hsl(var(--accent-primary) / 0.5)`,
+                        }}
+                        onMouseEnter={(e) => {
+                          const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.3)` : `hsl(var(--accent-primary) / 0.3)`;
+                          e.currentTarget.style.backgroundColor = bgColor;
+                        }}
+                        onMouseLeave={(e) => {
+                          const bgColor = eventAccentColor ? `hsl(var(--event-primary) / 0.2)` : `hsl(var(--accent-primary) / 0.2)`;
+                          e.currentTarget.style.backgroundColor = bgColor;
+                        }}
+                      >
+                        <IconComponent
+                          className="h-8 w-8 mx-auto mb-3"
+                          style={eventAccentColor ? { color: `hsl(var(--event-primary))` } : { color: `hsl(var(--accent-primary))` }}
+                        />
+                        <h3 className="text-lg font-bold text-white mb-2">
+                          {detail.title}
+                        </h3>
+                        <p className="text-gray-300 whitespace-pre-line">
+                          {detail.value}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {/* Artists Section */}
       {nextEvent.artists.length > 0 && (
         <section
