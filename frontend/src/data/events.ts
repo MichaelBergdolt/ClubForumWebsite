@@ -15,6 +15,8 @@ export type EventConfig = {
 export type UpcomingEvent = {
   title: string;
   date?: string;
+  time?: string;
+  price?: string;
   // Ab diesem Zeitpunkt wird die Karte ausgeblendet
   until?: string;
   locationName?: string;
@@ -206,10 +208,12 @@ const allUpcomingEvents: UpcomingEvent[] = [
   {
     title: "Mario Kart Turnier",
     date: "08.11.2026",
+    time: "ab 15 Uhr",
+    price: "5 €",
     until: marioKart.until,
     locationName: "Club Forum",
     locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Controller in die Hand und ab auf die Strecke! Ab 15 Uhr, 5 € Eintritt. Wer holt sich den Pokal?",
+    description: "Controller in die Hand und ab auf die Strecke! Wer holt sich den Pokal?",
     teaser: "mariokart",
   },
   {

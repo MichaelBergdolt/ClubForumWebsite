@@ -248,6 +248,14 @@ const Events = () => {
                         </span>
                       </div>
                     )}
+                    {event.time && (
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 mr-2 text-accent-primary flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-300">
+                          {event.time}
+                        </span>
+                      </div>
+                    )}
                     {event.locationName && (
                       <div className="flex items-start gap-2">
                         <MapPin className="h-4 w-4 text-accent-primary mt-[1px] flex-shrink-0" />
@@ -259,6 +267,14 @@ const Events = () => {
                             </div>
                           )}
                         </div>
+                      </div>
+                    )}
+                    {event.price && (
+                      <div className="flex items-center">
+                        <Ticket className="h-4 w-4 mr-2 text-accent-primary flex-shrink-0" />
+                        <span className="text-sm font-medium text-gray-300">
+                          {event.price}
+                        </span>
                       </div>
                     )}
                     {event.description && (
