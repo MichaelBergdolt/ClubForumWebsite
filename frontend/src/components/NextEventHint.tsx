@@ -7,6 +7,7 @@ const HERO_COLORS: Record<NonNullable<EventConfig["hero"]>, string> = {
   halloween: "#FF5A3D",
   mariokart: "#E5262B",
   barbroker: "#34E5A1",
+  oftas: "#EB3BF2",
 };
 
 const dotColor = (event: EventConfig) =>

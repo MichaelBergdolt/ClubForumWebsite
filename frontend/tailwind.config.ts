@@ -69,6 +69,7 @@ export default {
 				ticker: ['"Geist Mono"', 'ui-monospace', 'monospace'],
 				hand: ['"Patrick Hand SC"', 'cursive'],
 				spooky: ['Cinzel', 'serif'],
+				poster: ['Bungee', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

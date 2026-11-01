@@ -7,7 +7,7 @@ export type EventConfig = {
   until?: string;
   accentColor?: { primary: string; primaryDark: string; primaryLight: string };
   // Eigener Hero statt des Standard-Layouts
-  hero?: "barbroker" | "mariokart" | "halloween";
+  hero?: "barbroker" | "mariokart" | "halloween" | "oftas";
   eventDetails: { icon: string; title: string; value: string }[];
   artists: { name: string; image: string; description: string }[];
 };
@@ -115,14 +115,32 @@ const barBroker: EventConfig = {
   artists: []
 };
 
+const oftas: EventConfig = {
+  title: "Die CLUB FORUM OFTAS",
+  description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
+  startsAt: "2026-12-27T00:00:00+01:00",
+  until: "2026-12-30T06:00:00+01:00",
+  hero: "oftas",
+  eventDetails: [
+    {icon: "CalendarDays", title: "Datum", value: "So, 27.12. – Di, 29.12.2026"},
+    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
+    {icon: "MapPin", title: "Ort", value: "Ev. Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen"},
+    {icon: "Ticket", title: "Eintritt", value: "folgt"}
+  ],
+  artists: []
+};
+
 // Chronologisch sortiert: Das erste Event, das noch nicht vorbei ist, wird oben groß angezeigt
 const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker];
+
+// Noch nicht im Zeitplan, bis ein Hero-Vorschlag feststeht: nur über die lokale Vorschau erreichbar
+const previewOnlyEvents: EventConfig[] = [oftas];
 
 const isOver = (until?: string) => until !== undefined && new Date() >= new Date(until);
 
 // Nur lokal (npm run dev): /events?vorschau=mariokart zeigt ein bestimmtes Event als Hero
 const previewKey = import.meta.env.DEV ? new URLSearchParams(window.location.search).get("vorschau") : null;
-const previewEvent = eventSchedule.find(
+const previewEvent = [...eventSchedule, ...previewOnlyEvents].find(
   (event) => previewKey !== null && (event.hero === previewKey || event.title.toLowerCase() === previewKey.toLowerCase())
 );
 

@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import BarBrokerHero, { BarBrokerTeaser } from "@/components/BarBrokerHero";
 import MarioKartHero, { MarioKartTeaser } from "@/components/MarioKartHero";
 import HalloweenHero from "@/components/HalloweenHero";
+import OftasHero from "@/components/OftasHero";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ExpandableText from "@/components/ui/ExpandableText";
@@ -44,6 +45,8 @@ const Events = () => {
         <MarioKartHero event={nextEvent} />
       ) : nextEvent.hero === "halloween" ? (
         <HalloweenHero event={nextEvent} />
+      ) : nextEvent.hero === "oftas" ? (
+        <OftasHero event={nextEvent} />
       ) : (
         <section
           className="relative py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
