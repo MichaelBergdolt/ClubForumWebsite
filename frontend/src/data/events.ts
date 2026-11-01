@@ -1,3 +1,5 @@
+import { eventTemplates } from "./eventTemplates";
+
 export type EventConfig = {
   title: string;
   description: string;
@@ -33,105 +35,14 @@ export type PastEvent = {
   images: string[];
 };
 
-// export const nextEvent: EventConfig = {
-//   title: "Forum Fortyfive",
-//   description: "Seit 45 Jahren steht das Club Forum für Jugendkultur, Musik und Gemeinschaft. Dieses Jubiläum feiern wir mit einem besonderen Sommerabend im Herzen Böblingens – gemeinsam mit euch im Fetzers.",
-//   eventDetails: [
-//     { icon: "CalendarDays", title: "Datum", value: "Samstag, 06.09.2025" },
-//     { icon: "Clock", title: "Uhrzeit", value: "ab 16 Uhr" },
-//     { icon: "MapPin", title: "Ort", value: "Fetzers Böblingen\nPoststraße 38\n71032 Böblingen" },
-//     { icon: "Ticket", title: "Eintritt", value: "frei" },
-//   ],
-//   artists: [
-//     {
-//       name: "Jules",
-//       image: "/images/events/upcoming_events/forum_fortyfive/jules.png",
-//       description: "Die 25-jährige 'jules' mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als 'wannabe rockstar in a pop-girly's body'. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin 'jules' einen emanzipierten, mutigen Sound voller Farbe."
-//     },
-//     {
-//       name: "kleinstadt",
-//       image: "/images/events/upcoming_events/forum_fortyfive/kleinstadt.png", 
-//       description: "Die Band kleinstadt aus Herrenberg vereint in ihrer Musik die enge Verbundenheit langjähriger Freundschaft mit authentischen deutschen Texten, die von Liebe, Wut, Sehnsucht, Spaß und Freiheit erzählen. Ihre Klänge spiegeln das Erwachsenwerden wider und laden dazu ein, gemeinsam zu träumen und zu fühlen."
-//     },
-//     {
-//       name: "Handbuch",
-//       image: "/images/events/upcoming_events/forum_fortyfive/handbuch.png",
-//       description: "In einer Welt, die ständig von großen Krisen spricht, kümmert sich HANDBUCH lieber um die kleinen Krisen - die, die einem morgens beim Katerfrühstück ins Ohr brüllen. Warum ist der Wasserkocher so laut? Warum ziehen alle Freunde weg aus dieser von Baustellen und Smog geplagten Stadt? HANDBUCH stellen keine Weltformeln auf, aber sie stellen die richtigen Fragen. Zwischen Gitarre (ROBNIG), Bass (ZELLER) und dem Klavier (SELL) entsteht ein Dialog - manchmal suchend, manchmal fordernd, aber immer mit Gefühl. Die Songs schlagen irgendwo zwischen Abenddämmerung und Morgengrauen auf und tragen ihre deutschsprachigen Texte mit lakonischem Charme und ehrlicher Ratlosigkeit vor. Begleitet von Beats aus der Konserve (weil nicht jedes Schlagzeug eine Wohnung hat), trifft Indie-Folk-Pop auf eine staubige Großstadtmelancholie. Mal ruhig, mal laut, aber immer so, dass etwas vibriert - im Hemd, in der Lunge, im Kopf. Zwischen Faber, Mumford & Sons und Sons of the East findet HANDBUCH seinen Platz: warm, leicht angeschlagen und erstaunlich treffsicher."
-//     },
-//     {
-//       name: "Joost",
-//       image: "/images/events/upcoming_events/forum_fortyfive/joost.png",
-//       description: "Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion."
-//     }
-//   ],
-// };
-
-const halloween: EventConfig = {
-  title: "Halloween",
-  description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los! Erlebe eine unvergessliche Nacht mit gruseligen Überraschungen, spooky Musik und einer schaurig-schönen Atmosphäre.",
-  startsAt: "2026-10-31T19:00:00+01:00",
-  until: "2026-11-01T01:00:00+01:00",
-  hero: "halloween",
-  accentColor: {
-    primary: "355 80% 35%",       // kräftiges Weinrot
-    primaryDark: "355 80% 25%",   // dunklerer Ton
-    primaryLight: "355 80% 50%",  // hellerer Ton
-  },
-  eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Samstag, 31.10.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "19 – 1 Uhr"},
-    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "kostenlos mit Kostüm\n2€ ohne Kostüm"}
-  ],
-  artists: []
-};
-
-const marioKart: EventConfig = {
-  title: "Mario Kart Turnier",
-  description: "Controller in die Hand und ab auf die Strecke! Beim Mario Kart Turnier im Club Forum fahrt ihr um den Sieg. Bananenschalen, blaue Panzer und knappe Zieleinläufe garantiert.",
-  startsAt: "2026-11-08T15:00:00+01:00",
-  until: "2026-11-09T06:00:00+01:00",
-  hero: "mariokart",
-  eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Sonntag, 08.11.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "ab 15 Uhr"},
-    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "5 €"}
-  ],
-  artists: []
-};
-
-const barBroker: EventConfig = {
-  title: "BarBroker",
-  description: "An diesem Abend wird die Bar zur Börse: Die Getränkepreise richten sich nach Angebot und Nachfrage und ändern sich live, den ganzen Abend lang. Wer antizyklisch bestellt, trinkt günstiger. Wer mit der Masse geht, zahlt drauf.",
-  until: "2026-11-28T06:00:00+01:00",
-  hero: "barbroker",
-  eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "Freitag, 27.11.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
-    {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "folgt"}
-  ],
-  artists: []
-};
-
-const oftas: EventConfig = {
-  title: "Die CLUB FORUM OFTAS",
-  description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-  startsAt: "2026-12-27T19:00:00+01:00",
-  until: "2026-12-30T03:00:00+01:00",
-  hero: "oftas",
-  eventDetails: [
-    {icon: "CalendarDays", title: "Datum", value: "So, 27.12. – Di, 29.12.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "jeden Tag 19 – 3 Uhr"},
-    {icon: "MapPin", title: "Ort", value: "Ev. Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "kostenlos"}
-  ],
-  artists: []
-};
+// Texte, Zeiten und Preise stehen in eventTemplates.ts, hier kommt nur der Termin dazu
+const halloween = eventTemplates.halloween(2026);
+const marioKart = eventTemplates.marioKart("2026-11-08");
+const barBroker = eventTemplates.barBroker("2026-11-27");
+const oftas = eventTemplates.oftas(2026);
 
 // Chronologisch sortiert: Das erste Event, das noch nicht vorbei ist, wird oben groß angezeigt
-const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker, oftas];
+const eventSchedule: EventConfig[] = [halloween.event, marioKart.event, barBroker.event, oftas.event];
 
 const isOver = (until?: string) => until !== undefined && new Date() >= new Date(until);
 
@@ -147,149 +58,13 @@ export const nextEvent: EventConfig =
 // false, wenn auch das letzte Event im Plan schon vorbei ist
 export const nextEventIsUpcoming = previewEvent !== undefined || !isOver(nextEvent.until);
 
-// export const nextEvent: EventConfig = {
-//   // 
-//   title: "Bier\u00adpong\u00adturnier",
-//   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
-//   eventDetails: [
-//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 11.04.2026"},
-//     {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
-//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-//     {icon: "Ticket", title: "Eintritt", value: "20€ pro Team\n(2 Personen)"}
-//   ],
-//   artists: []
-// };
-
-// export const nextEvent: EventConfig = {
-//   title: "Sip & Create",
-//   description: "Ein entspannter Nachmittag mit Drinks und Kreativität. Ob malen, basteln oder häkeln: einfach ausprobieren. Beim Sip & Create steht der Spaß im Vordergrund!",
-//   eventDetails: [
-//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 25.04.2026"},
-//     {icon: "Clock", title: "Uhrzeit", value: "to be anounced"},
-//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-//     {icon: "Ticket", title: "Eintritt", value: "frei"}
-//   ],
-//   artists: []
-// };
-
-// export const nextEvent: EventConfig = {
-//   title: "Stadtfest",
-//   description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
-//   eventDetails: [
-//     {icon: "CalendarDays", title: "Datum", value: "Samstag, 03-04.07.2026"},
-//     {icon: "Clock", title: "Uhrzeit", value: "16-00 Uhr"},
-//     {icon: "MapPin", title: "Ort", value: "Club Forum\nMarktstraße 9\n71032 Böblingen"},
-//     {icon: "Ticket", title: "Eintritt", value: "frei"}
-//   ],
-//   artists: []
-// };
-
-// export const nextEvent: EventConfig = {
-//   title: "OFTAS",
-//   description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-//   eventDetails: [
-//     { icon: "CalendarDays", title: "Datum", value: "Samstag, 27.12.2025 - Montag, 29.12.2025" },
-//     { icon: "Clock", title: "Uhrzeit", value: "ab 19 Uhr" },
-//     { icon: "MapPin", title: "Ort", value: "Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen" },
-//     { icon: "Ticket", title: "Eintritt", value: "frei" },
-//   ],
-//   artists: [
-//     {
-//       name: "<- Was s' sagt",
-//       image: "/images/events/stay_tuned_logo.png",
-//       description: ""
-//     },
-//     {
-//       name: "Jules",
-//       image: "/images/events/upcoming_events/forum_fortyfive/jules.png",
-//       description: "Die 25-jährige 'jules' mag für den Pop-Ruhm bestimmt sein, aber der Einfluss alternativer Klänge färbt ihre augenzwinkernde Charakterisierung als 'wannabe rockstar in a pop-girly's body'. Inspiriert vom Punkrock der 2000er Jahre entwickelte die Stuttgarter Newcomerin 'jules' einen emanzipierten, mutigen Sound voller Farbe."
-//     },
-//     {
-//       name: "kleinstadt",
-//       image: "/images/events/upcoming_events/forum_fortyfive/kleinstadt.png", 
-//       description: "Die Band kleinstadt aus Herrenberg vereint in ihrer Musik die enge Verbundenheit langjähriger Freundschaft mit authentischen deutschen Texten, die von Liebe, Wut, Sehnsucht, Spaß und Freiheit erzählen. Ihre Klänge spiegeln das Erwachsenwerden wider und laden dazu ein, gemeinsam zu träumen und zu fühlen."
-//     },
-//     {
-//       name: "Handbuch",
-//       image: "/images/events/upcoming_events/forum_fortyfive/handbuch.png",
-//       description: "In einer Welt, die ständig von großen Krisen spricht, kümmert sich HANDBUCH lieber um die kleinen Krisen - die, die einem morgens beim Katerfrühstück ins Ohr brüllen. Warum ist der Wasserkocher so laut? Warum ziehen alle Freunde weg aus dieser von Baustellen und Smog geplagten Stadt? HANDBUCH stellen keine Weltformeln auf, aber sie stellen die richtigen Fragen. Zwischen Gitarre (ROBNIG), Bass (ZELLER) und dem Klavier (SELL) entsteht ein Dialog - manchmal suchend, manchmal fordernd, aber immer mit Gefühl. Die Songs schlagen irgendwo zwischen Abenddämmerung und Morgengrauen auf und tragen ihre deutschsprachigen Texte mit lakonischem Charme und ehrlicher Ratlosigkeit vor. Begleitet von Beats aus der Konserve (weil nicht jedes Schlagzeug eine Wohnung hat), trifft Indie-Folk-Pop auf eine staubige Großstadtmelancholie. Mal ruhig, mal laut, aber immer so, dass etwas vibriert - im Hemd, in der Lunge, im Kopf. Zwischen Faber, Mumford & Sons und Sons of the East findet HANDBUCH seinen Platz: warm, leicht angeschlagen und erstaunlich treffsicher."
-//     },
-//     {
-//       name: "Joost",
-//       image: "/images/events/upcoming_events/forum_fortyfive/joost.png",
-//       description: "Joost verbindet treibenden Indie-Rock mit Pop- und Elektro-Elementen und erzählt Geschichten über Selbstfindung, Nähe und das Gefühl von Rastlosigkeit. Mal laut, mal leise – aber immer voller Energie und echter Emotion."
-//     }
-//   ],
-// };
-
-const allUpcomingEvents: UpcomingEvent[] = [
-  {
-    title: "Mario Kart Turnier",
-    date: "08.11.2026",
-    time: "ab 15 Uhr",
-    price: "5 €",
-    until: marioKart.until,
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Controller in die Hand und ab auf die Strecke! Wer holt sich den Pokal?",
-    teaser: "mariokart",
-  },
-  {
-    title: "BarBroker",
-    date: "27.11.2026",
-    until: barBroker.until,
-    locationName: "Club Forum",
-    locationAddress: "Marktstraße 9, 71032 Böblingen",
-    description: "Die Bar wird zur Börse: Die Preise steigen und fallen live mit der Nachfrage. Wer clever bestellt, trinkt günstiger.",
-    teaser: "barbroker",
-  },
-  // {
-  //   title: "Bierpongturnier",
-  //   date: "Coming Soon",
-  //   description: "Das Event um deine Skills beim Bierpong zu zeigen. Also auf was wartest du? Melde dich mit deinem Teampartner an und sichere dir die 2 Kästen Gewinn!",
-  //   image: "/images/events/upcoming_events/Beerpong_4_3_ausgeschnitten.png"
-  // },
-  // {
-  //   title: "Stadtfest",
-  //   date: "3.-5.07.2026",
-  //   locationName: "Club Forum",
-  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
-  //   description: "Wie schon im letzten Jahr öffnen wir auch dieses Jahr am Stadtfest-Wochenende wieder unsere Türen für euch. Freut euch auf kreative Möglichkeiten zum Malen, kalte Getränke und eine entspannte Atmosphäre mitten im Herzen von Böblingen.",
-  //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_4.jpg"
-  // },
-  // {
-  //   title: "Summer Vibes",
-  //   date: "01.08.2026",
-  //   locationName: "Club Forum",
-  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
-  //   description: "Wir laden euch herzlich zu unserem Sommerfest ein. Schnappt eure Sonnenbrille, schaltet vom Alltag ab und genießt das lockere Open-Air-Ambiente bei kühlen Drinks und entspannter Musik. Ein perfekter Tag, um einfach mal die Seele baumeln zu lassen und mit alten und neuen Gesichtern zu quatschen.",
-  //   image: "/images/events/past_events/stadtfest_2025/Stadtfest_2.jpg"
-  // },
-  // {
-  //   title: "Halloween",
-  //   date: `31.10.${new Date().getFullYear()}`,
-  //   locationName: "Club Forum",
-  //   locationAddress: "Marktstraße 9, 71032 Böblingen",
-  //   description: "Jedes Jahr am 31.10. feiern wir die gruseligste Nacht des Jahres. Kostüm an und los!",
-  //   image: "/images/events/upcoming_events/Halloween.png",
-  // },
-  {
-    title: "Die CLUB FORUM OFTAS",
-    date: `27.-29.12.${new Date().getFullYear()}`,
-    time: "jeden Tag 19 – 3 Uhr",
-    price: "kostenlos",
-    until: oftas.until,
-    locationName: "Waldheim Tannenberg",
-    locationAddress: "Murkenbachweg 120, 71032 Böblingen",
-    description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-    image: "/images/events/upcoming_events/OFTAS_Logo.png"
-  },
-];
+// Karten unter "Weitere Highlights"
+const highlights = [marioKart, barBroker, oftas];
 
 // Vergangene Events und das aktuelle Hero-Event nicht doppelt anzeigen
-export const upcomingEvents: UpcomingEvent[] = allUpcomingEvents.filter(
-  (event) => !isOver(event.until) && event.title !== nextEvent.title
-);
+export const upcomingEvents: UpcomingEvent[] = highlights
+  .filter(({ event, card }) => !isOver(card.until) && event !== nextEvent)
+  .map(({ card }) => card);
 
 export const pastEvents: PastEvent[] = [
   {
