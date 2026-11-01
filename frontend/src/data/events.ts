@@ -118,14 +118,14 @@ const barBroker: EventConfig = {
 const oftas: EventConfig = {
   title: "Die CLUB FORUM OFTAS",
   description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
-  startsAt: "2026-12-27T00:00:00+01:00",
-  until: "2026-12-30T06:00:00+01:00",
+  startsAt: "2026-12-27T19:00:00+01:00",
+  until: "2026-12-30T03:00:00+01:00",
   hero: "oftas",
   eventDetails: [
     {icon: "CalendarDays", title: "Datum", value: "So, 27.12. – Di, 29.12.2026"},
-    {icon: "Clock", title: "Uhrzeit", value: "folgt"},
+    {icon: "Clock", title: "Uhrzeit", value: "jeden Tag 19 – 3 Uhr"},
     {icon: "MapPin", title: "Ort", value: "Ev. Waldheim Tannenberg\nMurkenbachweg 120\n71032 Böblingen"},
-    {icon: "Ticket", title: "Eintritt", value: "folgt"}
+    {icon: "Ticket", title: "Eintritt", value: "kostenlos"}
   ],
   artists: []
 };
@@ -276,6 +276,8 @@ const allUpcomingEvents: UpcomingEvent[] = [
   {
     title: "Die CLUB FORUM OFTAS",
     date: `27.-29.12.${new Date().getFullYear()}`,
+    time: "jeden Tag 19 – 3 Uhr",
+    price: "kostenlos",
     until: oftas.until,
     locationName: "Waldheim Tannenberg",
     locationAddress: "Murkenbachweg 120, 71032 Böblingen",
