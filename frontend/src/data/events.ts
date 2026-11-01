@@ -131,16 +131,13 @@ const oftas: EventConfig = {
 };
 
 // Chronologisch sortiert: Das erste Event, das noch nicht vorbei ist, wird oben groß angezeigt
-const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker];
-
-// Noch nicht im Zeitplan, bis ein Hero-Vorschlag feststeht: nur über die lokale Vorschau erreichbar
-const previewOnlyEvents: EventConfig[] = [oftas];
+const eventSchedule: EventConfig[] = [halloween, marioKart, barBroker, oftas];
 
 const isOver = (until?: string) => until !== undefined && new Date() >= new Date(until);
 
 // Nur lokal (npm run dev): /events?vorschau=mariokart zeigt ein bestimmtes Event als Hero
 const previewKey = import.meta.env.DEV ? new URLSearchParams(window.location.search).get("vorschau") : null;
-const previewEvent = [...eventSchedule, ...previewOnlyEvents].find(
+const previewEvent = eventSchedule.find(
   (event) => previewKey !== null && (event.hero === previewKey || event.title.toLowerCase() === previewKey.toLowerCase())
 );
 
@@ -279,6 +276,7 @@ const allUpcomingEvents: UpcomingEvent[] = [
   {
     title: "Die CLUB FORUM OFTAS",
     date: `27.-29.12.${new Date().getFullYear()}`,
+    until: oftas.until,
     locationName: "Waldheim Tannenberg",
     locationAddress: "Murkenbachweg 120, 71032 Böblingen",
     description: "Unser Jahres-Highlight vom 27.–29.12. im Waldheim Tannenberg. Drei Tage Live-Musik und Aftershow-Partys, die du nicht verpassen darfst!",
