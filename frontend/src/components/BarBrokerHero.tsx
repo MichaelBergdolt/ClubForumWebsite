@@ -36,17 +36,12 @@ type Scene = {
   shape: (t: number) => number;
 };
 
-// Die fünf Motive der Plakate
+// Die Motive der Plakate
 const SCENES: Scene[] = [
   {
     drink: "Bier", price: 2.67, before: 4, lead: "Hochprozentige", punch: "Rendite.",
     labelSide: "right", seed: 7,
     shape: (t) => 0.92 - 0.82 * t,
-  },
-  {
-    drink: "Shot", price: 1.11, before: 3, lead: "Schnaps auf", punch: "Schnapszahl.",
-    labelSide: "right", seed: 3,
-    shape: (t) => (t < 0.04 ? 0.88 + t * 2 : 0.96 - 0.86 * t + 0.07 * Math.sin(t * 9)),
   },
   {
     drink: "Aperol", price: 4.2, before: 5, lead: "Hohe", punch: "Vollatilität.",
@@ -66,7 +61,7 @@ const SCENES: Scene[] = [
 ];
 
 // Längste Headline, reserviert die Höhe, damit beim Wechsel nichts springt
-const LONGEST_SCENE = SCENES[3];
+const LONGEST_SCENE = SCENES[2];
 
 const formatPrice = (value: number) => value.toFixed(2).replace(".", ",");
 
@@ -409,7 +404,7 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
       {/* Kurszettel: wechselt automatisch, per Klick auswählbar */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className="flex md:grid md:grid-cols-5 overflow-x-auto hide-scrollbar"
+          className="flex md:grid md:grid-cols-4 overflow-x-auto hide-scrollbar"
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}
         >
