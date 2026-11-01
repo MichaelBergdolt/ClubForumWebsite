@@ -236,13 +236,6 @@ const MarioKartHero = ({ event }: MarioKartHeroProps) => {
         </div>
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-wrap items-center gap-x-4 gap-y-3">
-        <span className="text-sm" style={{ color: COLORS.muted }}>
-          In Kooperation mit
-        </span>
-        <img src="/images/Logo_Kirche_BB.png" alt="Evangelische Kirche Böblingen" className="h-8 md:h-10 w-auto opacity-80" />
-      </div>
-
       <CheckerStrip />
     </section>
   );
