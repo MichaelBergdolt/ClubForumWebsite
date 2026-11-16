@@ -92,15 +92,17 @@ const buildSeries = (scene: Scene) => {
   });
 };
 
-type ChartProps = { scene: Scene; width: number; height: number; animateIn: boolean };
+type ChartProps = { scene: Scene; width: number; height: number; animateIn: boolean; reservedTop?: number };
 
-const Chart = ({ scene, width, height, animateIn }: ChartProps) => {
+const Chart = ({ scene, width, height, animateIn, reservedTop = 0 }: ChartProps) => {
   const series = useMemo(() => buildSeries(scene), [scene]);
   const color = colorOf(scene);
   const id = `barbroker-${scene.seed}`;
 
   const endX = width * (width < 640 ? 0.88 : 0.83);
-  const points = series.map((v, i) => [(i / (series.length - 1)) * endX, height * (0.1 + (1 - v) * 0.8)]);
+  // Mit reservedTop bleibt oben Platz für die Kurs-Karte (auf dem Handy)
+  const top = Math.max(0.1, reservedTop);
+  const points = series.map((v, i) => [(i / (series.length - 1)) * endX, height * (top + (1 - v) * (0.9 - top))]);
   const line = points.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
   const area = `${line} L${endX.toFixed(1)} ${height} L0 ${height} Z`;
   const [dotX, dotY] = points[points.length - 1];
@@ -175,7 +177,7 @@ const PriceTicker = ({ scene, animateIn }: { scene: Scene; animateIn: boolean })
   return <motion.span>{text}</motion.span>;
 };
 
-// Kurs-Karte wie in einer Trading-App. Eigener Hintergrund, damit das Grid nicht durch die Schrift l\u00e4uft
+// Kurs-Karte wie in einer Trading-App. Eigener Hintergrund, damit das Grid nicht durch die Schrift läuft
 const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) => {
   const color = colorOf(scene);
   const pct = changeOf(scene);
@@ -186,7 +188,7 @@ const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       transition={{ duration: 0.5, ease: EASE }}
-      className="w-full md:w-[24rem] rounded-2xl px-5 py-4 md:px-6 md:py-5 backdrop-blur-md"
+      className="w-[16.5rem] md:w-[24rem] rounded-2xl px-4 py-3.5 md:px-6 md:py-5 backdrop-blur-md"
       style={{
         backgroundColor: COLORS.panel,
         border: `1px solid ${COLORS.panelBorder}`,
@@ -194,10 +196,10 @@ const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) 
       }}
     >
       <div className="flex items-center justify-between gap-4">
-        <span className="font-display font-bold uppercase tracking-wider text-lg md:text-xl" style={{ color: COLORS.text }}>
+        <span className="font-display font-bold uppercase tracking-wider text-base md:text-xl" style={{ color: COLORS.text }}>
           {scene.drink}
         </span>
-        <span className="flex items-center gap-2 font-ticker uppercase tracking-[0.2em] text-[0.7rem]" style={{ color: COLORS.muted }}>
+        <span className="flex items-center gap-2 font-ticker uppercase tracking-[0.2em] text-[0.65rem] md:text-[0.7rem]" style={{ color: COLORS.muted }}>
           <span className="relative flex h-2 w-2">
             <span className="absolute inset-0 rounded-full animate-ping opacity-60 motion-reduce:hidden" style={{ backgroundColor: color }} />
             <span className="relative h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
@@ -206,20 +208,20 @@ const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) 
         </span>
       </div>
 
-      <div className="mt-3 flex items-baseline gap-2 leading-none" style={{ color: COLORS.text }}>
-        <span className="font-ticker font-bold text-[clamp(2.5rem,4.5vw,3.5rem)] tabular-nums">
-          <PriceTicker scene={scene} animateIn={animateIn} />
+      <div className="mt-2 md:mt-3 flex items-end justify-between gap-3">
+        <div className="flex items-baseline gap-1.5 md:gap-2 leading-none" style={{ color: COLORS.text }}>
+          <span className="font-ticker font-bold text-[2.25rem] md:text-[clamp(2.5rem,4.5vw,3.5rem)] tabular-nums">
+            <PriceTicker scene={scene} animateIn={animateIn} />
+          </span>
+          <span className="font-ticker text-base md:text-xl" style={{ color: COLORS.muted }}>€</span>
+        </div>
+        <span className="mb-1 font-ticker text-xs md:text-sm font-semibold rounded-full px-2.5 md:px-3 py-1 whitespace-nowrap" style={{ color, backgroundColor: `${color}1f` }}>
+          {pct >= 0 ? "↗" : "↘"} {formatChange(pct)}
         </span>
-        <span className="font-ticker text-lg md:text-xl" style={{ color: COLORS.muted }}>€</span>
       </div>
 
-      <div className="mt-4 pt-3 flex items-center justify-between gap-4" style={{ borderTop: `1px solid ${COLORS.panelBorder}` }}>
-        <span className="font-ticker text-xs md:text-sm whitespace-nowrap" style={{ color: COLORS.muted }}>
-          Normalpreis {formatPrice(scene.before)}&nbsp;€
-        </span>
-        <span className="font-ticker text-xs md:text-sm font-semibold rounded-full px-3 py-1 whitespace-nowrap" style={{ color, backgroundColor: `${color}1f` }}>
-          {pct >= 0 ? "\u2197" : "\u2198"} {formatChange(pct)}
-        </span>
+      <div className="mt-3 md:mt-4 pt-2.5 md:pt-3 font-ticker text-xs md:text-sm whitespace-nowrap" style={{ color: COLORS.muted, borderTop: `1px solid ${COLORS.panelBorder}` }}>
+        Normalpreis {formatPrice(scene.before)}&nbsp;€
       </div>
     </motion.div>
   );
@@ -368,9 +370,9 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
           </span>
         </div>
 
-        {/* Datum, Ort, Details: ganz oben, damit man sie auf den ersten Blick sieht */}
-        <div className="mt-10 md:mt-12 grid gap-8 lg:grid-cols-[auto,1fr] lg:gap-20 lg:items-end">
-          <div>
+        {/* Oben: links Datum und Erklärung, rechts die Eckdaten. Auf dem Handy: Datum, Eckdaten, Erklärung */}
+        <div className="mt-10 md:mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr),24rem] lg:gap-x-16 lg:gap-y-8">
+          <div className="lg:col-start-1 lg:row-start-1">
             {weekday && (
               <p className="font-ticker uppercase tracking-[0.2em] text-sm" style={{ color: COLORS.muted }}>
                 {weekday}
@@ -388,18 +390,34 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
             )}
           </div>
 
-          <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-5 lg:pb-2">
-            {details.map((detail) => (
-              <div key={detail.title} className="pt-4" style={{ borderTop: `1px solid ${COLORS.grid}` }}>
-                <dt className="font-ticker uppercase tracking-[0.2em] text-xs" style={{ color: COLORS.muted }}>
+          <dl
+            className="lg:col-start-2 lg:row-start-1 lg:row-span-2 self-start rounded-2xl px-5 md:px-6"
+            style={{ backgroundColor: COLORS.panel, border: `1px solid ${COLORS.panelBorder}` }}
+          >
+            {details.map((detail, i) => (
+              <div
+                key={detail.title}
+                className="grid grid-cols-[6.5rem,1fr] gap-4 py-4 md:py-5"
+                style={i ? { borderTop: `1px solid ${COLORS.panelBorder}` } : undefined}
+              >
+                <dt className="pt-0.5 font-ticker uppercase tracking-[0.2em] text-xs" style={{ color: COLORS.muted }}>
                   {detail.title}
                 </dt>
-                <dd className="mt-2 whitespace-pre-line leading-snug" style={{ color: COLORS.text }}>
+                <dd className="whitespace-pre-line leading-snug text-base md:text-lg" style={{ color: COLORS.text }}>
                   {detail.value}
                 </dd>
               </div>
             ))}
           </dl>
+
+          <div className="lg:col-start-1 lg:row-start-2 max-w-2xl space-y-3">
+            <p className="text-lg md:text-xl font-medium" style={{ color: COLORS.text }}>
+              Jeder Kauf beeinflusst die Preise an der ganzen Bar.
+            </p>
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: COLORS.muted }}>
+              {event.description}
+            </p>
+          </div>
         </div>
 
         {/* Headline */}
@@ -423,29 +441,29 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
         </div>
       </div>
 
-      {/* Preis (mobil über dem Chart) */}
-      <div className="md:hidden container mx-auto px-4 sm:px-6 mt-8 min-h-[10.5rem]">
-        <AnimatePresence mode="wait" initial={false}>
-          <PriceLabel key={active} scene={scene} animateIn={animateIn} />
-        </AnimatePresence>
-      </div>
-
-      {/* Chart, randlos wie auf dem Plakat */}
-      <div className="relative mt-4 md:mt-6">
-        <div className="hidden md:block absolute inset-x-0 top-[8%] z-10 pointer-events-none">
-          <div className={`container mx-auto px-6 lg:px-8 flex ${scene.labelSide === "right" ? "justify-end" : "justify-start"}`}>
+      {/* Chart, randlos wie auf dem Plakat. Die Kurs-Karte liegt im Chart */}
+      <div className="relative mt-6">
+        <div className="absolute inset-x-0 top-3 md:top-[8%] z-10 pointer-events-none">
+          <div className={`container mx-auto px-4 sm:px-6 lg:px-8 flex ${scene.labelSide === "right" ? "justify-end" : "justify-start"}`}>
             <AnimatePresence mode="wait" initial={false}>
               <PriceLabel key={active} scene={scene} animateIn={animateIn} />
             </AnimatePresence>
           </div>
         </div>
 
-        <div ref={chartRef} className="relative h-[220px] sm:h-[280px] md:h-[360px]">
+        <div ref={chartRef} className="relative h-[340px] md:h-[360px]">
           {size.width > 0 && (
             <>
               <ChartGrid width={size.width} height={size.height} />
               <AnimatePresence initial={false}>
-                <Chart key={active} scene={scene} width={size.width} height={size.height} animateIn={animateIn} />
+                <Chart
+                  key={active}
+                  scene={scene}
+                  width={size.width}
+                  height={size.height}
+                  animateIn={animateIn}
+                  reservedTop={size.width < 768 ? 0.5 : 0}
+                />
               </AnimatePresence>
             </>
           )}
@@ -494,15 +512,6 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
               </button>
             );
           })}
-        </div>
-
-        <div className="mt-12 max-w-3xl space-y-3">
-          <p className="text-lg md:text-xl font-medium" style={{ color: COLORS.text }}>
-            Jeder Kauf beeinflusst die Preise an der ganzen Bar.
-          </p>
-          <p className="text-base md:text-lg leading-relaxed" style={{ color: COLORS.muted }}>
-            {event.description}
-          </p>
         </div>
       </div>
     </section>
