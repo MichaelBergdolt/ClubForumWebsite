@@ -15,6 +15,8 @@ const COLORS = {
   text: "#F2F4F7",
   muted: "#9AA3B2",
   grid: "#1B1F26",
+  panel: "rgba(10, 12, 16, 0.92)",
+  panelBorder: "#262B35",
   up: "#34E5A1",
   down: "#FF6B6B",
 };
@@ -173,6 +175,7 @@ const PriceTicker = ({ scene, animateIn }: { scene: Scene; animateIn: boolean })
   return <motion.span>{text}</motion.span>;
 };
 
+// Kurs-Karte wie in einer Trading-App. Eigener Hintergrund, damit das Grid nicht durch die Schrift l\u00e4uft
 const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) => {
   const color = colorOf(scene);
   const pct = changeOf(scene);
@@ -183,24 +186,38 @@ const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       transition={{ duration: 0.5, ease: EASE }}
-      className={`inline-block ${scene.labelSide === "right" ? "md:text-right" : ""}`}
+      className="w-full md:w-[24rem] rounded-2xl px-5 py-4 md:px-6 md:py-5 backdrop-blur-md"
+      style={{
+        backgroundColor: COLORS.panel,
+        border: `1px solid ${COLORS.panelBorder}`,
+        boxShadow: `0 24px 60px -24px ${color}40`,
+      }}
     >
-      <div className="flex items-baseline gap-4 md:gap-6 text-[clamp(2rem,5vw,4.5rem)] leading-none" style={{ color: COLORS.text }}>
-        <span className="font-display font-bold uppercase">{scene.drink}</span>
-        <span className="font-ticker font-bold">
-          <PriceTicker scene={scene} animateIn={animateIn} />
+      <div className="flex items-center justify-between gap-4">
+        <span className="font-display font-bold uppercase tracking-wider text-lg md:text-xl" style={{ color: COLORS.text }}>
+          {scene.drink}
+        </span>
+        <span className="flex items-center gap-2 font-ticker uppercase tracking-[0.2em] text-[0.7rem]" style={{ color: COLORS.muted }}>
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inset-0 rounded-full animate-ping opacity-60 motion-reduce:hidden" style={{ backgroundColor: color }} />
+            <span className="relative h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+          </span>
+          Live
         </span>
       </div>
-      <div className="mt-3 flex items-center justify-between gap-6">
-        <span className="text-sm md:text-base leading-tight text-left" style={{ color: COLORS.muted }}>
-          statt
-          <br />
-          <s className="font-ticker">{formatPrice(scene.before)}</s>
+
+      <div className="mt-3 flex items-baseline gap-2 leading-none" style={{ color: COLORS.text }}>
+        <span className="font-ticker font-bold text-[clamp(2.5rem,4.5vw,3.5rem)] tabular-nums">
+          <PriceTicker scene={scene} animateIn={animateIn} />
         </span>
-        <span
-          className="font-ticker text-sm md:text-base font-semibold rounded-full px-4 py-1.5"
-          style={{ color, backgroundColor: `${color}1f` }}
-        >
+        <span className="font-ticker text-lg md:text-xl" style={{ color: COLORS.muted }}>€</span>
+      </div>
+
+      <div className="mt-4 pt-3 flex items-center justify-between gap-4" style={{ borderTop: `1px solid ${COLORS.panelBorder}` }}>
+        <span className="font-ticker text-xs md:text-sm whitespace-nowrap" style={{ color: COLORS.muted }}>
+          Normalpreis {formatPrice(scene.before)}&nbsp;€
+        </span>
+        <span className="font-ticker text-xs md:text-sm font-semibold rounded-full px-3 py-1 whitespace-nowrap" style={{ color, backgroundColor: `${color}1f` }}>
           {pct >= 0 ? "\u2197" : "\u2198"} {formatChange(pct)}
         </span>
       </div>
@@ -351,8 +368,42 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
           </span>
         </div>
 
+        {/* Datum, Ort, Details: ganz oben, damit man sie auf den ersten Blick sieht */}
+        <div className="mt-10 md:mt-12 grid gap-8 lg:grid-cols-[auto,1fr] lg:gap-20 lg:items-end">
+          <div>
+            {weekday && (
+              <p className="font-ticker uppercase tracking-[0.2em] text-sm" style={{ color: COLORS.muted }}>
+                {weekday}
+              </p>
+            )}
+            {date && (
+              <p className="mt-2 font-ticker font-bold leading-none text-[clamp(3rem,11vw,7.5rem)] tracking-tight" style={{ color: COLORS.text }}>
+                {date}
+              </p>
+            )}
+            {venue && (
+              <p className="mt-3 font-display font-extrabold [font-stretch:125%] uppercase leading-none text-[clamp(1.75rem,5.5vw,3.5rem)]" style={{ color: COLORS.text }}>
+                {venue}
+              </p>
+            )}
+          </div>
+
+          <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-5 lg:pb-2">
+            {details.map((detail) => (
+              <div key={detail.title} className="pt-4" style={{ borderTop: `1px solid ${COLORS.grid}` }}>
+                <dt className="font-ticker uppercase tracking-[0.2em] text-xs" style={{ color: COLORS.muted }}>
+                  {detail.title}
+                </dt>
+                <dd className="mt-2 whitespace-pre-line leading-snug" style={{ color: COLORS.text }}>
+                  {detail.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
         {/* Headline */}
-        <p className="mt-10 md:mt-12 font-display font-semibold [font-stretch:125%] uppercase tracking-[0.2em] text-xs md:text-sm" style={{ color: COLORS.muted }}>
+        <p className="mt-16 md:mt-24 font-display font-semibold [font-stretch:125%] uppercase tracking-[0.2em] text-xs md:text-sm" style={{ color: COLORS.muted }}>
           Die Bar ist eine Börse
         </p>
         <div className="relative mt-3">
@@ -373,7 +424,7 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
       </div>
 
       {/* Preis (mobil über dem Chart) */}
-      <div className="md:hidden container mx-auto px-4 sm:px-6 mt-8 min-h-[6rem]">
+      <div className="md:hidden container mx-auto px-4 sm:px-6 mt-8 min-h-[10.5rem]">
         <AnimatePresence mode="wait" initial={false}>
           <PriceLabel key={active} scene={scene} animateIn={animateIn} />
         </AnimatePresence>
@@ -381,7 +432,7 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
 
       {/* Chart, randlos wie auf dem Plakat */}
       <div className="relative mt-4 md:mt-6">
-        <div className="hidden md:block absolute inset-x-0 top-[12%] z-10 pointer-events-none">
+        <div className="hidden md:block absolute inset-x-0 top-[8%] z-10 pointer-events-none">
           <div className={`container mx-auto px-6 lg:px-8 flex ${scene.labelSide === "right" ? "justify-end" : "justify-start"}`}>
             <AnimatePresence mode="wait" initial={false}>
               <PriceLabel key={active} scene={scene} animateIn={animateIn} />
@@ -443,40 +494,6 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
               </button>
             );
           })}
-        </div>
-
-        {/* Datum, Ort, Details */}
-        <div className="mt-12 md:mt-16 grid gap-10 lg:grid-cols-[auto,1fr] lg:gap-20 lg:items-end">
-          <div>
-            {weekday && (
-              <p className="font-ticker uppercase tracking-[0.2em] text-sm" style={{ color: COLORS.muted }}>
-                {weekday}
-              </p>
-            )}
-            {date && (
-              <p className="mt-2 font-ticker font-bold leading-none text-[clamp(3rem,11vw,8rem)] tracking-tight" style={{ color: COLORS.text }}>
-                {date}
-              </p>
-            )}
-            {venue && (
-              <p className="mt-3 font-display font-extrabold [font-stretch:125%] uppercase leading-none text-[clamp(1.75rem,5.5vw,4rem)]" style={{ color: COLORS.text }}>
-                {venue}
-              </p>
-            )}
-          </div>
-
-          <dl className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:pb-2">
-            {details.map((detail) => (
-              <div key={detail.title} className="pt-4" style={{ borderTop: `1px solid ${COLORS.grid}` }}>
-                <dt className="font-ticker uppercase tracking-[0.2em] text-xs" style={{ color: COLORS.muted }}>
-                  {detail.title}
-                </dt>
-                <dd className="mt-2 whitespace-pre-line leading-snug" style={{ color: COLORS.text }}>
-                  {detail.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <div className="mt-12 max-w-3xl space-y-3">

@@ -234,6 +234,7 @@ export const eventTemplates = {
       title: "BarBroker",
       description: "An diesem Abend wird die Bar zur Börse: Die Getränkepreise richten sich nach Angebot und Nachfrage und ändern sich live, den ganzen Abend lang. Wer antizyklisch bestellt, trinkt günstiger. Wer mit der Masse geht, zahlt drauf.",
       location: CLUB_FORUM,
+      price: "frei",
       hero: "barbroker",
       card: {
         description: "Die Bar wird zur Börse: Die Preise steigen und fallen live mit der Nachfrage. Wer clever bestellt, trinkt günstiger.",
