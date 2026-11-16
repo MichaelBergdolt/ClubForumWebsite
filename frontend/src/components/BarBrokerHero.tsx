@@ -30,8 +30,6 @@ type Scene = {
   drink: string;
   price: number;
   before: number;
-  lead: string;
-  punch: string;
   labelSide: "left" | "right";
   seed: number;
   // Kursverlauf: t (0..1) -> Wert (0..1)
@@ -41,29 +39,26 @@ type Scene = {
 // Die Motive der Plakate
 const SCENES: Scene[] = [
   {
-    drink: "Bier", price: 2.67, before: 4, lead: "Hochprozentige", punch: "Rendite.",
+    drink: "Bier", price: 2.67, before: 4,
     labelSide: "right", seed: 7,
     shape: (t) => 0.92 - 0.82 * t,
   },
   {
-    drink: "Aperol", price: 4.2, before: 5, lead: "Hohe", punch: "Vollatilität.",
+    drink: "Aperol", price: 4.2, before: 5,
     labelSide: "left", seed: 11,
     shape: (t) => (t < 0.84 ? 0.08 + 0.88 * Math.pow(t / 0.84, 2.4) : 0.96 - 0.86 * ((t - 0.84) / 0.16)),
   },
   {
-    drink: "Pils", price: 4.51, before: 4, lead: "Stetiger", punch: "Saufwärtstrend.",
+    drink: "Pils", price: 4.51, before: 4,
     labelSide: "left", seed: 5,
     shape: (t) => 0.06 + 0.86 * t,
   },
   {
-    drink: "Wein", price: 6.7, before: 4, lead: "Nicht kaufen wenn", punch: "Alle saufen.",
+    drink: "Wein", price: 6.7, before: 4,
     labelSide: "left", seed: 9,
     shape: (t) => (t < 0.55 ? 0.14 : 0.14 + 0.84 * Math.pow((t - 0.55) / 0.45, 1.7)),
   },
 ];
-
-// Längste Headline, reserviert die Höhe, damit beim Wechsel nichts springt
-const LONGEST_SCENE = SCENES[2];
 
 const formatPrice = (value: number) => value.toFixed(2).replace(".", ",");
 
@@ -226,13 +221,6 @@ const PriceLabel = ({ scene, animateIn }: { scene: Scene; animateIn: boolean }) 
     </motion.div>
   );
 };
-
-const Headline = ({ scene, className = "" }: { scene: Scene; className?: string }) => (
-  <p className={`font-display font-extrabold [font-stretch:125%] leading-[1.05] whitespace-nowrap ${className}`} style={{ color: COLORS.text }}>
-    <span className="block text-[clamp(1.1rem,6vw,4.25rem)]">{scene.lead}</span>
-    <span className="block text-[clamp(1.6rem,8.4vw,6rem)]">{scene.punch}</span>
-  </p>
-);
 
 // Misst ein Element, damit der Chart in echten Pixeln gezeichnet wird
 const useElementSize = <T extends HTMLElement>() => {
@@ -419,30 +407,10 @@ const BarBrokerHero = ({ event }: BarBrokerHeroProps) => {
             </p>
           </div>
         </div>
-
-        {/* Headline */}
-        <p className="mt-16 md:mt-24 font-display font-semibold [font-stretch:125%] uppercase tracking-[0.2em] text-xs md:text-sm" style={{ color: COLORS.muted }}>
-          Die Bar ist eine Börse
-        </p>
-        <div className="relative mt-3">
-          <Headline scene={LONGEST_SCENE} className="invisible" />
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={active}
-              className="absolute inset-0"
-              initial={animateIn ? { opacity: 0, y: 16 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.5, ease: EASE }}
-            >
-              <Headline scene={scene} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
       </div>
 
       {/* Chart, randlos wie auf dem Plakat. Die Kurs-Karte liegt im Chart */}
-      <div className="relative mt-6">
+      <div className="relative mt-12 md:mt-16">
         <div className="absolute inset-x-0 top-3 md:top-[8%] z-10 pointer-events-none">
           <div className={`container mx-auto px-4 sm:px-6 lg:px-8 flex ${scene.labelSide === "right" ? "justify-end" : "justify-start"}`}>
             <AnimatePresence mode="wait" initial={false}>
