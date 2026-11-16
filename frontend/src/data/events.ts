@@ -68,6 +68,17 @@ export const upcomingEvents: UpcomingEvent[] = highlights
 
 export const pastEvents: PastEvent[] = [
   {
+    title: "Halloween 2026",
+    images: [
+      "/images/events/past_events/halloween_2026/halloween_1.jpg",
+      "/images/events/past_events/halloween_2026/halloween_2.jpg",
+      "/images/events/past_events/halloween_2026/halloween_3.jpg",
+      "/images/events/past_events/halloween_2026/halloween_4.jpg",
+      "/images/events/past_events/halloween_2026/halloween_5.jpg",
+      "/images/events/past_events/halloween_2026/halloween_6.jpg",
+    ]
+  },
+  {
     title: "Oftas 2025",
     images: [
       "/images/events/past_events/oftas_2025/oftas_1.jpg",
